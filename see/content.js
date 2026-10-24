@@ -2,7 +2,7 @@
 // MatchUp-delen är hämtad ur Självskattning mottagningsförmåga MatchUp v1.0 (rättad referens för Strategiskt ledarskap, Nej).
 window.CONTENT = {
  "boost": {
-  "version": "prototyp v0.2",
+  "version": "prototyp v0.3",
   "lca": {
    "kollisionerRubrik": "Framtidskollisioner från Sense",
    "nastaRubrik": "Nästa steg i The Learning Curve Approach",

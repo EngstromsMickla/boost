@@ -1,6 +1,6 @@
 // Innehållsfil för sidorna Begrepp och Om metoden. Texter kan redigeras här utan att röra koden.
 window.INFO = {
- "version": "prototyp v0.2",
+ "version": "prototyp v0.3",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "upphov": "© Engströms Mickla AB 2026",
  "lankBegrepp": "Begrepp",
@@ -76,6 +76,11 @@ window.INFO = {
    { "rubrik": "Grund i forskningen", "text": [
      "Verktygen är forskningsbaserade. De bygger på forskning om strategisk framsyn, absorptionsförmåga, beteendeförändring och organisatoriskt lärande, och tillämpningarna dessutom på forskning inom sina egna områden, till exempel fastighetsekonomi. Forskningen svarar inte på allt ett verktyg behöver bestämma. Där den inte matchar exakt, till exempel när det gäller var en gräns ska gå, är rekommendationerna omdömen som är utformade och avvägda utifrån forskningen. Resonemanget och hela litteraturlistan finns i Teoriplattformen, och begreppslistan anger källan till varje begrepp. Verktygen är dialogverktyg, inte mätinstrument: resultaten är underlag för samtal, inte betyg."
    ] },
+   { "rubrik": "Hur verktygen är gjorda", "text": [
+     "Verktygen är utvecklade av Dan Engström, och digitaliserade med stöd av Claude Opus 5.5.",
+     "Granskat av upphovsmannen. Ytterligare detaljgranskning pågår.",
+     "På sidan Spårbarhet kan vem som helst kontrollera hur verktygen tar fram sina rekommendationer: reglerna, alla texter som kan visas och när, och vilka källor de bygger på. Allt går att ladda ner."
+    ] },
    { "rubrik": "Upphovsman", "text": [
      "The Learning Curve Approach är utvecklad av Dan Engström, Engströms Mickla AB. Insikterna bakom metoden kommer ur tre decennier av arbete med verksamhetsutveckling, forskning och innovation, i företag, akademi och idéburna verksamheter. Metoden har prövats och förfinats i forsknings- och utvecklingsprojekt, utbildningar och workshoppar."
    ] }
@@ -85,6 +90,7 @@ window.INFO = {
   "integritet": "Verktygen är fria att använda för alla och kräver ingen inloggning. Allt ni skriver sparas i er egen webbläsare och i de filer ni själva laddar ner. Ingenting skickas till oss eller någon annan."
  },
  "lankTeori": "Teoriplattform",
+ "lankSpar": "Spårbarhet",
  "teori": {
   "rubrik": "Teoriplattform",
   "ingress": "Den vetenskapliga grunden för Learning Curve Approach och verktygen: vilka forskningsfält metoden bygger på, hur de hänger ihop, vad de betyder för hur verktygen är utformade, och var verktygen bygger på omdömen som är avvägda utifrån forskningen.",

@@ -1,7 +1,7 @@
 // Innehållsfil för Utvalda tillämpningar. Texter kan redigeras här utan att röra koden.
 // Ett nytt fall läggs till som ett nytt objekt i listan "fall". Koden behöver inte ändras.
 window.CONTENT = {
- "version": "prototyp v0.2",
+ "version": "prototyp v0.3",
  "titel": "Utvalda tillämpningar",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "upphov": "© Engströms Mickla AB 2026",

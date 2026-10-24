@@ -19,10 +19,11 @@
     O.avsnitt.forEach(function (a) { h += '<h2 class="section">' + esc(a.rubrik) + '</h2>' + a.text.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join(''); });
     h += '<div class="card contact"><h3 style="margin-top:0">' + esc(O.kontaktRubrik) + '</h3><p style="margin:0">' + esc(k.namn) + '<br>E-post: <a href="mailto:' + esc(k.epost) + '">' + esc(k.epost) + '</a><br>Mobil: <a href="tel:' + esc(k.telefon.replace(/\s/g, '')) + '">' + esc(k.telefon) + '</a></p></div>';
     h += '<p><a class="btn ghost" href="../teori/">' + esc(I.lankTeori) + ': vetenskaplig grund och litteraturlista →</a></p>';
+    h += '<p><a class="btn ghost" href="../sparbarhet/">' + esc(I.lankSpar) + ': regler, texter och källor att kontrollera →</a></p>';
     return h + '<p class="note small">' + esc(O.integritet) + '</p>';
   }
   function teori() {
-    var T = I.teori, h = '<div class="eyebrow">' + esc(I.verktyg) + ' · <a href="../om/">' + esc(I.lankOm) + '</a></div><h1>' + esc(T.rubrik) + '</h1><p class="lead">' + esc(T.ingress) + '</p>';
+    var T = I.teori, h = '<div class="eyebrow">' + esc(I.verktyg) + ' · <a href="../om/">' + esc(I.lankOm) + '</a></div><h1>' + esc(T.rubrik) + '</h1><p class="lead">' + esc(T.ingress) + '</p><p class="small"><a href="../sparbarhet/">' + esc(I.lankSpar) + ': så tas varje rekommendation fram, med regler, texter och källor →</a></p>';
     h += '<nav class="toc card tight"><b>Innehåll</b><ol>' + T.avsnitt.map(function (a) { return '<li><a href="#' + slug(a.rubrik) + '">' + esc(a.rubrik) + '</a></li>'; }).join('') + '<li><a href="#litteratur">' + esc(T.kallorRubrik) + '</a></li></ol></nav>';
     T.avsnitt.forEach(function (a) { h += '<h2 class="section" id="' + slug(a.rubrik) + '">' + esc(a.rubrik) + '</h2>' + a.text.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join(''); });
     return h + '<h2 class="section" id="litteratur">' + esc(T.kallorRubrik) + '</h2><ul class="refs lit">' + T.kallor.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';

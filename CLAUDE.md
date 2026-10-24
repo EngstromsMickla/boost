@@ -21,7 +21,7 @@ Arbetsbeskrivning för den som utvecklar verktygen vidare, människa eller Claud
 - Upphovsrad: "© Engströms Mickla AB 2026". Raden om Smart Built Environment och Formas läggs till först när finansieringen är beslutad.
 - Verktygen är dialogverktyg, inte mätinstrument. Inga psykometriska anspråk.
 - Publicera aldrig till `main` utan att Dan har sagt "publicera". Förslag läggs i en egen gren.
-- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See).
+- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See). "prototyp v0.3" lade till sidan Spårbarhet.
 - Kommunikation om forskningsgrunden (Dans beslut 2026-10-24): skriv att verktygen är forskningsbaserade, aldrig att allt eller varje del kommer från forskningen. Där forskningen inte matchar exakt är rekommendationerna omdömen som är utformade och avvägda utifrån forskningen.
 
 ## Grundperspektiv: absorptionsförmåga, inte implementering
@@ -100,6 +100,12 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 ## Gränser i verktygen
 - Avsnittet Gränser och skalsteg i Teoriplattformen (`js/info.js`) beskriver principerna: steg mellan nivåer, ett helt skalsteg, skalans etiketter, fler än en framtid (Lempert m.fl. 2003) och att tecken inte räknas samman. Rena designval utan källa (urvalet av fem trender, framtid till See, styrkans villkor) är uppräknade där. Nya gränser ska följa en av principerna eller läggas till som designval.
 - Granskningen hösten 2026: guide och arbetsbok (LCA granskningsguide.docx, LCA granskning arbetsbok.xlsx) i Dans mapp för LCA v2.0.
+
+## Spårbarhet (byggd 2026-10-24)
+- `sparbarhet/` visar reglerna, alla texter som verktygen kan visa (med när de visas och källa) och litteraturen med vad den bär, med nedladdning som CSV, samt en ändringslogg. Länkas från Om metoden och Teoriplattformen.
+- Texterna och litteraturen byggs i webbläsaren direkt ur innehållsfilerna (`js/sparbarhet.js`; sidan läser in varje content.js och sparar undan `window.CONTENT`). Mönstren som anger Visas när och källa per text ligger i `MAP` i `js/sparbarhet.js`.
+- Reglerna, vad källorna bär och ändringsloggen ligger för hand i `js/sparbarhet-data.js`. **När en regel i koden ändras ska motsvarande regel där ändras i samma omgång, och varje publicering får en rad i ändringsloggen.**
+- Om metoden har avsnittet Hur verktygen är gjorda med Dans formuleringar (ordagrant): "Verktygen är utvecklade av Dan Engström, och digitaliserade med stöd av Claude Opus 5.5." och "Granskat av upphovsmannen. Ytterligare detaljgranskning pågår." Den andra raden ändras när Dans detaljgranskning är klar.
 
 ## Begrepp, Om metoden och Teoriplattform
 - `teori/` (Teoriplattform) innehåller resonemanget om metodens vetenskapliga grund och hela litteraturlistan, i `js/info.js` under `teori`. Den nås från Om metoden, Begrepp och startsidan.

@@ -384,3 +384,14 @@ table.vmatris th.n { font-size: 13px; font-weight: 600; }
 @media (max-width: 600px) { .landing .fritt span { display: block; } }
 table.vmatris td.n.small { font-size: 13px; }
 table.vmatris tr.falla td:first-child .tag { margin-left: 4px; }
+
+/* Spårbarhet */
+.spar-om { border-left: 4px solid var(--accent); }
+.spar-regler { display: grid; gap: 10px; margin-bottom: 18px; }
+.spar-regel .tag { text-transform: none; }
+.spar-filter { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 12px; }
+@media (max-width: 600px) { .spar-filter { grid-template-columns: minmax(0, 1fr); } }
+.spar-filter select { width: 100%; }
+table.spar-tab td { vertical-align: top; font-size: 13.5px; }
+table.spar-tab td:nth-child(4) { min-width: 280px; }
+.spar-lit li { margin-bottom: 8px; }
