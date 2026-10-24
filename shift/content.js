@@ -1,7 +1,7 @@
 // Innehållsfil för Shift. Texter kan redigeras här utan att röra koden.
 // Bygger på Learning Direction Canvas och Trim Tab Canvas (Dan Engström), uppdelad i trimförsök och kursavläsning.
 window.CONTENT = {
- "version": "prototyp v0.1",
+ "version": "prototyp v0.2",
  "titel": "Shift",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "undertitel": "Från insikt till rörelse: små trimförsök som ger momentum",

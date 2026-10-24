@@ -21,7 +21,8 @@ Arbetsbeskrivning för den som utvecklar verktygen vidare, människa eller Claud
 - Upphovsrad: "© Engströms Mickla AB 2026". Raden om Smart Built Environment och Formas läggs till först när finansieringen är beslutad.
 - Verktygen är dialogverktyg, inte mätinstrument. Inga psykometriska anspråk.
 - Publicera aldrig till `main` utan att Dan har sagt "publicera". Förslag läggs i en egen gren.
-- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare).
+- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See).
+- Kommunikation om forskningsgrunden (Dans beslut 2026-10-24): skriv att verktygen är forskningsbaserade, aldrig att allt eller varje del kommer från forskningen. Där forskningen inte matchar exakt är rekommendationerna omdömen som är utformade och avvägda utifrån forskningen.
 
 ## Grundperspektiv: absorptionsförmåga, inte implementering
 

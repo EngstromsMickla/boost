@@ -1,6 +1,6 @@
 // Innehållsfil för sidorna Begrepp och Om metoden. Texter kan redigeras här utan att röra koden.
 window.INFO = {
- "version": "prototyp v0.1",
+ "version": "prototyp v0.2",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "upphov": "© Engströms Mickla AB 2026",
  "lankBegrepp": "Begrepp",
@@ -74,7 +74,7 @@ window.INFO = {
      "Tillämpningarna har ett närliggande mål: att förstå vad som driver utfallet i en särskild fråga under olika framtider och hitta åtgärder som håller oavsett hur framtiden blir."
    ] },
    { "rubrik": "Grund i forskningen", "text": [
-     "Varje del av verktygen bygger på forskning om strategisk framsyn, absorptionsförmåga, beteendeförändring och organisatoriskt lärande, och tillämpningarna dessutom på forskning inom sina egna områden, till exempel fastighetsekonomi. Resonemanget och hela litteraturlistan finns i Teoriplattformen, och begreppslistan anger källan till varje begrepp. Verktygen är dialogverktyg, inte mätinstrument: resultaten är underlag för samtal, inte betyg."
+     "Verktygen är forskningsbaserade. De bygger på forskning om strategisk framsyn, absorptionsförmåga, beteendeförändring och organisatoriskt lärande, och tillämpningarna dessutom på forskning inom sina egna områden, till exempel fastighetsekonomi. Forskningen svarar inte på allt ett verktyg behöver bestämma. Där den inte matchar exakt, till exempel när det gäller var en gräns ska gå, är rekommendationerna omdömen som är utformade och avvägda utifrån forskningen. Resonemanget och hela litteraturlistan finns i Teoriplattformen, och begreppslistan anger källan till varje begrepp. Verktygen är dialogverktyg, inte mätinstrument: resultaten är underlag för samtal, inte betyg."
    ] },
    { "rubrik": "Upphovsman", "text": [
      "The Learning Curve Approach är utvecklad av Dan Engström, Engströms Mickla AB. Insikterna bakom metoden kommer ur tre decennier av arbete med verksamhetsutveckling, forskning och innovation, i företag, akademi och idéburna verksamheter. Metoden har prövats och förfinats i forsknings- och utvecklingsprojekt, utbildningar och workshoppar."
@@ -87,7 +87,7 @@ window.INFO = {
  "lankTeori": "Teoriplattform",
  "teori": {
   "rubrik": "Teoriplattform",
-  "ingress": "Den vetenskapliga grunden för Learning Curve Approach och verktygen: vilka forskningsfält metoden bygger på, hur de hänger ihop och vad de betyder för hur verktygen är utformade.",
+  "ingress": "Den vetenskapliga grunden för Learning Curve Approach och verktygen: vilka forskningsfält metoden bygger på, hur de hänger ihop, vad de betyder för hur verktygen är utformade, och var verktygen bygger på omdömen som är avvägda utifrån forskningen.",
   "avsnitt": [
    { "rubrik": "Utgångspunkt: från implementering till absorption", "text": [
     "Utvecklingsprojekt utvärderas ofta på budget, tid och omfattning. Fred och Mukhtar-Landgren (2022) visar i sin genomgång av projekt, piloter och experiment i Malmö stad att det som avgör om något händer är vad den mottagande organisationen gör när projektet är slut. Ny kunskap från temporära organisationer kan inte överföras rakt från projektet till linjen; den måste översättas, tolkas, anpassas och integreras med organisationens tidigare kunskaper, normer och erfarenheter.",
@@ -128,13 +128,13 @@ window.INFO = {
     "Slutrapporten väger samman de tre faserna. Framtidsberedskapen räknas fram som mötet mellan behovet från Sense, alltså kollisionernas tryck och tempo, och förmågan från See (Rohrbeck & Kum 2018). Rohrbeck och Kum mäter mognaden i själva framsynsarbetet; här sätts mottagningsförmågan från See på förmågans plats, eftersom det är den som avgör om det som upptäcks också tas emot. Deras fyra lägen används: beredskap som motsvarar trycket (vaksam), förmåga som går utöver trycket, och förmåga som ligger ett eller två steg under (sårbar och i fara). Att ligga över trycket är inte en styrka i sig; i studien klarade sig de företagen sämre än de vaksamma. Rörelsen från Shift visar om den potentiella förmågan har börjat bli realiserad (Zahra & George 2002), och det är det som Freds perspektiv säger att man ska följa."
    ] },
    { "rubrik": "Gränser och skalsteg", "text": [
-    "Verktygen behöver gränser för att välja vilken rekommendation som visas. Forskningen anger sällan sådana gränser för dialogverktyg, så de följer i stället några få principer som var och en har stöd.",
-    "Steg mellan nivåer. Skalan för de tolv förmågorna har fem beskrivna nivåer, och rekommendationerna gäller de fyra stegen mellan dem: från den nivå man har nått till nästa. Ett värde mellan två nivåer hör till steget från den lägre. Det följer hur mognadsmodeller som ska vägleda förbättring är uppbyggda, där varje nivå anger vad som krävs för att nå nästa (Pöppelbuß & Röglinger 2011). Samma princip används för lärandeindex och på slutsidan.",
-    "Ett helt skalsteg. En skillnad räknas när den är minst ett helt steg på skalan: när en axel pekas ut som svagast, när formellt och upplevt mandat skiljer sig, när förmåga och tilltro skiljer sig, när deltagare är oense och när profilen är jämn eller ojämn. Inom forskningen om självskattningar är en halv standardavvikelse en vanlig tumregel för en skillnad som har betydelse (Norman, Sloan & Wyrwich 2003), och på en femgradig skala motsvarar ett helt steg ungefär det.",
+    "Verktygen behöver gränser för att välja vilken rekommendation som visas. Forskningen anger sällan sådana gränser för dialogverktyg. Gränserna är därför omdömen, men de följer några få principer som är utformade och avvägda utifrån forskningen.",
+    "Steg mellan nivåer. Skalan för de tolv förmågorna har fem beskrivna nivåer, och rekommendationerna gäller de fyra stegen mellan dem: från den nivå man har nått till nästa. Ett värde mellan två nivåer hör till steget från den lägre. Mognadsmodeller som ska vägleda förbättring bör ange förbättringsåtgärder för varje nivå (Pöppelbuß & Röglinger 2011). Att åtgärderna formuleras som steget mot nästa nivå är vårt omdöme. Samma princip används för lärandeindex och på slutsidan.",
+    "Ett helt skalsteg. En skillnad räknas när den är minst ett helt steg på skalan: när en axel pekas ut som svagast, när formellt och upplevt mandat skiljer sig, när förmåga och tilltro skiljer sig, när deltagare är oense och när profilen är jämn eller ojämn. Inom forskningen om skattningsskalor för livskvalitet är en halv standardavvikelse en vanlig tumregel för den minsta skillnad som har betydelse (Norman, Sloan & Wyrwich 2003). På en femgradig skala motsvarar det ofta ungefär ett halvt steg. Verktyget kräver ett helt steg och är alltså försiktigare än tumregeln: bara skillnader som tydligt överstiger den lyfts fram. Det är ett avvägt omdöme.",
     "Skalans etiketter. Där en gräns gäller en enskild skattning följer den skalans etiketter: en vilja under Stämmer delvis räknas som låg och en vilja från Stämmer ganska bra som hög. I Sense följer trendklasserna etiketterna för påverkan och säkerhet (Wack 1985; Burt & Wright 2006).",
     "Fler än en framtid. En bärande del eller faktor räknas som sårbar eller stark när den försvagas eller stärks i minst två av fyra framtider, alltså i mer än ett enskilt scenario. Det följer tanken om robusthet hos Lempert, Popper och Bankes (2003).",
     "Tecken räknas inte samman. Lärandekurvan på slutsidan visar fyra tecken var för sig, och omdömet bygger på hur många som är uppfyllda, av samma skäl som axlarna i See inte räknas samman (Marín-García & Martínez Tomás 2016).",
-    "Några val är rena designval och har ingen källa: hur verktyget föreslår vilka fem trender som tas till påverkansmatrisen, vilken framtid som föreslås till See, och när en styrka lyfts fram. De är satta för att väcka samtal, och gruppen kan alltid välja annorlunda."
+    "Några val är omdömen utan någon direkt källa: hur verktyget föreslår vilka fem trender som tas till påverkansmatrisen, vilken framtid som föreslås till See, och när en styrka lyfts fram. De är satta för att väcka samtal, och gruppen kan alltid välja annorlunda."
    ] },
    { "rubrik": "Vad verktygen inte är", "text": [
     "Verktygen är dialogverktyg, inte mätinstrument. Skalorna är inte psykometriskt prövade, och resultaten ska inte användas för att jämföra eller betygsätta organisationer. Självskattningar har kända skevheter: ledningsgrupper skattar ofta sin organisation högre än medarbetarna gör, och grupper kan enas snabbare än de egentligen är överens (Rafferty, Jimmieson & Armenakis 2013). Kritiken mot mognadsmodeller gäller dessutom att de lätt förutsätter en enda utvecklingsväg (Pöppelbuß & Röglinger 2011). Värdet ligger i samtalet som skattningen startar och i de försök som följer."
