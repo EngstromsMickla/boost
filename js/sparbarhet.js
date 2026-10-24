@@ -54,11 +54,11 @@
     else if (o && typeof o === 'object') Object.keys(o).forEach(function (k) { walk(o[k], p + '.' + k, acc); });
   }
   function texter() {
-    var rows = [], SEEK = 'MatchUp; Lawson & Samson 2001; ISO 56002; Jansen m.fl. 2005; Pöppelbuß & Röglinger 2011 (steg)';
+    var rows = [], FK = S.formagaKallor || {}, SKALA = 'Becker m.fl. 2009; Pöppelbuß & Röglinger 2011 (steg)';
     var see = K.see;
     if (see && see.matchup) {
       see.matchup.formagor.forEach(function (c) {
-        var p = 'see.matchup.formagor[' + c.id + ']';
+        var p = 'see.matchup.formagor[' + c.id + ']', SEEK = (FK[c.id] ? FK[c.id] + '; ' : '') + SKALA;
         rows.push(['See', c.namn, 'Förklaring vid skattning', c.vad + '. ' + (c.syfte || ''), SEEK, p + '.vad']);
         c.nivaer.forEach(function (n, i) { rows.push(['See', c.namn, 'Skalsteg ' + i + ' vid skattning (' + n.namn + ')', n.text, SEEK, p + '.nivaer[' + i + ']']); });
         for (var b = 0; b < 4; b++) {
@@ -67,7 +67,7 @@
         }
         BESLUT.forEach(function (bs) { for (var b = 0; b < 4; b++) rows.push(['See', c.namn, 'Beslut ' + bs + ', ' + BAND[b], c.atgard[bs][b], SEEK, p + '.atgard.' + bs + '[' + b + ']']); });
       });
-      see.matchup.omdome.forEach(function (o, i) { rows.push(['See', 'Omdöme', 'Lärandeindex i ' + BAND[i] + ' (SEE-2)', o.namn + '. ' + o.text, 'MatchUp; Pöppelbuß & Röglinger 2011', 'see.matchup.omdome[' + i + ']']); });
+      see.matchup.omdome.forEach(function (o, i) { rows.push(['See', 'Omdöme', 'Lärandeindex i ' + BAND[i] + ' (SEE-2)', o.namn + '. ' + o.text, 'Dawes 1979; OECD & JRC 2008; Pöppelbuß & Röglinger 2011', 'see.matchup.omdome[' + i + ']']); });
     }
     ['see', 'sense', 'shift', 'slut', 'till', 'start', 'info'].forEach(function (m) {
       if (!K[m]) return;
@@ -88,7 +88,7 @@
   function litteratur() {
     var A = S.anvandning || {}, keys = Object.keys(A);
     return I.teori.kallor.map(function (ref) {
-      var k = keys.filter(function (x) { return ref.indexOf(x) === 0; })[0];
+      var k = keys.filter(function (x) { return ref.indexOf(x) === 0; }).sort(function (a, b) { return b.length - a.length; })[0];
       return [ref, k ? A[k] : '', 'https://scholar.google.com/scholar?q=' + encodeURIComponent(ref.slice(0, 220))];
     });
   }

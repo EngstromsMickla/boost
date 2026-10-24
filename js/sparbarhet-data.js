@@ -7,7 +7,6 @@ window.SPAR = {
  "typer": {
   "Forskning": "En källa i litteraturlistan stöder regeln eller den princip som gränsen följer.",
   "Princip i Teoriplattformen": "Gränsen följer skalans etiketter.",
-  "MatchUp-verktyget": "Ärvt från självskattningen Mottagningsförmåga innovationer i Smart Built Environments projekt MatchUp.",
   "Designval": "Ett omdöme som är satt för verktyget, utan någon direkt källa. Gruppen kan alltid välja annorlunda."
  },
  "kodbas": "https://github.com/EngstromsMickla/boost/blob/main/",
@@ -18,8 +17,8 @@ window.SPAR = {
    "steg": "Profil",
    "regel": "Lärandeindex = medelvärdet av de tolv skattningarna (skala 0 till 4 i halvsteg).",
    "param": "Medelvärde, ingen viktning",
-   "grund": "MatchUp-verktyget (Excel: Mottagningsförmåga innovationer)",
-   "typ": "MatchUp-verktyget",
+   "grund": "Dawes 1979; OECD & JRC 2008 (lika vikter när det saknas belägg för andra)",
+   "typ": "Forskning",
    "kod": "see/app.js: profile()"
   },
   {
@@ -118,7 +117,7 @@ window.SPAR = {
    "steg": "Åtgärder",
    "regel": "Åtgärdstexten väljs efter beslut och förmågans nivå enligt stegprincipen: 0 till 0,5 steg 1, 1 till 1,5 steg 2, 2 till 2,5 steg 3, 3 till 4 steg 4. Internt och Ta hjälp med att väljs på samma sätt.",
    "param": "1 / 2 / 3",
-   "grund": "Pöppelbuß & Röglinger 2011; texterna från MatchUp-verktyget",
+   "grund": "Pöppelbuß & Röglinger 2011; texterna prövade mot källorna för varje förmåga (se Teoriplattformen)",
    "typ": "Forskning",
    "kod": "see/app.js: diagnosis(), band()"
   },
@@ -479,9 +478,36 @@ window.SPAR = {
   "Pöppelbuß": "Förbättringsåtgärder per nivå, stöd för stegprincipen (SEE-2, SEE-11, SLU-3); kritik mot mognadsmodeller. Kontrollerad 2026-10-24 (DP 3.1).",
   "Holt": "Förändringsberedskap",
   "Appelbaum": "Förmåga, möjlighet, vilja (AMO)",
-  "Norman": "Tumregeln om en halv standardavvikelse; ett helt skalsteg är försiktigare (SEE-3, SEE-5, SEE-7 till SEE-9). Kontrollerad 2026-10-24."
+  "Norman": "Tumregeln om en halv standardavvikelse; ett helt skalsteg är försiktigare (SEE-3, SEE-5, SEE-7 till SEE-9). Kontrollerad 2026-10-24.",
+  "Armenakis": "Förmågan förändringsledning (See)",
+  "Becker": "Den femgradiga nivåskalan i See",
+  "Brynjolfsson, E. & McElheran": "Förmågan datadriven innovation (See)",
+  "Cooper": "Förmågan innovationsprocess: stegvis prövning (See)",
+  "Dahlander": "Förmågan samverkan över gränser (See)",
+  "Dawes": "Lärandeindex som ovägt medelvärde (SEE-1)",
+  "Hansen": "Förmågan innovationsprocess (See)",
+  "Henderson": "Förmågan system- och teknologiförståelse (See)",
+  "Herscovitch": "Förmågorna förankring och förändringsledning (See)",
+  "Katz": "Förmågan omvärldsbevakning: motstånd mot kunskap utifrån (See)",
+  "Lepak": "Förmågan kompetensförsörjning (See)",
+  "Levitt": "Kompetensfällan (See, ambidexteritet)",
+  "March, J. G.": "Förmågan strategisk ambidexteritet (See)",
+  "OECD": "Lärandeindex som ovägt medelvärde (SEE-1)",
+  "O'Reilly": "Förmågan strategisk ambidexteritet (See)",
+  "Teece, D. J. (2010)": "Förmågan affärsmodellsutforskning (See)",
+  "Thomke": "Förmågan test- och lärförmåga (See)",
+  "Vera": "Förmågan strategiskt ledarskap för förnyelse (See)"
  },
  "logg": [
+  {
+   "version": "prototyp v0.4",
+   "datum": "2026-10-24",
+   "text": [
+    "Självskattningen i See granskades mot forskningen: lärandeindex, nivåskalan och var och en av de tolv förmågorna fick egna källor, och MatchUp-verktyget är inte längre en egen typ av grund.",
+    "42 av 400 texter i See ändrades: tydligare handling, försiktigare påståenden, mer olika beslut, bättre koppling till nästa nivå och rättat språk.",
+    "18 nya källor i litteraturlistan."
+   ]
+  },
   {
    "version": "prototyp v0.3",
    "datum": "2026-10-24",
@@ -508,5 +534,19 @@ window.SPAR = {
     "Första versionen av Sense, See, Shift och slutsidan, för den första testrundan med användare."
    ]
   }
- ]
+ ],
+ "formagaKallor": {
+  "1": "March 1991; O'Reilly & Tushman 2013; Eriksson 2013",
+  "2": "Dahlander & Gann 2010; Edmondson 1999; Eriksson 2013",
+  "3": "Vera & Crossan 2004; Teece 2007; Gioia & Chittipeddi 1991",
+  "4": "Herscovitch & Meyer 2002; Spreitzer 1995",
+  "5": "Brynjolfsson & McElheran 2016",
+  "6": "Thomke 2003; Edmondson 1999; Reed & Card 2016",
+  "7": "Hansen & Birkinshaw 2007; Cooper 1990",
+  "8": "Teece 2010; Osterwalder & Pigneur 2010",
+  "9": "Lepak & Snell 1999; Cohen & Levinthal 1990",
+  "10": "Armenakis & Bedeian 1999; Weiner 2009; Herscovitch & Meyer 2002",
+  "11": "Henderson & Clark 1990",
+  "12": "Cohen & Levinthal 1990; Katz & Allen 1982; Rohrbeck & Kum 2018"
+ }
 };

@@ -21,7 +21,7 @@ Arbetsbeskrivning för den som utvecklar verktygen vidare, människa eller Claud
 - Upphovsrad: "© Engströms Mickla AB 2026". Raden om Smart Built Environment och Formas läggs till först när finansieringen är beslutad.
 - Verktygen är dialogverktyg, inte mätinstrument. Inga psykometriska anspråk.
 - Publicera aldrig till `main` utan att Dan har sagt "publicera". Förslag läggs i en egen gren.
-- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See). "prototyp v0.3" lade till sidan Spårbarhet.
+- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See). "prototyp v0.3" lade till sidan Spårbarhet. "prototyp v0.4" (2026-10-24): See granskad mot forskningen, egna källor per förmåga, 42 texter ändrade.
 - Kommunikation om forskningsgrunden (Dans beslut 2026-10-24): skriv att verktygen är forskningsbaserade, aldrig att allt eller varje del kommer från forskningen. Där forskningen inte matchar exakt är rekommendationerna omdömen som är utformade och avvägda utifrån forskningen.
 
 ## Grundperspektiv: absorptionsförmåga, inte implementering
@@ -167,6 +167,7 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 - De 3 lägst skattade förmågorna föreslås (fler vid lika värden); gruppen kan byta med motivering. En tydlig styrka lyfts fram om den ligger minst 1,0 över medianen och är minst lika stor som dippen.
 - För valda förmågor: förmåga (K1, K2), mandat (formellt F1, F2 och upplevt U1, U2), vilja (V1, V2) och tilltro (T1), alla som påståenden på samma skala 1 till 5. Förmågeaxeln var tidigare nivån + 1; äldre körningar utan K1 och K2 räknas fortfarande så tills påståendena är besvarade. Den svagaste axeln styr riktningen för Shift. Tilltro motsvarar change efficacy (Weiner 2009).
 - Beslut per förmåga: Ja, Fortsätt, Utred, Vänta, Nej. Vänta och Nej får automatiska tillägg.
+- Granskning 2026-10-24 (Dans beslut): lärandeindex (Dawes 1979; OECD & JRC 2008), nivåskalan (Becker m.fl. 2009; Pöppelbuß & Röglinger 2011) och varje förmåga har egna källor, se `formagaKallor` i `js/sparbarhet-data.js` och See-stycket i Teoriplattformen. MatchUp är historik, inte längre en typ av grund. Alla 400 texter prövades; 42 ändrades (underlag: LCA See texter granskning.xlsx i Dans mapp för LCA v2.0). Nya texter ska följa stegprincipen (texten leder från nivån till nästa), skilja sig mellan besluten och vara handlingsbara.
 - Forskningsunderlag: se historiken i chatterna i projektet "Learning Curve Approach"; viktigast är Fred & Mukhtar-Landgren 2022, Weiner 2009, Michie m.fl. 2011 (COM-B), Blumberg & Pringle 1982, Zahra & George 2002, Teece 2007, Eriksson 2013 och Jacobsson & Linderoth 2026.
 
 ## Test
