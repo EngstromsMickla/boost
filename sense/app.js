@@ -506,7 +506,7 @@
     var S = C.rapport.sammanfattning, org = state.meta.foretag || 'Organisationen', ax = axlar(), A = andp(ax[0] || ''), B = andp(ax[1] || '');
     function lc(x) { return /^[A-ZÅÄÖ][a-zåäö]/.test(x) ? x.charAt(0).toLowerCase() + x.slice(1) : x; }
     var intro = [fill(S.inledning, { org: org, fraga: state.fokus.fraga.trim().replace(/[?.]$/, '') + (/[?]$/.test(state.fokus.fraga.trim()) ? '?' : ''), horisont: state.fokus.horisont }),
-      fill(S.grund, { n: validTrends().length, a: tname(ax[0]), b: tname(ax[1]) })];
+      fill(axelBytt() || axelVarningar().length ? (S.grundEget || S.grund) : S.grund, { n: validTrends().length, a: tname(ax[0]), b: tname(ax[1]) })];
     if (forutbestamda().length) intro.push(fill(S.forutbestamda, { lista: lista(forutbestamda().map(function (id) { return '”' + lc(tname(id)) + '”'; })) }));
     var st = vardeStat();
     var framtider = [0, 1, 2, 3].map(function (i) {

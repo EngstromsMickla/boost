@@ -286,7 +286,7 @@ window.CONTENT = {
   "sammanfattning": {
    "rubrik": "Sammanfattning",
    "inledning": "{org} har undersökt frågan ”{fraga}” med blicken {horisont} år framåt.",
-   "grund": "Arbetet utgick från {n} trender. Två av dem är både osäkra och drivande, och de bildar axlarna i fyra möjliga framtider: axel A, ”{a}”, och axel B, ”{b}”.",
+   "grund": "Arbetet utgick från {n} trender. Två av dem är både osäkra och drivande, och de bildar axlarna i fyra möjliga framtider: axel A, ”{a}”, och axel B, ”{b}”.", "grundEget": "Arbetet utgick från {n} trender. Gruppen valde två av dem som axlar i fyra möjliga framtider: axel A, ”{a}”, och axel B, ”{b}”.",
    "forutbestamda": "Oavsett vilken framtid som blir verklighet räknar organisationen med att {lista} fortsätter.",
    "framtiderRubrik": "Fyra framtider och vad de betyder för {org}",
    "utveckling": { "-1": "försämras verksamhetens ställning", "0": "står verksamheten sig", "1": "förbättras verksamhetens ställning" },

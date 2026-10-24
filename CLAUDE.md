@@ -53,6 +53,7 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 
 ### See
 - Ligger i `see/`. Tolv förmågor (elva blev tolv när agency lades till).
+- Målgrupp (Dans beslut 2026-10-24): primärt samhällsbyggnad. Åtgärdstexterna får tala om projekt, beställare och bransch. Senare vidareutvecklas See för andra projektbaserade verksamheter.
 - Den separata självskattningen av framtidsberedskap från v1.0 utgår.
 
 ### Shift (process, inte frågebatteri)
@@ -67,7 +68,7 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 - Namn (Dans beslut att byta från strategyzers test card och learning card): **trimförsök** (planen) och **kursavläsning** (uppföljningen), i linje med trimroder-bilden.
 - Filen hålls av en kontaktperson, eller av facilitatorn om gruppen har gemensamma avstämningar.
 - Ett försök per lärandefråga från start, högst tre lärandefrågor.
-- Efter varje försök skattas den axel som försöket riktades mot igen (1 till 5, samma skala som i See). Det ger rörelsen i mottagningsförmågan till slutrapporten.
+- Efter varje försök skattas den axel som försöket riktades mot igen. Med underlag från See sker det med ett påstående per axel på samma instämmandeskala som i See (`avlasning.rorelsePastaende`, `instamSkala`); utan See med gruppens egen skala från underlaget. Rapporten skiljer på att alla, några eller inga lärandefrågor har rört sig uppåt. Det ger rörelsen i mottagningsförmågan till slutrapporten.
 - Perspektiv i kursavläsningen, grundade i litteraturen om lärandekurvor: effekt i vardagen (tid, kvalitet, energi, trivsel, intäkter, från Trim Tab Canvas), **lärdomens väg** (stannar hos oss, delad med kollegor, införd i rutin eller beslut; Zollo & Winter 2002: erfarenhet, artikulering, kodifiering), förutsägelse mot utfall, beslut och nästa lilla försök. Organisationer med samma erfarenhet lär i olika takt beroende på reflektion och delning (Pisano, Bohmer & Edmondson 2001; Edmondson m.fl. 2001). "Lärande" läggs därför inte till som ett sjätte effektvärde.
 - Översikten visar försöken som kedjor per lärandefråga, **er lärandekurva** (kumulativt antal lärdomar, delade och införda) och rörelsen per axel.
 - Steg: underlag (sparfil från See, eller två korta frågor om See och Sense saknas), Learning Direction Canvas (tryck och beredskap förifyllda, förslag på lärandefrågor ur kollision × förmåga × svagaste axel), kommunikationsram och stöd (inklusive vilket hinder ledningen tar bort; Edmondson 1999), första trimförsöket per fråga, översikt, kursavläsning, lärperiodens slut (pröva frågorna: behåll, justera, byt; Argyris & Schön 1978).
@@ -75,8 +76,8 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 ## Slutsidan, version 0.1 (byggd 2026-10-10)
 - `slut/` visas bara när Sense, See och Shift är gjorda i följd (Shift-filen bär kedjan). Annars förklarar sidan vad som saknas; modulrapporterna räcker när en eller två faser är gjorda.
 - Nås från Shift-rapporten (knapp när kedjan är hel), från startsidan och genom att öppna en Shift-sparfil. Senaste slutsida sparas i `lca.slut.v1`.
-- **Framtidsberedskap** (Rohrbeck & Kum 2018, relativt mått): tryck från Sense (starkaste kollisionen; högt = tryck minst 4 och tempo högst 1 till 3 år; måttligt = tryck minst 4, eller minst 3 med tempo högst 3 till 10 år) mot förmåga från See (lärandeindex under 1,8 låg, under 2,6 måttlig, annars hög). Lägen: mer förberedd än trycket kräver, vaksam, sårbar, i fara.
-- **Lärandekurvan** värderas med fyra tecken från Shift (0, 1 eller 2 vardera): uppföljda försök, rörelse i axlarna, lärdomarnas fäste (delade, införda), prövad riktning. Omdömen: för tidigt att säga (inga kursavläsningar), ni har börjat, ni är på väg uppför (minst 3), ni har tagit er uppför (minst 6). Positionen visas på en S-kurva från oro via insikt och rörelse till fäste.
+- **Framtidsberedskap** (Rohrbeck & Kum 2018, relativt mått): tryck från Sense (starkaste kollisionen; högt = tryck minst 4 och tempo högst 1 till 3 år; måttligt = tryck minst 4, eller minst 3 med tempo högst 3 till 10 år) mot förmåga från See (stegprincipen: lärandeindex under 2 låg, under 3 måttlig, annars hög). Lägen: mer förberedd än trycket kräver, vaksam, sårbar, i fara. Mer förberedd motsvarar neurotic hos Rohrbeck & Kum och beskrivs inte som en styrka.
+- **Lärandekurvan** värderas med fyra tecken från Shift (0, 1 eller 2 vardera): uppföljda försök, rörelse i axlarna, lärdomarnas fäste (delade, införda), prövad riktning. Tecknen räknas inte samman (Dans beslut 2026-10-24). Omdömen: för tidigt att säga (inga kursavläsningar), ni har börjat, ni är på väg uppför (minst två tecken uppfyllda), ni har tagit er uppför (alla fyra uppfyllda). Summan används bara för positionen på kurvan. Positionen visas på en S-kurva från oro via insikt och rörelse till fäste.
 - Följer den fasta rapportmallen; slutrapporten laddas ner som PDF.
 
 ## Utvalda tillämpningar (byggd 2026-10-11)
@@ -94,6 +95,10 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 
 ## Fast rapportmall (alla moduler och slutrapporten)
 - Varje rapport börjar med **Sammanfattning**, **Analys** och **Förslag**, därefter rubriken **Detaljer**. Mallen finns i `LCA.reportBlock` och `LCA.reportPDF` i `js/lca.js`.
+
+## Gränser i verktygen
+- Avsnittet Gränser och skalsteg i Teoriplattformen (`js/info.js`) beskriver principerna: steg mellan nivåer, ett helt skalsteg, skalans etiketter, fler än en framtid (Lempert m.fl. 2003) och att tecken inte räknas samman. Rena designval utan källa (urvalet av fem trender, framtid till See, styrkans villkor) är uppräknade där. Nya gränser ska följa en av principerna eller läggas till som designval.
+- Granskningen hösten 2026: guide och arbetsbok (LCA granskningsguide.docx, LCA granskning arbetsbok.xlsx) i Dans mapp för LCA v2.0.
 
 ## Begrepp, Om metoden och Teoriplattform
 - `teori/` (Teoriplattform) innehåller resonemanget om metodens vetenskapliga grund och hela litteraturlistan, i `js/info.js` under `teori`. Den nås från Om metoden, Begrepp och startsidan.
@@ -149,9 +154,11 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 ## See i korthet
 
 - Tolv förmågor i fyra fält: Upptäcka, Välja, Pröva, Förändra (`boost.kvadranter`). Skala 0 till 4 med halvsteg.
-- Gränsvärden 1,8 / 2,6 / 3,2 för rekommendationer och åtgärdsförslag.
-- De 2 till 3 lägst skattade förmågorna föreslås; gruppen kan byta med motivering. En tydlig styrka lyfts fram om den ligger minst 1,0 över medianen och är minst lika stor som dippen.
-- För valda förmågor: mandat (formellt och upplevt), vilja och tilltro på skala 1 till 5. Den svagaste axeln styr riktningen för Shift.
+- **Stegprincipen** (Dans beslut 2026-10-24): skalan har fem nivåer och texterna (omdöme, Internt, Ta hjälp med att, åtgärd per beslut) gäller de fyra stegen mellan dem. Ett värde hör till steget från den nivå man har nått: 0 till 0,5 steg 1, 1 till 1,5 steg 2, 2 till 2,5 steg 3, 3 till 4 steg 4 (`gransvarden` 1 / 2 / 3). Värdet avrundas till en decimal före jämförelsen, som det visas. Stöd: Pöppelbuß & Röglinger 2011.
+- **Skalstegsprincipen** (Dans beslut 2026-10-24): en skillnad räknas när den är minst ett helt skalsteg (`skalsteg` 1): svagaste axel, mandatglapp, tilltroglapp, spridning mellan deltagare i facilitatorläget och profilens form (1 och 2 steg). Stöd: Norman, Sloan & Wyrwich 2003.
+- Beslutsvarningarna följer skalans etiketter: vilja under Stämmer delvis (högst 2,5) är låg, från Stämmer ganska bra (minst 4) hög.
+- De 3 lägst skattade förmågorna föreslås (fler vid lika värden); gruppen kan byta med motivering. En tydlig styrka lyfts fram om den ligger minst 1,0 över medianen och är minst lika stor som dippen.
+- För valda förmågor: förmåga (K1, K2), mandat (formellt F1, F2 och upplevt U1, U2), vilja (V1, V2) och tilltro (T1), alla som påståenden på samma skala 1 till 5. Förmågeaxeln var tidigare nivån + 1; äldre körningar utan K1 och K2 räknas fortfarande så tills påståendena är besvarade. Den svagaste axeln styr riktningen för Shift. Tilltro motsvarar change efficacy (Weiner 2009).
 - Beslut per förmåga: Ja, Fortsätt, Utred, Vänta, Nej. Vänta och Nej får automatiska tillägg.
 - Forskningsunderlag: se historiken i chatterna i projektet "Learning Curve Approach"; viktigast är Fred & Mukhtar-Landgren 2022, Weiner 2009, Michie m.fl. 2011 (COM-B), Blumberg & Pringle 1982, Zahra & George 2002, Teece 2007, Eriksson 2013 och Jacobsson & Linderoth 2026.
 

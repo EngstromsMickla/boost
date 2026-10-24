@@ -36,7 +36,8 @@
       if (!best || niva > best.niva || (niva === best.niva && k.tryck > best.k.tryck)) best = { niva: niva, k: k };
     });
     if (best) { behov = best.niva; best = best.k; }
-    var idx = d.see.index, formaga = idx < 1.8 ? 1 : idx < 2.6 ? 2 : 3, diff = formaga - behov;
+    /* Stegprincipen: under nivå 2 (Definierad) låg, från 2 till 3 måttlig, från 3 hög. Indexet avrundas som det visas. */
+    var idx = d.see.index, ri = Math.round(idx * 10) / 10, formaga = ri < 2 ? 1 : ri < 3 ? 2 : 3, diff = formaga - behov;
     var lage = diff > 0 ? 'over' : diff === 0 ? 'vaksam' : diff === -1 ? 'sarbar' : 'fara';
     var B = C.beredskap;
     var grund = best ? fill(B.grund, { behov: B.behovNamn[behov - 1].toLowerCase(), kollision: best.namn, tryck: best.tryck, tempo: lc(best.tempo || TEMPO[tempoIndex(best)]), formaga: B.formagaNamn[formaga - 1].toLowerCase(), index: fmt(idx) }) : '';
@@ -75,7 +76,9 @@
       riktning: sh.period && sh.period.avslutad ? 2 : 0
     };
     var total = s.avlast + s.rorelse + s.faste + s.riktning;
-    var omd = n === 0 ? 'tidigt' : total >= 6 ? 'uppfor' : total >= 3 ? 'pavag' : 'borjat';
+    /* Tecknen räknas inte samman till ett tal. Omdömet bygger på hur många av de fyra tecknen som är uppfyllda. */
+    var uppfyllda = [s.avlast, s.rorelse, s.faste, s.riktning].filter(function (v) { return v === 2; }).length;
+    var omd = n === 0 ? 'tidigt' : uppfyllda === 4 ? 'uppfor' : uppfyllda >= 2 ? 'pavag' : 'borjat';
     var map = { n: n, upp: upp, inforda: lk.inforda || 0, delade: lk.delade || 0 };
     var krit = C.kurva.kriterier.map(function (k) { var v = s[k.id]; var t = v === 2 ? k.uppfyllt : v === 1 ? k.delvis : k.ej; if (k.id === 'rorelse') map.n = fr.length; if (k.id === 'avlast') map.n = n; return { namn: k.namn, v: v, text: fill(t, map) }; });
     return { s: s, total: total, omd: omd, krit: krit, pos: 0.42 + 0.56 * total / 8 };

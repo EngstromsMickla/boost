@@ -67,7 +67,7 @@ window.CONTENT = {
     },
     {
      "term": "Axlarna",
-     "text": "För de valda förmågorna visas fyra axlar på en gemensam skala från 1 till 5. Förmåga är den skattade nivån. Mandat är om man har rätt och möjlighet att agera, uppdelat på formellt mandat (beslutsrätt, tid och resurser) och upplevt mandat (om man känner sig fri att agera och att det ger effekt). Vilja är hur angeläget det är och om man är beredd att prioritera. Tilltro är om man tror att man klarar det."
+     "text": "För de valda förmågorna visas fyra axlar på en gemensam skala från 1 till 5, där varje axel bygger på påståenden som ni har tagit ställning till. Förmåga är om ni har kunskap och arbetssätt för att stärka förmågan. Mandat är om man har rätt och möjlighet att agera, uppdelat på formellt mandat (beslutsrätt, tid och resurser) och upplevt mandat (om man känner sig fri att agera och att det ger effekt). Vilja är hur angeläget det är och om man är beredd att prioritera. Tilltro är om man tror att man klarar det."
     },
     {
      "term": "Svagaste axeln",
@@ -89,10 +89,11 @@ window.CONTENT = {
   "upphov": "© Engströms Mickla AB 2026",
   "integritet": "Dina svar sparas bara i din webbläsare och i de filer du själv laddar ner. Ingenting skickas till oss eller någon annan.",
   "gransvarden": [
-   1.8,
-   2.6,
-   3.2
+   1,
+   2,
+   3
   ],
+  "skalsteg": 1,
   "form": {
    "jamn": 1.0,
    "taggig": 2.0,
@@ -120,6 +121,16 @@ window.CONTENT = {
    "Stämmer helt"
   ],
   "pastaenden": [
+   {
+    "id": "K1",
+    "axel": "formaga",
+    "text": "Vi har den kunskap och de arbetssätt som behövs för att stärka {förmåga}."
+   },
+   {
+    "id": "K2",
+    "axel": "formaga",
+    "text": "Vi har gjort liknande förändringar förut och vet hur vi ska gå till väga."
+   },
    {
     "id": "F1",
     "axel": "formellt",
@@ -196,9 +207,9 @@ window.CONTENT = {
    }
   },
   "tilltroGlapp": {
-   "grans": 1.5,
-   "lagTilltro": "Nivån är högre än tilltron. Kunskapen finns, men den syns inte för er själva. Synliggör vad ni redan har lyckats med.",
-   "hogTilltro": "Tilltron är högre än nivån. Det finns en risk för överskattning. Testa i liten skala innan ni lovar något större."
+   "grans": 1,
+   "lagTilltro": "Förmågan skattas högre än tilltron. Kunskapen finns, men den syns inte för er själva. Synliggör vad ni redan har lyckats med.",
+   "hogTilltro": "Tilltron är högre än den skattade förmågan. Det finns en risk för överskattning. Testa i liten skala innan ni lovar något större."
   },
   "beslut": {
    "fraga": "Vad bestämmer ni er för när det gäller {förmåga}?",

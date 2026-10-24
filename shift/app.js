@@ -271,7 +271,11 @@
     h += '<span class="lbl">' + esc(A.effektRubrik) + '</span><div class="chips">' + A.effekter.map(function (e) { var on = a.effekter.indexOf(e) >= 0; return '<button class="chip' + (on ? ' on' : '') + '" data-eff="' + esc(e) + '" aria-pressed="' + on + '">' + (on ? '✓ ' : '') + esc(e) + '</button>'; }).join('') + '</div>' + field(A.vilka, p + 'vilka', a.vilka) + '</div>';
     h += '<div class="card"><h3 style="margin-top:0">' + esc(A.vagRubrik) + '</h3><p class="small muted">' + esc(A.vagText) + '</p><div class="decisions">' + A.vagar.map(function (v, k) { return '<button class="choice" data-avag="' + k + '" aria-pressed="' + (a.vag === k) + '"><span><b>' + esc(v) + '</b></span></button>'; }).join('') + '</div></div>';
     var ax = q ? q.axel : f.typ;
-    h += '<div class="card"><h3 style="margin-top:0">' + esc(A.rorelseRubrik) + '</h3><p class="small">' + esc(fill(A.rorelseFraga, { axel: C.axlar[ax] ? C.axlar[ax].kort : ax })) + (q && q.fore != null ? ' <span class="muted">(' + esc(A.fore) + ': ' + fmt(q.fore) + ' av 5)</span>' : '') + '</p>' + seg('data-anu', function (k) { return k + 1; }, C.skala5.map(function (s, k) { return (k + 1) + ' ' + s.toLowerCase(); }), a.axelNu) + '</div>';
+    /* Med underlag från See: samma slags påstående och skala som där, så att före och efter mäts på samma sätt. Utan See används gruppens egen skala från underlaget. */
+    var bq = q ? behov(q.kalla) : null, pst = A.rorelsePastaende && A.rorelsePastaende[ax] && bq && see() ? fill(A.rorelsePastaende[ax], { behov: bq.text }) : null;
+    var fraga1 = pst ? '<b>' + esc(pst) + '</b><br><span class="muted">' + esc(A.rorelseText) + '</span>' : esc(fill(A.rorelseFraga, { axel: C.axlar[ax] ? C.axlar[ax].kort : ax }));
+    var skala = pst && A.instamSkala ? A.instamSkala : C.skala5;
+    h += '<div class="card"><h3 style="margin-top:0">' + esc(A.rorelseRubrik) + '</h3><p class="small">' + fraga1 + (q && q.fore != null ? ' <span class="muted">(' + esc(A.fore) + ': ' + fmt(q.fore) + ' av 5)</span>' : '') + '</p>' + seg('data-anu', function (k) { return k + 1; }, skala.map(function (s, k) { return (k + 1) + ' ' + s.toLowerCase(); }), a.axelNu) + '</div>';
     h += '<h3>' + esc(A.beslutRubrik) + '</h3>' + seg('data-abes', function (k) { return Object.keys(A.beslut)[k]; }, Object.keys(A.beslut).map(function (k) { return A.beslut[k]; }), a.beslut);
     h += field(A.nasta, p + 'nasta', a.nasta, { area: true, style: 'margin-top:14px' }) + '<p class="hint" style="margin-top:-8px">' + esc(A.nastaHjalp) + '</p>';
     var harNasta = state.forsok.some(function (x) { return x.fore === f.id; });
@@ -350,7 +354,7 @@
     if (av.length) {
       var v = [0, 0, 0]; av.forEach(function (f) { v[f.av.vag]++; });
       analys.push(fill(R.vag, { v0: v[0], v1: v[1], v2: v[2] }) + ' ' + (v[0] > v[1] + v[2] ? R.vagSvag : v[2] >= 1 ? R.vagStark : ''));
-      if (mats) analys.push(upp ? R.riktningPlus : R.riktningMinus);
+      if (mats) analys.push(upp === mats ? R.riktningPlus : upp ? fill(R.riktningDelvis || R.riktningPlus, { upp: upp, n: mats }) : R.riktningMinus);
     } else analys.push(R.rorelseIngen);
     var dags = state.forsok.filter(function (f) { return status(f) === 'dags'; });
     if (dags.length) forslag.push({ titel: R.forslagAvlas, text: fill(R.forslagAvlasText, { lista: lista(dags.map(function (f) { return '”' + f.titel + '”'; })) }) });

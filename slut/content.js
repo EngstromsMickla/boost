@@ -33,7 +33,7 @@ window.CONTENT = {
   "behovAxel": "Tryck från omvärlden (Sense)",
   "formagaAxel": "Förmåga att ta emot (See)",
   "lagen": {
-   "over": { "namn": "Mer förberedd än trycket kräver", "text": "Förmågan att ta emot förändring är högre än det tryck ni har identifierat. Det är en styrka. Pröva om trycket är underskattat, eller om förmågan kan användas mer offensivt." },
+   "over": { "namn": "Mer förberedd än trycket kräver", "text": "Förmågan att ta emot förändring är högre än det tryck ni har identifierat. Det är inte en styrka i sig: i forskningen klarade sig företag i det här läget inte bättre än de vars beredskap motsvarade trycket, eftersom kraften lätt läggs på fel saker (Rohrbeck & Kum 2018). Pröva om trycket är underskattat, och rikta förmågan mot de kollisioner som faktiskt finns." },
    "vaksam": { "namn": "Vaksam", "text": "Förmågan att ta emot förändring motsvarar trycket. Håll den vaksam: följ signalerna från Sense och pröva igen när de ändras." },
    "sarbar": { "namn": "Sårbar", "text": "Trycket är något större än förmågan att ta emot det. Det är där fortsatta trimförsök gör mest nytta." },
    "fara": { "namn": "I fara", "text": "Trycket är betydligt större än förmågan att ta emot det. Prioritera det som håller tillbaka och ge försöken tydligt mandat och stöd från ledningen." }
@@ -43,11 +43,11 @@ window.CONTENT = {
 
  "kurva": {
   "rubrik": "Har ni kommit upp på er lärandekurva?",
-  "om": "Organisationer med samma erfarenhet lär sig i olika takt. Det som avgör är om försöken följs upp, om lärdomarna delas och förs in i arbetssätt, och om riktningen prövas (Pisano, Bohmer & Edmondson 2001; Zollo & Winter 2002). Värderingen bygger på fyra tecken från Shift.",
+  "om": "Organisationer med samma erfarenhet lär sig i olika takt. Det som avgör är om försöken följs upp, om lärdomarna delas och förs in i arbetssätt, och om riktningen prövas (Pisano, Bohmer & Edmondson 2001; Zollo & Winter 2002). Värderingen bygger på fyra tecken från Shift. De räknas inte samman till ett tal: omdömet visar hur många av dem som är uppfyllda, och uppför kurvan förutsätter alla fyra.",
   "faser": ["Oro", "Insikt", "Rörelse", "Fäste"],
   "kriterier": [
    { "id": "avlast", "namn": "Försöken har genomförts och följts upp", "uppfyllt": "{n} kursavläsningar.", "delvis": "En kursavläsning hittills.", "ej": "Inga kursavläsningar än." },
-   { "id": "rorelse", "namn": "Mottagningsförmågan har rört sig", "uppfyllt": "Axeln har stärkts för {upp} av {n} lärandefrågor.", "delvis": "Axeln har stärkts för {upp} av {n} lärandefrågor.", "ej": "Ingen axel har stärkts än." },
+   { "id": "rorelse", "namn": "Mottagningsförmågan har rört sig", "uppfyllt": "Axeln har stärkts för {upp} av {n} lärandefrågor, minst hälften.", "delvis": "Axeln har stärkts för {upp} av {n} lärandefrågor, färre än hälften.", "ej": "Ingen axel har stärkts än." },
    { "id": "faste", "namn": "Lärdomarna har fått fäste", "uppfyllt": "Lärdomar har förts in i arbetssätt (antal: {inforda}).", "delvis": "Lärdomar har delats (antal: {delade}), men ingen har förts in i arbetssätt än.", "ej": "Lärdomarna stannar hos dem som gjorde försöken." },
    { "id": "riktning", "namn": "Riktningen har prövats", "uppfyllt": "Lärperioden är avslutad och lärandefrågorna har prövats.", "delvis": "", "ej": "Lärperioden är inte avslutad än." }
   ],

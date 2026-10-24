@@ -24,7 +24,8 @@
   function fill(t, map) { return t.replace(/\{(\w+|förmåga)\}/g, function (m, k) { return map[k] != null ? map[k] : m; }); }
   function mean(a) { return a.reduce(function (s, x) { return s + x; }, 0) / a.length; }
   function median(a) { var s = a.slice().sort(function (x, y) { return x - y; }); var n = s.length; return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; }
-  function band(x) { var g = B.gransvarden; return x < g[0] ? 0 : x < g[1] ? 1 : x < g[2] ? 2 : 3; }
+  /* Stegprincipen: ett värde mellan två nivåer hör till steget från den nivå man har nått till nästa. Värdet avrundas som det visas. */
+  function band(x) { var g = B.gransvarden; x = Math.round(x * 10) / 10; return x < g[0] ? 0 : x < g[1] ? 1 : x < g[2] ? 2 : 3; }
   function toast(msg) { var t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(function () { t.remove(); }, 2600); }
   function levelName(x) { var i = Math.floor(x); var n = CAPS[0].nivaer; return x % 1 ? n[i].namn + '/' + n[i + 1].namn.toLowerCase() : n[i].namn; }
 
@@ -65,7 +66,7 @@
   function axes(id, s) {
     s = s || state; var a = s.agency[id] || {};
     function m(ids) { var v = ids.map(function (k) { return a[k]; }).filter(function (x) { return typeof x === 'number'; }); return v.length === ids.length ? mean(v) : null; }
-    var r = { formaga: s.nivaer[id] + 1, formellt: m(['F1', 'F2']), upplevt: m(['U1', 'U2']), vilja: m(['V1', 'V2']), tilltro: m(['T1']) };
+    var r = { formaga: m(['K1', 'K2']) != null ? m(['K1', 'K2']) : s.nivaer[id] + 1, formellt: m(['F1', 'F2']), upplevt: m(['U1', 'U2']), vilja: m(['V1', 'V2']), tilltro: m(['T1']) };
     r.mandat = r.formellt != null && r.upplevt != null ? (r.formellt + r.upplevt) / 2 : null;
     return r;
   }
@@ -73,8 +74,10 @@
     s = s || state; var ax = axes(id, s); if (ax.mandat == null || ax.vilja == null) return null;
     var three = [['formaga', ax.formaga], ['mandat', ax.mandat], ['vilja', ax.vilja]].sort(function (a, b) { return a[1] - b[1]; });
     var weakest;
-    if (three[2][1] - three[0][1] < 0.5) weakest = ['jamn'];
-    else if (three[1][1] - three[0][1] < 0.5) weakest = [three[0][0], three[1][0]];
+    /* Skalstegsprincipen: en skillnad räknas när den är minst ett helt skalsteg. */
+    var steg = B.skalsteg || 1;
+    if (three[2][1] - three[0][1] < steg) weakest = ['jamn'];
+    else if (three[1][1] - three[0][1] < steg) weakest = [three[0][0], three[1][0]];
     else weakest = [three[0][0]];
     var gap = ax.formellt - ax.upplevt, glapp = null;
     if (gap >= B.glapp.grans) glapp = 'formelltStorre'; else if (-gap >= B.glapp.grans) glapp = 'upplevtStorre';
@@ -206,7 +209,7 @@
   }
   function renderAgency(id) {
     var c = cap(id), a = state.agency[id] || {}, i = state.valda.indexOf(id) + 1;
-    var h = '<div class="eyebrow">Vald förmåga ' + i + ' av ' + state.valda.length + ' · Mandat, vilja och tilltro</div><h2>' + esc(c.namn) + '</h2>' +
+    var h = '<div class="eyebrow">Vald förmåga ' + i + ' av ' + state.valda.length + ' · Förmåga, mandat, vilja och tilltro</div><h2>' + esc(c.namn) + '</h2>' +
       '<p class="muted">Ta ställning till varje påstående med tanke på scenariot' + (state.meta.scenarioNamn ? ' <b>' + esc(state.meta.scenarioNamn) + '</b>' : '') + '.</p><div class="card">';
     B.pastaenden.forEach(function (p) {
       h += '<div class="statement"><p>' + esc(fill(p.text, { 'förmåga': c.namn.toLowerCase() })) + '</p><div class="likert" role="group">';
@@ -322,12 +325,12 @@
     if (!f.length) return h + '<p class="note">Inga filer inlagda ännu.</p>';
     var series = f.map(function (s, i) { return { values: scores(s), color: colors[i % colors.length], fill: 'none', width: 2 }; });
     h += '<div class="card"><div class="radar" style="max-width:640px;margin:0 auto">' + radarSVG({ series: series }) + '</div><div class="legend">' + f.map(function (s, i) { return '<span><i style="background:' + colors[i % colors.length] + '"></i>' + esc(s.meta.namn || s.meta.foretag || 'Deltagare ' + (i + 1)) + '</span>'; }).join('') + '</div></div>';
-    h += '<h3>Skattningar och spridning</h3><p class="small muted">Rader med en spridning på 1,5 eller mer är markerade. Oenighet är ett resultat i sig och ett bra samtalsämne.</p><div class="tablewrap"><table class="facil"><thead><tr><th>Förmåga</th>' + f.map(function (s, i) { return '<th class="n">' + (i + 1) + '</th>'; }).join('') + '<th class="n">Spridning</th><th class="n">Vald av</th></tr></thead><tbody>';
+    h += '<h3>Skattningar och spridning</h3><p class="small muted">Rader med en spridning på ett helt steg eller mer är markerade. Oenighet är ett resultat i sig och ett bra samtalsämne.</p><div class="tablewrap"><table class="facil"><thead><tr><th>Förmåga</th>' + f.map(function (s, i) { return '<th class="n">' + (i + 1) + '</th>'; }).join('') + '<th class="n">Spridning</th><th class="n">Vald av</th></tr></thead><tbody>';
     CAPS.forEach(function (c) {
       var v = f.map(function (s) { return s.nivaer[c.id]; }).filter(function (x) { return typeof x === 'number'; });
       var sp = v.length ? Math.max.apply(null, v) - Math.min.apply(null, v) : 0;
       var nv = f.filter(function (s) { return (s.valda || []).indexOf(c.id) >= 0; }).length;
-      h += '<tr' + (sp >= 1.5 ? ' class="spread"' : '') + '><td>' + esc(c.namn) + '</td>' + f.map(function (s) { return '<td class="n">' + fmtN(s.nivaer[c.id]) + '</td>'; }).join('') + '<td class="n">' + fmtN(sp) + '</td><td class="n">' + nv + '</td></tr>';
+      h += '<tr' + (sp >= (B.skalsteg || 1) ? ' class="spread"' : '') + '><td>' + esc(c.namn) + '</td>' + f.map(function (s) { return '<td class="n">' + fmtN(s.nivaer[c.id]) + '</td>'; }).join('') + '<td class="n">' + fmtN(sp) + '</td><td class="n">' + nv + '</td></tr>';
     });
     return h + '</tbody></table></div>';
   }
