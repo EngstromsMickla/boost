@@ -240,20 +240,20 @@
     var W = 640, H = 400, L = 70, T = 40, R = 20, B = 60, w = W - L - R, h = H - T - B;
     function x(s) { return L + (s + 0.5) / 5 * w; } function y(p) { return T + h - (p + 0.5) / 5 * h; }
     var g = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" font-family="' + F + '" role="img" aria-label="Trender efter påverkan och säkerhet">';
-    g += '<rect x="' + L + '" y="' + T + '" width="' + (w * 3 / 5) + '" height="' + (h * 2 / 5) + '" fill="#f6e4dc"/><rect x="' + (L + w * 3 / 5) + '" y="' + T + '" width="' + (w * 2 / 5) + '" height="' + (h * 2 / 5) + '" fill="#e3eeea"/>';
-    g += '<text x="' + (L + 4) + '" y="' + (T - 10) + '" font-size="13" font-weight="bold" fill="#b8532c">Kritiska osäkerheter</text><text x="' + (L + w - 4) + '" y="' + (T - 10) + '" font-size="13" font-weight="bold" fill="#2f6b5e" text-anchor="end">Förutbestämda element</text>';
-    g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + h + '" fill="none" stroke="#ddd8cd"/>';
+    g += '<rect x="' + L + '" y="' + T + '" width="' + (w * 3 / 5) + '" height="' + (h * 2 / 5) + '" fill="#fbe3da"/><rect x="' + (L + w * 3 / 5) + '" y="' + T + '" width="' + (w * 2 / 5) + '" height="' + (h * 2 / 5) + '" fill="#ececea"/>';
+    g += '<text x="' + (L + 4) + '" y="' + (T - 10) + '" font-size="13" font-weight="bold" fill="#d1431d">Kritiska osäkerheter</text><text x="' + (L + w - 4) + '" y="' + (T - 10) + '" font-size="13" font-weight="bold" fill="#141414" text-anchor="end">Förutbestämda element</text>';
+    g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + h + '" fill="none" stroke="#dcdcd8"/>';
     for (var i = 0; i < 5; i++) {
-      g += '<text x="' + x(i) + '" y="' + (T + h + 18) + '" font-size="11" fill="#5d6773" text-anchor="middle">' + esc(C.bedomning.sakerhet[i]) + '</text>';
-      g += '<text x="' + (L - 8) + '" y="' + (y(i) + 4) + '" font-size="11" fill="#5d6773" text-anchor="end">' + esc(C.bedomning.paverkan[i]) + '</text>';
+      g += '<text x="' + x(i) + '" y="' + (T + h + 18) + '" font-size="11" fill="#5c5c5c" text-anchor="middle">' + esc(C.bedomning.sakerhet[i]) + '</text>';
+      g += '<text x="' + (L - 8) + '" y="' + (y(i) + 4) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(C.bedomning.paverkan[i]) + '</text>';
     }
-    g += '<text x="' + (L + w / 2) + '" y="' + (H - 12) + '" font-size="12" font-weight="bold" fill="#1d2733" text-anchor="middle">Säkerhet</text><text x="16" y="' + (T + h / 2) + '" font-size="12" font-weight="bold" fill="#1d2733" text-anchor="middle" transform="rotate(-90 16 ' + (T + h / 2) + ')">Påverkan</text>';
+    g += '<text x="' + (L + w / 2) + '" y="' + (H - 12) + '" font-size="12" font-weight="bold" fill="#141414" text-anchor="middle">Säkerhet</text><text x="16" y="' + (T + h / 2) + '" font-size="12" font-weight="bold" fill="#141414" text-anchor="middle" transform="rotate(-90 16 ' + (T + h / 2) + ')">Påverkan</text>';
     var cell = {};
     validTrends().forEach(function (t) {
       var b = state.bed[t.id]; if (!b || typeof b.p !== 'number' || typeof b.s !== 'number') return;
       var key = b.p + '-' + b.s, k = cell[key] = (cell[key] || 0) + 1;
       var dx = ((k - 1) % 4) * 22 - 33, dy = Math.floor((k - 1) / 4) * 22 - 6;
-      g += '<circle cx="' + (x(b.s) + dx) + '" cy="' + (y(b.p) + dy) + '" r="10" fill="#1d2733"><title>' + esc(tnr(t.id) + '. ' + t.trend) + '</title></circle><text x="' + (x(b.s) + dx) + '" y="' + (y(b.p) + dy + 4) + '" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">' + tnr(t.id) + '</text>';
+      g += '<circle cx="' + (x(b.s) + dx) + '" cy="' + (y(b.p) + dy) + '" r="10" fill="#141414"><title>' + esc(tnr(t.id) + '. ' + t.trend) + '</title></circle><text x="' + (x(b.s) + dx) + '" y="' + (y(b.p) + dy + 4) + '" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">' + tnr(t.id) + '</text>';
     });
     return g + '</svg>';
   }
@@ -261,17 +261,17 @@
     var S = sums(), ids = urval(), W = 640, H = 420, L = 56, T = 20, R = 20, B = 50, w = W - L - R, h = H - T - B;
     var max = Math.max(3, Math.max.apply(null, ids.map(function (id) { return Math.max(S.r[id].aktiv, S.r[id].passiv); }))) + 1;
     function x(v) { return L + v / max * w; } function y(v) { return T + h - v / max * h; }
-    var cols = { drivande: '#2f6b5e', kritisk: '#b8532c', paverkad: '#3d5a99', buffrande: '#8a8f96' };
+    var cols = { drivande: '#141414', kritisk: '#d1431d', paverkad: '#3d5a99', buffrande: '#8a8a86' };
     var g = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" font-family="' + F + '" role="img" aria-label="Aktiv och passiv summa per trend">';
-    g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + h + '" fill="#fff" stroke="#ddd8cd"/>';
-    g += '<line x1="' + x(S.mp) + '" y1="' + T + '" x2="' + x(S.mp) + '" y2="' + (T + h) + '" stroke="#c9c3b6" stroke-dasharray="5 4"/><line x1="' + L + '" y1="' + y(S.ma) + '" x2="' + (L + w) + '" y2="' + y(S.ma) + '" stroke="#c9c3b6" stroke-dasharray="5 4"/>';
+    g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + h + '" fill="#fff" stroke="#dcdcd8"/>';
+    g += '<line x1="' + x(S.mp) + '" y1="' + T + '" x2="' + x(S.mp) + '" y2="' + (T + h) + '" stroke="#c4c4bf" stroke-dasharray="5 4"/><line x1="' + L + '" y1="' + y(S.ma) + '" x2="' + (L + w) + '" y2="' + y(S.ma) + '" stroke="#c4c4bf" stroke-dasharray="5 4"/>';
     var K = C.matris.kategorier;
     g += '<text x="' + (L + 8) + '" y="' + (T + 18) + '" font-size="13" font-weight="bold" fill="' + cols.drivande + '">' + esc(K.drivande.namn.toUpperCase()) + '</text>';
     g += '<text x="' + (L + w - 8) + '" y="' + (T + 18) + '" font-size="13" font-weight="bold" fill="' + cols.kritisk + '" text-anchor="end">' + esc(K.kritisk.namn.toUpperCase()) + '</text>';
     g += '<text x="' + (L + w - 8) + '" y="' + (T + h - 8) + '" font-size="13" font-weight="bold" fill="' + cols.paverkad + '" text-anchor="end">' + esc(K.paverkad.namn.toUpperCase()) + '</text>';
     g += '<text x="' + (L + 8) + '" y="' + (T + h - 8) + '" font-size="13" font-weight="bold" fill="' + cols.buffrande + '">' + esc(K.buffrande.namn.toUpperCase()) + '</text>';
-    for (var v = 0; v <= max; v += max > 8 ? 2 : 1) { g += '<text x="' + x(v) + '" y="' + (T + h + 16) + '" font-size="11" fill="#5d6773" text-anchor="middle">' + v + '</text><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" font-size="11" fill="#5d6773" text-anchor="end">' + v + '</text>'; }
-    g += '<text x="' + (L + w / 2) + '" y="' + (H - 8) + '" font-size="12" font-weight="bold" fill="#1d2733" text-anchor="middle">Passiv summa: påverkas av de andra</text><text x="16" y="' + (T + h / 2) + '" font-size="12" font-weight="bold" fill="#1d2733" text-anchor="middle" transform="rotate(-90 16 ' + (T + h / 2) + ')">Aktiv summa: driver de andra</text>';
+    for (var v = 0; v <= max; v += max > 8 ? 2 : 1) { g += '<text x="' + x(v) + '" y="' + (T + h + 16) + '" font-size="11" fill="#5c5c5c" text-anchor="middle">' + v + '</text><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + v + '</text>'; }
+    g += '<text x="' + (L + w / 2) + '" y="' + (H - 8) + '" font-size="12" font-weight="bold" fill="#141414" text-anchor="middle">Passiv summa: påverkas av de andra</text><text x="16" y="' + (T + h / 2) + '" font-size="12" font-weight="bold" fill="#141414" text-anchor="middle" transform="rotate(-90 16 ' + (T + h / 2) + ')">Aktiv summa: driver de andra</text>';
     var used = {};
     ids.forEach(function (id) {
       var r = S.r[id], key = r.aktiv + '-' + r.passiv, k = used[key] = (used[key] || 0) + 1;
@@ -284,16 +284,16 @@
     var W = 640, H = 420, L = 60, T = 40, R = 20, B = 56, w = W - L - R, h = H - T - B, KS = C.karta;
     function x(t) { return L + (t + 0.5) / 4 * w; } function y(p) { return T + h - (p - 0.5) / 5 * h; }
     var g = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" font-family="' + F + '" role="img" aria-label="Collision Map">';
-    g += '<rect x="' + L + '" y="' + T + '" width="' + (w / 2) + '" height="' + (h * 2 / 5) + '" fill="#f6e4dc"/><rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + h + '" fill="none" stroke="#ddd8cd"/>';
-    g += '<text x="' + (L + 4) + '" y="' + (T - 10) + '" font-size="12" font-weight="bold" fill="#b8532c">Högt tryck, nära i tid</text>';
-    KS.tempoSkala.forEach(function (l, i) { g += '<text x="' + x(i) + '" y="' + (T + h + 18) + '" font-size="11" fill="#5d6773" text-anchor="middle">' + esc(l) + '</text>'; });
-    for (var p = 1; p <= 5; p++) g += '<text x="' + (L - 8) + '" y="' + (y(p) + 4) + '" font-size="11" fill="#5d6773" text-anchor="end">' + p + '</text>';
-    g += '<text x="' + (L + w / 2) + '" y="' + (H - 10) + '" font-size="12" font-weight="bold" fill="#1d2733" text-anchor="middle">Tempo</text><text x="16" y="' + (T + h / 2) + '" font-size="12" font-weight="bold" fill="#1d2733" text-anchor="middle" transform="rotate(-90 16 ' + (T + h / 2) + ')">Tryck</text>';
+    g += '<rect x="' + L + '" y="' + T + '" width="' + (w / 2) + '" height="' + (h * 2 / 5) + '" fill="#fbe3da"/><rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + h + '" fill="none" stroke="#dcdcd8"/>';
+    g += '<text x="' + (L + 4) + '" y="' + (T - 10) + '" font-size="12" font-weight="bold" fill="#d1431d">Högt tryck, nära i tid</text>';
+    KS.tempoSkala.forEach(function (l, i) { g += '<text x="' + x(i) + '" y="' + (T + h + 18) + '" font-size="11" fill="#5c5c5c" text-anchor="middle">' + esc(l) + '</text>'; });
+    for (var p = 1; p <= 5; p++) g += '<text x="' + (L - 8) + '" y="' + (y(p) + 4) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + p + '</text>';
+    g += '<text x="' + (L + w / 2) + '" y="' + (H - 10) + '" font-size="12" font-weight="bold" fill="#141414" text-anchor="middle">Tempo</text><text x="16" y="' + (T + h / 2) + '" font-size="12" font-weight="bold" fill="#141414" text-anchor="middle" transform="rotate(-90 16 ' + (T + h / 2) + ')">Tryck</text>';
     state.kollisioner.filter(kollKlar).forEach(function (k, i) {
       var same = state.kollisioner.filter(kollKlar).slice(0, i).filter(function (o) { return o.tempo === k.tempo && o.tryck === k.tryck; }).length;
       var cx = x(k.tempo) + same * 30, cy = y(k.tryck) - same * 10, dold = k.syn <= 2, r = 12 + k.tryck * 1.6;
-      g += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + (dold ? '#fff' : '#b8532c') + '" fill-opacity="' + (dold ? 1 : 0.25 + k.syn * 0.12) + '" stroke="#b8532c" stroke-width="2"' + (dold ? ' stroke-dasharray="5 4"' : '') + '><title>' + esc((i + 1) + '. ' + k.namn) + '</title></circle>';
-      g += '<text x="' + cx + '" y="' + (cy + 5) + '" font-size="14" font-weight="bold" fill="#1d2733" text-anchor="middle">' + (i + 1) + '</text>';
+      g += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + (dold ? '#fff' : '#d1431d') + '" fill-opacity="' + (dold ? 1 : 0.25 + k.syn * 0.12) + '" stroke="#d1431d" stroke-width="2"' + (dold ? ' stroke-dasharray="5 4"' : '') + '><title>' + esc((i + 1) + '. ' + k.namn) + '</title></circle>';
+      g += '<text x="' + cx + '" y="' + (cy + 5) + '" font-size="14" font-weight="bold" fill="#141414" text-anchor="middle">' + (i + 1) + '</text>';
     });
     return g + '</svg>';
   }
@@ -453,7 +453,7 @@
   function renderSyntes() {
     var Sy = C.syntes, st = vardeStat(), neg = st.filter(function (s) { return s.neg.length >= 2; }), pos = st.filter(function (s) { return s.pos.length >= 2; });
     var h = head('syntes', Sy.rubrik, Sy.text);
-    h += '<div class="card tight"><div class="eyebrow" style="color:#b8532c">' + esc(Sy.sarbarheter) + '</div>' + (neg.length ? neg.map(function (s) { return '<p class="small" style="margin-bottom:4px"><b>' + esc(s.v.namn) + '</b> <span class="muted">(' + s.neg.length + ' av 4: ' + esc(lista(s.neg.map(scenNamn))) + ')</span></p>'; }).join('') : '<p class="small muted" style="margin:0">' + esc(Sy.inga) + '</p>') +
+    h += '<div class="card tight"><div class="eyebrow" style="color:#d1431d">' + esc(Sy.sarbarheter) + '</div>' + (neg.length ? neg.map(function (s) { return '<p class="small" style="margin-bottom:4px"><b>' + esc(s.v.namn) + '</b> <span class="muted">(' + s.neg.length + ' av 4: ' + esc(lista(s.neg.map(scenNamn))) + ')</span></p>'; }).join('') : '<p class="small muted" style="margin:0">' + esc(Sy.inga) + '</p>') +
       (pos.length ? '<div class="eyebrow" style="margin-top:12px">' + esc(Sy.styrkor) + '</div>' + pos.map(function (s) { return '<p class="small" style="margin-bottom:4px"><b>' + esc(s.v.namn) + '</b> <span class="muted">(' + s.pos.length + ' av 4)</span></p>'; }).join('') : '') + '</div>';
     h += '<div class="tablewrap" style="margin-bottom:18px"><table class="facil"><thead><tr><th>Framtid</th><th>Verksamheten</th><th>Åtgärder</th></tr></thead><tbody>' + [0, 1, 2, 3].map(function (i) { var u = state.vind[i].utv; return '<tr><td><b>' + esc(scenNamn(i)) + '</b></td><td>' + (u === null ? '' : esc(C.vind.utveckling[u + 1])) + '</td><td>' + esc(state.vind[i].atg) + '</td></tr>'; }).join('') + '</tbody></table></div>';
     h += '<label class="field"><span>' + esc(Sy.monster) + '</span><textarea rows="3" data-path="syntes.monster">' + esc(state.syntes.monster) + '</textarea></label>';
@@ -703,7 +703,7 @@
   function makePDF() {
     if (!window.jspdf) { toast('PDF-funktionen kunde inte laddas.'); return; }
     var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' }), L = 18, Wt = 174, PH = 297, y = 20, m = state.meta, K = C.karta;
-    var INK = [29, 39, 51], MUT = [93, 103, 115], ACC = [47, 107, 94], WEAK = [184, 83, 44];
+    var INK = [20, 20, 20], MUT = [92, 92, 92], ACC = [20, 20, 20], WEAK = [209, 67, 29];
     function ensure(h) { if (y + h > PH - 20) { doc.addPage(); y = 20; } }
     function text(t, o) {
       o = o || {}; var size = o.size || 10, lh = size * 0.42 + 1.2;
@@ -712,7 +712,7 @@
       y += o.after == null ? 2 : o.after;
     }
     function label(t, col) { ensure(10); text(t.toUpperCase(), { size: 8, bold: true, color: col || ACC, after: 1 }); }
-    function rule() { ensure(6); doc.setDrawColor(221, 216, 205); doc.line(L, y, L + Wt, y); y += 6; }
+    function rule() { ensure(6); doc.setDrawColor(220, 220, 216); doc.line(L, y, L + Wt, y); y += 6; }
     function chart(svg, hmm) {
       var holder = document.createElement('div'); holder.style.cssText = 'position:absolute;left:-9999px;top:0;width:640px'; holder.innerHTML = svg; document.body.appendChild(holder);
       var el = holder.querySelector('svg'), vb = el.getAttribute('viewBox').split(' '); el.setAttribute('width', vb[2]); el.setAttribute('height', vb[3]);

@@ -289,22 +289,22 @@
     var max = Math.max(3, a);
     function x(i) { return L + (n <= 1 ? w / 2 : i / (n - 1) * w); } function y(v) { return T + h - v / max * h; }
     var g = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="Lärandekurva">';
-    g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + h + '" fill="#fff" stroke="#ddd8cd"/>';
-    for (var v = 0; v <= max; v++) g += '<line x1="' + L + '" y1="' + y(v) + '" x2="' + (L + w) + '" y2="' + y(v) + '" stroke="#f0ede6"/><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" font-size="11" fill="#5d6773" text-anchor="end">' + v + '</text>';
-    av.forEach(function (f, i) { g += '<text x="' + x(i) + '" y="' + (T + h + 16) + '" font-size="11" fill="#5d6773" text-anchor="middle">' + (i + 1) + '</text>'; });
-    g += '<text x="' + (L + w / 2) + '" y="' + (H - 6) + '" font-size="12" font-weight="bold" fill="#1d2733" text-anchor="middle">Kursavläsningar i tidsordning</text>';
-    [[tot, '#8a8f96', 'Lärdomar', '4 4'], [del, '#2f6b5e', 'Delade', ''], [inf, '#a57a12', 'Införda i arbetssätt', '']].forEach(function (s) {
+    g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + h + '" fill="#fff" stroke="#dcdcd8"/>';
+    for (var v = 0; v <= max; v++) g += '<line x1="' + L + '" y1="' + y(v) + '" x2="' + (L + w) + '" y2="' + y(v) + '" stroke="#f0f0ed"/><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + v + '</text>';
+    av.forEach(function (f, i) { g += '<text x="' + x(i) + '" y="' + (T + h + 16) + '" font-size="11" fill="#5c5c5c" text-anchor="middle">' + (i + 1) + '</text>'; });
+    g += '<text x="' + (L + w / 2) + '" y="' + (H - 6) + '" font-size="12" font-weight="bold" fill="#141414" text-anchor="middle">Kursavläsningar i tidsordning</text>';
+    [[tot, '#8a8a86', 'Lärdomar', '4 4'], [del, '#141414', 'Delade', ''], [inf, '#1e5fcc', 'Införda i arbetssätt', '']].forEach(function (s) {
       if (!n) return;
       g += '<polyline points="' + s[0].map(function (v, i) { return x(i) + ',' + y(v); }).join(' ') + '" fill="none" stroke="' + s[1] + '" stroke-width="3"' + (s[3] ? ' stroke-dasharray="' + s[3] + '"' : '') + ' stroke-linejoin="round"/>';
       s[0].forEach(function (v, i) { g += '<circle cx="' + x(i) + '" cy="' + y(v) + '" r="4.5" fill="' + s[1] + '"/>'; });
     });
     return g + '</svg>';
   }
-  function kurvaLegend() { return '<div class="legend"><span><i style="border:2px dashed #8a8f96"></i>Lärdomar</span><span><i style="background:#2f6b5e"></i>Delade med kollegor</span><span><i style="background:#a57a12"></i>Införda i arbetssätt</span></div>'; }
+  function kurvaLegend() { return '<div class="legend"><span><i style="border:2px dashed #8a8a86"></i>Lärdomar</span><span><i style="background:#141414"></i>Delade med kollegor</span><span><i style="background:#1e5fcc"></i>Införda i arbetssätt</span></div>'; }
   function rorelseHTML() {
     return '<div class="axes">' + state.fragor.map(function (q, i) {
       var r = rorelse(q), b = behov(q.kalla), lbl = (i + 1) + '. ' + axNamn(q.axel) + (b ? ', ' + short(lc(b.namn), 28) : '');
-      return '<div class="axis rr"><span>' + esc(lbl) + '</span><div class="bar2"><div class="bar"><span style="width:' + (r.fore == null ? 0 : (r.fore - 1) / 4 * 100) + '%;background:#9fb8b0"></span></div><div class="bar"><span style="width:' + (r.efter == null ? 0 : (r.efter - 1) / 4 * 100) + '%"></span></div></div><span class="val">' + fmt(r.fore) + ' → ' + fmt(r.efter) + '</span></div>';
+      return '<div class="axis rr"><span>' + esc(lbl) + '</span><div class="bar2"><div class="bar"><span style="width:' + (r.fore == null ? 0 : (r.fore - 1) / 4 * 100) + '%;background:#9a9a96"></span></div><div class="bar"><span style="width:' + (r.efter == null ? 0 : (r.efter - 1) / 4 * 100) + '%"></span></div></div><span class="val">' + fmt(r.fore) + ' → ' + fmt(r.efter) + '</span></div>';
     }).join('') + '</div><p class="small muted">Övre stapeln: före. Undre stapeln: senaste kursavläsningen. Skala 1 till 5.</p>';
   }
   function renderOversikt() {
@@ -531,7 +531,7 @@
   function makePDF() {
     if (!window.jspdf) { toast('PDF-funktionen kunde inte laddas.'); return; }
     var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' }), L = 18, Wt = 174, PH = 297, y = 20, m = state.meta, A = C.avlasning;
-    var INK = [29, 39, 51], MUT = [93, 103, 115], ACC = [47, 107, 94];
+    var INK = [20, 20, 20], MUT = [92, 92, 92], ACC = [20, 20, 20];
     function ensure(h) { if (y + h > PH - 20) { doc.addPage(); y = 20; } }
     function text(t, o) {
       o = o || {}; var size = o.size || 10, lh = size * 0.42 + 1.2;
@@ -540,7 +540,7 @@
       y += o.after == null ? 2 : o.after;
     }
     function label(t, col) { ensure(10); text(t.toUpperCase(), { size: 8, bold: true, color: col || ACC, after: 1 }); }
-    function rule() { ensure(6); doc.setDrawColor(221, 216, 205); doc.line(L, y, L + Wt, y); y += 6; }
+    function rule() { ensure(6); doc.setDrawColor(220, 220, 216); doc.line(L, y, L + Wt, y); y += 6; }
     text('Shift: rapport', { size: 22, bold: true, after: 1 });
     text(C.verktyg + ' · ' + C.undertitel, { size: 9.5, color: MUT, after: 6 });
     text(m.foretag || 'Er organisation', { size: 15, bold: true, after: 1 });

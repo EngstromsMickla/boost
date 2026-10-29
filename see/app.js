@@ -119,26 +119,26 @@
     var off = Q ? Math.PI / n : 0;
     function pt(i, v) { var a = -Math.PI / 2 + off + i * 2 * Math.PI / n; return [cx + Math.cos(a) * R * v / 4, cy + Math.sin(a) * R * v / 4]; }
     var g = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Spindeldiagram över alla förmågor" font-family="' + F + '">';
-    for (var r = 1; r <= 4; r++) { var ring = []; for (var i = 0; i < n; i++) ring.push(pt(i, r).join(',')); g += '<polygon points="' + ring.join(' ') + '" fill="none" stroke="#d9d4c8" stroke-width="1"/>'; }
-    for (i = 0; i < n; i++) { var e = pt(i, 4); g += '<line x1="' + cx + '" y1="' + cy + '" x2="' + e[0] + '" y2="' + e[1] + '" stroke="#e4e0d6" stroke-width="1"/>'; }
-    for (r = 1; r <= 4; r++) { var lp = pt(0, r); g += '<text x="' + (lp[0] + 5) + '" y="' + (lp[1] + 4) + '" font-size="13" fill="#8a8f96">' + r + '</text>'; }
+    for (var r = 1; r <= 4; r++) { var ring = []; for (var i = 0; i < n; i++) ring.push(pt(i, r).join(',')); g += '<polygon points="' + ring.join(' ') + '" fill="none" stroke="#d2d2cd" stroke-width="1"/>'; }
+    for (i = 0; i < n; i++) { var e = pt(i, 4); g += '<line x1="' + cx + '" y1="' + cy + '" x2="' + e[0] + '" y2="' + e[1] + '" stroke="#e6e6e2" stroke-width="1"/>'; }
+    for (r = 1; r <= 4; r++) { var lp = pt(0, r); g += '<text x="' + (lp[0] + 5) + '" y="' + (lp[1] + 4) + '" font-size="13" fill="#8a8a86">' + r + '</text>'; }
     if (Q) {
-      g += '<line x1="' + cx + '" y1="' + (cy - R - 8) + '" x2="' + cx + '" y2="' + (cy + R + 8) + '" stroke="#c9c3b6" stroke-width="1.5"/><line x1="' + (cx - R - 8) + '" y1="' + cy + '" x2="' + (cx + R + 8) + '" y2="' + cy + '" stroke="#c9c3b6" stroke-width="1.5"/>';
+      g += '<line x1="' + cx + '" y1="' + (cy - R - 8) + '" x2="' + cx + '" y2="' + (cy + R + 8) + '" stroke="#c4c4bf" stroke-width="1.5"/><line x1="' + (cx - R - 8) + '" y1="' + cy + '" x2="' + (cx + R + 8) + '" y2="' + cy + '" stroke="#c4c4bf" stroke-width="1.5"/>';
       var qp = [[W - 16, 26, 'end'], [W - 16, H - 14, 'end'], [16, H - 14, 'start'], [16, 26, 'start']];
-      Q.forEach(function (q, k) { g += '<text x="' + qp[k][0] + '" y="' + qp[k][1] + '" font-size="20" font-weight="bold" letter-spacing="2" text-anchor="' + qp[k][2] + '" fill="#2f6b5e">' + esc(q.namn.toUpperCase()) + '</text>'; });
+      Q.forEach(function (q, k) { g += '<text x="' + qp[k][0] + '" y="' + qp[k][1] + '" font-size="20" font-weight="bold" letter-spacing="2" text-anchor="' + qp[k][2] + '" fill="#141414">' + esc(q.namn.toUpperCase()) + '</text>'; });
     }
-    if (o.index != null) g += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (R * o.index / 4) + '" fill="none" stroke="#2f6b5e" stroke-width="1.5" stroke-dasharray="5 4"/>';
+    if (o.index != null) g += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (R * o.index / 4) + '" fill="none" stroke="#141414" stroke-width="1.5" stroke-dasharray="5 4"/>';
     (o.series || []).forEach(function (s) {
       var pts = s.values.map(function (v, i) { return pt(i, v == null ? 0 : v).join(','); }).join(' ');
       g += '<polygon points="' + pts + '" fill="' + (s.fill || 'none') + '" fill-opacity="' + (s.fillOpacity || 0.18) + '" stroke="' + s.color + '" stroke-width="' + (s.width || 2.5) + '"' + (s.dash ? ' stroke-dasharray="' + s.dash + '"' : '') + ' stroke-linejoin="round"/>';
-      if (s.dots) s.values.forEach(function (v, i) { var p = pt(i, v); var id = i + 1; var col = (o.weak || []).indexOf(id) >= 0 ? '#b8532c' : o.strong === id ? '#a57a12' : s.color; var rr = col !== s.color ? 7 : 4; g += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + rr + '" fill="' + col + '" stroke="#fff" stroke-width="1.5"/>'; });
+      if (s.dots) s.values.forEach(function (v, i) { var p = pt(i, v); var id = i + 1; var col = (o.weak || []).indexOf(id) >= 0 ? '#d1431d' : o.strong === id ? '#1e5fcc' : s.color; var rr = col !== s.color ? 7 : 4; g += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + rr + '" fill="' + col + '" stroke="#fff" stroke-width="1.5"/>'; });
     });
     for (i = 0; i < n; i++) {
       var a = -Math.PI / 2 + off + i * 2 * Math.PI / n, lx = cx + Math.cos(a) * (R + 24), ly = cy + Math.sin(a) * (R + 24);
       var anchor = Math.abs(Math.cos(a)) < 0.2 ? 'middle' : Math.cos(a) > 0 ? 'start' : 'end';
       var lines = wrapLabel(CAPS[i].namn, 13), id = CAPS[i].id;
-      var col = (o.weak || []).indexOf(id) >= 0 ? '#b8532c' : o.strong === id ? '#a57a12' : '#1d2733';
-      var wgt = col !== '#1d2733' ? 'bold' : 'normal';
+      var col = (o.weak || []).indexOf(id) >= 0 ? '#d1431d' : o.strong === id ? '#1e5fcc' : '#141414';
+      var wgt = col !== '#141414' ? 'bold' : 'normal';
       var y0 = ly - (lines.length - 1) * 11 + (Math.sin(a) > 0.5 ? 12 : Math.sin(a) < -0.5 ? -8 : 6);
       lines.forEach(function (l, k) { g += '<text x="' + lx + '" y="' + (y0 + k * 23) + '" font-size="21" text-anchor="' + anchor + '" fill="' + col + '" font-weight="' + wgt + '">' + esc(l) + '</text>'; });
     }
@@ -188,9 +188,9 @@
     if (!state.valda) { state.valda = pr.ids.slice(); save(); }
     var sg = strength();
     var h = '<div class="eyebrow">Er profil</div><h2>Formen säger mer än talet</h2>' +
-      '<div class="card radar-wrap"><div class="radar">' + radarSVG({ index: p.index, series: [{ values: scores(), color: '#2f6b5e', fill: '#2f6b5e', dots: true }], weak: state.valda, strong: sg && state.styrkaRelevant ? sg.id : null }) + '</div>' +
+      '<div class="card radar-wrap"><div class="radar">' + radarSVG({ index: p.index, series: [{ values: scores(), color: '#141414', fill: '#141414', dots: true }], weak: state.valda, strong: sg && state.styrkaRelevant ? sg.id : null }) + '</div>' +
       '<div><div class="muted small">Lärandeindex</div><div class="index-big">' + fmt(p.index) + '</div><p style="margin:6px 0 10px"><b>' + esc(p.omdome.namn) + '.</b> <span class="muted small">Profilen är ' + p.form + '.</span></p><p class="small">' + esc(B.form.texter[p.form]) + '</p><p class="small muted">' + esc(B.indexnot) + '</p>' +
-      '<div class="legend"><span><i style="background:#2f6b5e"></i>Er skattning</span><span><i style="border:1.5px dashed #2f6b5e"></i>Index</span><span><i style="background:#b8532c"></i>Valda att stärka</span>' + (sg && state.styrkaRelevant ? '<span><i style="background:#a57a12"></i>Styrka</span>' : '') + '</div></div></div>';
+      '<div class="legend"><span><i style="background:#141414"></i>Er skattning</span><span><i style="border:1.5px dashed #141414"></i>Index</span><span><i style="background:#d1431d"></i>Valda att stärka</span>' + (sg && state.styrkaRelevant ? '<span><i style="background:#1e5fcc"></i>Styrka</span>' : '') + '</div></div></div>';
     h += '<h3>Vilka förmågor går ni vidare med?</h3><p>' + esc(B.valtext) + '</p>';
     if (pr.tied.length) h += '<p class="note small">Flera förmågor har samma skattning på tredje plats. Välj själva bland dem som är markerade.</p>';
     h += '<div class="picklist">';
@@ -293,8 +293,8 @@
   }
   function reportHTML() {
     var p = profile(), sg = strength(), m = state.meta;
-    var series = [{ values: scores(), color: '#2f6b5e', fill: '#2f6b5e', dots: true }];
-    if (view.compare) series.unshift({ values: scores(view.compare), color: '#8a8f96', fill: 'none', width: 2, dash: '6 5' });
+    var series = [{ values: scores(), color: '#141414', fill: '#141414', dots: true }];
+    if (view.compare) series.unshift({ values: scores(view.compare), color: '#8a8a86', fill: 'none', width: 2, dash: '6 5' });
     var h = '<div class="eyebrow">Rapport</div><h2>' + esc(m.foretag || 'Er organisation') + '</h2><p class="muted">' + esc(m.datum) + ' · ' + (m.typ === 'grupp' ? 'Gruppbedömning' : 'Individuell bedömning') + (m.namn ? ' · ' + esc(m.namn) : '') + '</p>';
     if (m.scenarioNamn || m.scenarioText) h += '<div class="card tight"><div class="eyebrow">Scenario</div><b>' + esc(m.scenarioNamn) + '</b><p class="small" style="margin:4px 0 0">' + esc(m.scenarioText) + '</p>' + senseHTML() + '</div>';
     h += '<div class="actions" style="margin:0 0 18px"><button class="btn" data-act="pdf">Ladda ner rapport (PDF)</button><button class="btn ghost" data-act="savefile">Spara sparfil</button><button class="btn ghost" data-act="compare">' + (view.compare ? 'Byt jämförelse' : 'Jämför med tidigare körning') + '</button></div>';
@@ -310,7 +310,7 @@
     });
     if (sg && state.styrkaRelevant) {
       var map = { styrka: cap(sg.id).namn.toLowerCase(), svag: cap(weakestValda()).namn.toLowerCase() };
-      h += '<div class="card"><div class="eyebrow" style="color:#a57a12">Styrka</div><h3 style="margin-top:0">' + esc(cap(sg.id).namn) + '</h3>' + B.styrka.dialog.map(function (q, i) { return '<p class="small"><b>' + esc(fill(q, map)) + '</b><br>' + esc(state.styrkaNoter[i] || '') + '</p>'; }).join('') + '</div>';
+      h += '<div class="card"><div class="eyebrow" style="color:#1e5fcc">Styrka</div><h3 style="margin-top:0">' + esc(cap(sg.id).namn) + '</h3>' + B.styrka.dialog.map(function (q, i) { return '<p class="small"><b>' + esc(fill(q, map)) + '</b><br>' + esc(state.styrkaNoter[i] || '') + '</p>'; }).join('') + '</div>';
     }
     if (state.egnaAtgarder) h += '<div class="card"><div class="eyebrow">Egna förslag på åtgärder</div><p style="white-space:pre-wrap;margin:0">' + esc(state.egnaAtgarder) + '</p></div>';
     h += '<h3>Övriga förmågor</h3><div class="card tight">' + CAPS.filter(function (c) { return state.valda.indexOf(c.id) < 0; }).map(function (c) { return '<p class="small"><b>' + esc(c.namn) + ' (' + fmtN(state.nivaer[c.id]) + '):</b> ' + esc(c.intern[band(state.nivaer[c.id])]) + '</p>'; }).join('') + '</div>';
@@ -320,7 +320,7 @@
     return h;
   }
   function renderFacil() {
-    var f = view.facil, colors = ['#2f6b5e', '#b8532c', '#3d5a99', '#a57a12', '#7a4e8c', '#4f8a3a', '#c0396b', '#5d6773'];
+    var f = view.facil, colors = ['#141414', '#d1431d', '#3d5a99', '#1e5fcc', '#7a4e8c', '#4f8a3a', '#c0396b', '#5c5c5c'];
     var h = '<div class="eyebrow">Facilitatorläge</div><h2>Gruppens profiler</h2><p class="muted">Lägg in deltagarnas sparfiler. Inget sparas efteråt.</p><div class="actions" style="margin:0 0 18px"><button class="btn" data-act="faciladd">Lägg till sparfiler</button>' + (f.length ? '<button class="btn ghost" data-act="facilclear">Töm</button>' : '') + '<span class="spacer"></span><button class="btn quiet" data-act="home">Till startsidan</button></div>';
     if (!f.length) return h + '<p class="note">Inga filer inlagda ännu.</p>';
     var series = f.map(function (s, i) { return { values: scores(s), color: colors[i % colors.length], fill: 'none', width: 2 }; });
@@ -466,7 +466,7 @@
     if (!window.jspdf) { toast('PDF-funktionen kunde inte laddas.'); return; }
     var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
     var L = 18, Wt = 174, y = 20, PH = 297, p = profile(), sg = strength(), m = state.meta;
-    var INK = [29, 39, 51], MUT = [93, 103, 115], ACC = [47, 107, 94], WEAK = [184, 83, 44], STR = [165, 122, 18];
+    var INK = [20, 20, 20], MUT = [92, 92, 92], ACC = [20, 20, 20], WEAK = [209, 67, 29], STR = [30, 95, 204];
     function ensure(h) { if (y + h > PH - 20) { doc.addPage(); y = 20; } }
     function text(t, o) {
       o = o || {}; var size = o.size || 10, lh = size * 0.42 + (o.lh || 1.2);
@@ -476,13 +476,13 @@
       y += o.after == null ? 2 : o.after;
     }
     function label(t, col) { ensure(10); text(t.toUpperCase(), { size: 8, bold: true, color: col || ACC, after: 1 }); }
-    function rule() { ensure(6); doc.setDrawColor(221, 216, 205); doc.line(L, y, L + Wt, y); y += 6; }
+    function rule() { ensure(6); doc.setDrawColor(220, 220, 216); doc.line(L, y, L + Wt, y); y += 6; }
     function bars(ax, weakest) {
       [['formaga', 'Förmåga', ax.formaga], ['mandat', 'Mandat', ax.mandat], ['', '  formellt', ax.formellt], ['', '  upplevt', ax.upplevt], ['vilja', 'Vilja', ax.vilja], ['tilltro', 'Tilltro', ax.tilltro]].forEach(function (r) {
         ensure(6); var sub = !r[0] && r[1].indexOf('  ') === 0;
         doc.setFont('helvetica', 'normal'); doc.setFontSize(sub ? 8.5 : 10); doc.setTextColor.apply(doc, sub ? MUT : INK); doc.text(r[1], L, y);
-        doc.setFillColor(236, 234, 228); doc.rect(L + 26, y - 3, 110, sub ? 2 : 3.2, 'F');
-        var col = weakest.indexOf(r[0]) >= 0 ? WEAK : sub ? [159, 184, 176] : ACC; doc.setFillColor.apply(doc, col); doc.rect(L + 26, y - 3, 110 * (r[2] - 1) / 4, sub ? 2 : 3.2, 'F');
+        doc.setFillColor(236, 236, 233); doc.rect(L + 26, y - 3, 110, sub ? 2 : 3.2, 'F');
+        var col = weakest.indexOf(r[0]) >= 0 ? WEAK : sub ? [154, 154, 150] : ACC; doc.setFillColor.apply(doc, col); doc.rect(L + 26, y - 3, 110 * (r[2] - 1) / 4, sub ? 2 : 3.2, 'F');
         doc.text(fmt(r[2]), L + 142, y); y += sub ? 5 : 6;
       }); y += 2;
     }
@@ -496,8 +496,8 @@
     LCA.reportPDF(summary().block, text, label, L, Wt);
     rule(); ensure(140);
     label('Detaljer'); label('Profil');
-    var series = [{ values: scores(), color: '#2f6b5e', fill: '#2f6b5e', dots: true }];
-    if (view.compare) series.unshift({ values: scores(view.compare), color: '#8a8f96', fill: 'none', width: 2, dash: '6 5' });
+    var series = [{ values: scores(), color: '#141414', fill: '#141414', dots: true }];
+    if (view.compare) series.unshift({ values: scores(view.compare), color: '#8a8a86', fill: 'none', width: 2, dash: '6 5' });
     var holder = document.createElement('div'); holder.style.cssText = 'position:absolute;left:-9999px;top:0;width:860px'; holder.innerHTML = radarSVG({ index: p.index, series: series, weak: state.valda, strong: sg && state.styrkaRelevant ? sg.id : null }); document.body.appendChild(holder);
     var svgEl = holder.querySelector('svg'); svgEl.setAttribute('width', '860'); svgEl.setAttribute('height', '640');
     ensure(130);

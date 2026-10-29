@@ -163,9 +163,9 @@
   function renderSyntes() {
     var Sy = F.syntes, st = stat(), neg = st.filter(function (s) { return s.neg.length >= 2; }), pos = st.filter(function (s) { return s.pos.length >= 2; });
     var h = eyebrow(Sy.rubrik) + '<h2>' + esc(Sy.rubrik) + '</h2><p class="muted">' + esc(Sy.text) + '</p>';
-    h += '<div class="card tight"><div class="eyebrow" style="color:#b8532c">' + esc(Sy.sarbarheter) + '</div>' + (neg.length ? neg.map(function (s) { return '<p class="small" style="margin-bottom:4px"><b>' + esc(s.f.namn) + '</b> <span class="muted">(' + s.neg.length + ' av 4: ' + esc(lista(s.neg.map(scenNamn))) + ')</span></p>'; }).join('') : '<p class="small muted" style="margin:0">' + esc(Sy.inga) + '</p>') +
+    h += '<div class="card tight"><div class="eyebrow" style="color:#d1431d">' + esc(Sy.sarbarheter) + '</div>' + (neg.length ? neg.map(function (s) { return '<p class="small" style="margin-bottom:4px"><b>' + esc(s.f.namn) + '</b> <span class="muted">(' + s.neg.length + ' av 4: ' + esc(lista(s.neg.map(scenNamn))) + ')</span></p>'; }).join('') : '<p class="small muted" style="margin:0">' + esc(Sy.inga) + '</p>') +
       (pos.length ? '<div class="eyebrow" style="margin-top:12px">' + esc(Sy.styrkor) + '</div>' + pos.map(function (s) { return '<p class="small" style="margin-bottom:4px"><b>' + esc(s.f.namn) + '</b> <span class="muted">(' + s.pos.length + ' av 4)</span></p>'; }).join('') : '') + '</div>';
-    if (F.nulage) { var fa = fallor(); h += '<div class="card tight fallor"><div class="eyebrow" style="color:#a57a12">' + esc(F.nulage.rubrik) + '</div><p class="small muted" style="margin-bottom:6px">' + esc(F.nulage.forklaring) + '</p>' + (fa.length ? fa.map(function (s) { return '<p class="small" style="margin-bottom:4px"><b>' + esc(s.f.namn) + '</b> <span class="muted">(stark i dag, ' + esc(lc(F.bedomning.lagen[0])) + ' i ' + esc(lista(s.neg.map(scenNamn))) + ')</span></p>'; }).join('') : '<p class="small" style="margin:0">' + esc(F.nulage.inga) + '</p>') + '</div>'; }
+    if (F.nulage) { var fa = fallor(); h += '<div class="card tight fallor"><div class="eyebrow" style="color:#1e5fcc">' + esc(F.nulage.rubrik) + '</div><p class="small muted" style="margin-bottom:6px">' + esc(F.nulage.forklaring) + '</p>' + (fa.length ? fa.map(function (s) { return '<p class="small" style="margin-bottom:4px"><b>' + esc(s.f.namn) + '</b> <span class="muted">(stark i dag, ' + esc(lc(F.bedomning.lagen[0])) + ' i ' + esc(lista(s.neg.map(scenNamn))) + ')</span></p>'; }).join('') : '<p class="small" style="margin:0">' + esc(F.nulage.inga) + '</p>') + '</div>'; }
     h += '<div class="tablewrap" style="margin-bottom:18px"><table class="facil"><thead><tr>' + Sy.tabell.map(function (t) { return '<th>' + esc(t) + '</th>'; }).join('') + '</tr></thead><tbody>' + [0, 1, 2, 3].map(function (i) { var u = state.bed[i].utv; return '<tr><td><b>' + esc(scenNamn(i)) + '</b></td><td>' + (u === null ? '' : esc(F.bedomning.utveckling[u + 1])) + '</td><td>' + esc(state.bed[i].atg) + '</td></tr>'; }).join('') + '</tbody></table></div>';
     h += field(Sy.monster, 'syntes.monster', state.syntes.monster, { area: true, rows: 3 });
     h += field(Sy.robusta, 'syntes.robusta', state.syntes.robusta, { area: true, rows: 4 });
@@ -331,7 +331,7 @@
   function makePDF() {
     if (!window.jspdf) { toast('PDF-funktionen kunde inte laddas.'); return; }
     var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' }), L = 18, Wt = 174, PH = 297, y = 20, m = state.meta, FR = F.rapport;
-    var INK = [29, 39, 51], MUT = [93, 103, 115], ACC = [47, 107, 94];
+    var INK = [20, 20, 20], MUT = [92, 92, 92], ACC = [20, 20, 20];
     function ensure(h) { if (y + h > PH - 20) { doc.addPage(); y = 20; } }
     function text(t, o) {
       o = o || {}; var size = o.size || 10, lh = size * 0.42 + 1.2;
@@ -340,7 +340,7 @@
       y += o.after == null ? 2 : o.after;
     }
     function label(t, col) { ensure(10); text(t.toUpperCase(), { size: 8, bold: true, color: col || ACC, after: 1 }); }
-    function rule() { ensure(6); doc.setDrawColor(221, 216, 205); doc.line(L, y, L + Wt, y); y += 6; }
+    function rule() { ensure(6); doc.setDrawColor(220, 220, 216); doc.line(L, y, L + Wt, y); y += 6; }
     text(F.namn + ': rapport', { size: 20, bold: true, after: 1 });
     text(C.verktyg + ' · ' + C.titel, { size: 9.5, color: MUT, after: 6 });
     text(m.objekt || F.namn, { size: 15, bold: true, after: 1 });

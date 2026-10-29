@@ -47,21 +47,21 @@
     var W = 520, H = 360, L = 110, T = 20, w = 380, h = 270, cw = w / 3, ch = h / 3, F = 'Helvetica, Arial, sans-serif', B = C.beredskap;
     var g = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" font-family="' + F + '" role="img" aria-label="Framtidsberedskap: tryck mot förmåga">';
     for (var bi = 1; bi <= 3; bi++) for (var fi = 1; fi <= 3; fi++) {
-      var d = fi - bi, col = d > 0 ? '#f5ecd3' : d === 0 ? '#e3eeea' : d === -1 ? '#f6e4dc' : '#ecc7b6';
+      var d = fi - bi, col = d > 0 ? '#e3ebfa' : d === 0 ? '#ececea' : d === -1 ? '#fbe3da' : '#f3c2b1';
       g += '<rect x="' + (L + (bi - 1) * cw) + '" y="' + (T + (3 - fi) * ch) + '" width="' + cw + '" height="' + ch + '" fill="' + col + '" stroke="#fff" stroke-width="2"/>';
     }
-    g += '<text x="' + (L + 0.5 * cw) + '" y="' + (T + 0.5 * ch) + '" font-size="12" fill="#a57a12" text-anchor="middle">' + esc(B.lagen.over.namn.split(' ').slice(0, 2).join(' ')) + '</text>';
-    g += '<text x="' + (L + 1.5 * cw) + '" y="' + (T + 1.5 * ch + 22) + '" font-size="12" fill="#2f6b5e" text-anchor="middle">' + esc(B.lagen.vaksam.namn) + '</text>';
-    g += '<text x="' + (L + 1.5 * cw) + '" y="' + (T + 2.5 * ch + 22) + '" font-size="12" fill="#b8532c" text-anchor="middle">' + esc(B.lagen.sarbar.namn) + '</text>';
-    g += '<text x="' + (L + 2.5 * cw) + '" y="' + (T + 2.5 * ch + 22) + '" font-size="12" fill="#8c3b1b" text-anchor="middle">' + esc(B.lagen.fara.namn) + '</text>';
+    g += '<text x="' + (L + 0.5 * cw) + '" y="' + (T + 0.5 * ch) + '" font-size="12" fill="#1e5fcc" text-anchor="middle">' + esc(B.lagen.over.namn.split(' ').slice(0, 2).join(' ')) + '</text>';
+    g += '<text x="' + (L + 1.5 * cw) + '" y="' + (T + 1.5 * ch + 22) + '" font-size="12" fill="#141414" text-anchor="middle">' + esc(B.lagen.vaksam.namn) + '</text>';
+    g += '<text x="' + (L + 1.5 * cw) + '" y="' + (T + 2.5 * ch + 22) + '" font-size="12" fill="#d1431d" text-anchor="middle">' + esc(B.lagen.sarbar.namn) + '</text>';
+    g += '<text x="' + (L + 2.5 * cw) + '" y="' + (T + 2.5 * ch + 22) + '" font-size="12" fill="#8f2a10" text-anchor="middle">' + esc(B.lagen.fara.namn) + '</text>';
     for (var i = 0; i < 3; i++) {
-      g += '<text x="' + (L + (i + 0.5) * cw) + '" y="' + (T + h + 18) + '" font-size="12" fill="#5d6773" text-anchor="middle">' + esc(B.behovNamn[i]) + '</text>';
-      g += '<text x="' + (L - 10) + '" y="' + (T + (2.5 - i) * ch + 4) + '" font-size="12" fill="#5d6773" text-anchor="end">' + esc(B.formagaNamn[i]) + '</text>';
+      g += '<text x="' + (L + (i + 0.5) * cw) + '" y="' + (T + h + 18) + '" font-size="12" fill="#5c5c5c" text-anchor="middle">' + esc(B.behovNamn[i]) + '</text>';
+      g += '<text x="' + (L - 10) + '" y="' + (T + (2.5 - i) * ch + 4) + '" font-size="12" fill="#5c5c5c" text-anchor="end">' + esc(B.formagaNamn[i]) + '</text>';
     }
-    g += '<text x="' + (L + w / 2) + '" y="' + (H - 12) + '" font-size="12" font-weight="bold" fill="#1d2733" text-anchor="middle">' + esc(B.behovAxel) + '</text>';
-    g += '<text x="18" y="' + (T + h / 2) + '" font-size="12" font-weight="bold" fill="#1d2733" text-anchor="middle" transform="rotate(-90 18 ' + (T + h / 2) + ')">' + esc(B.formagaAxel) + '</text>';
+    g += '<text x="' + (L + w / 2) + '" y="' + (H - 12) + '" font-size="12" font-weight="bold" fill="#141414" text-anchor="middle">' + esc(B.behovAxel) + '</text>';
+    g += '<text x="18" y="' + (T + h / 2) + '" font-size="12" font-weight="bold" fill="#141414" text-anchor="middle" transform="rotate(-90 18 ' + (T + h / 2) + ')">' + esc(B.formagaAxel) + '</text>';
     var cx = L + (b.behov - 0.5) * cw, cy = T + (3 - b.formaga + 0.5) * ch - 8;
-    g += '<circle cx="' + cx + '" cy="' + cy + '" r="16" fill="#1d2733"/><text x="' + cx + '" y="' + (cy + 5) + '" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Ni</text>';
+    g += '<circle cx="' + cx + '" cy="' + cy + '" r="16" fill="#141414"/><text x="' + cx + '" y="' + (cy + 5) + '" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">Ni</text>';
     return g + '</svg>';
   }
 
@@ -88,13 +88,13 @@
     function y(x) { return T + h - h / (1 + Math.exp(-9 * (x - 0.5))); }
     var pts = []; for (var i = 0; i <= 60; i++) { var x = i / 60; pts.push((L + x * w).toFixed(1) + ',' + y(x).toFixed(1)); }
     var g = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" font-family="' + F + '" role="img" aria-label="Er position på lärandekurvan">';
-    g += '<line x1="' + L + '" y1="' + (T + h) + '" x2="' + (L + w) + '" y2="' + (T + h) + '" stroke="#ddd8cd"/>';
+    g += '<line x1="' + L + '" y1="' + (T + h) + '" x2="' + (L + w) + '" y2="' + (T + h) + '" stroke="#dcdcd8"/>';
     var done = pts.filter(function (p) { return +p.split(',')[0] <= L + k.pos * w; });
-    g += '<polyline points="' + pts.join(' ') + '" fill="none" stroke="#d9d4c8" stroke-width="6" stroke-linecap="round"/>';
-    g += '<polyline points="' + done.join(' ') + '" fill="none" stroke="#2f6b5e" stroke-width="6" stroke-linecap="round"/>';
-    C.kurva.faser.forEach(function (f, i) { var x = L + (0.08 + i * 0.28) * w; g += '<text x="' + x + '" y="' + (T + h + 22) + '" font-size="13" fill="#5d6773" text-anchor="middle" font-weight="bold">' + esc(f.toUpperCase()) + '</text>'; });
+    g += '<polyline points="' + pts.join(' ') + '" fill="none" stroke="#d2d2cd" stroke-width="6" stroke-linecap="round"/>';
+    g += '<polyline points="' + done.join(' ') + '" fill="none" stroke="#141414" stroke-width="6" stroke-linecap="round"/>';
+    C.kurva.faser.forEach(function (f, i) { var x = L + (0.08 + i * 0.28) * w; g += '<text x="' + x + '" y="' + (T + h + 22) + '" font-size="13" fill="#5c5c5c" text-anchor="middle" font-weight="bold">' + esc(f.toUpperCase()) + '</text>'; });
     var cx = L + k.pos * w, cy = y(k.pos);
-    g += '<circle cx="' + cx + '" cy="' + cy + '" r="13" fill="#1d2733" stroke="#fff" stroke-width="3"/><text x="' + cx + '" y="' + (cy + 4.5) + '" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Ni</text>';
+    g += '<circle cx="' + cx + '" cy="' + cy + '" r="13" fill="#141414" stroke="#fff" stroke-width="3"/><text x="' + cx + '" y="' + (cy + 4.5) + '" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">Ni</text>';
     return g + '</svg>';
   }
 
@@ -193,11 +193,11 @@
   function makePDF() {
     if (!window.jspdf) { toast('PDF-funktionen kunde inte laddas.'); return; }
     var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' }), L = 18, Wt = 174, PH = 297, y = 20, bl = block(), b = bl.b, k = bl.k, B = C.beredskap, K = C.kurva;
-    var INK = [29, 39, 51], MUT = [93, 103, 115], ACC = [47, 107, 94];
+    var INK = [20, 20, 20], MUT = [92, 92, 92], ACC = [20, 20, 20];
     function ensure(hh) { if (y + hh > PH - 20) { doc.addPage(); y = 20; } }
     function text(t, o) { o = o || {}; var size = o.size || 10, lh = size * 0.42 + 1.2; doc.setFont('helvetica', o.bold ? 'bold' : o.italic ? 'italic' : 'normal'); doc.setFontSize(size); doc.setTextColor.apply(doc, o.color || INK); doc.splitTextToSize(String(t), o.width || Wt).forEach(function (ln) { ensure(lh); doc.text(ln, o.x || L, y); y += lh; }); y += o.after == null ? 2 : o.after; }
     function label(t, col) { ensure(10); text(t.toUpperCase(), { size: 8, bold: true, color: col || ACC, after: 1 }); }
-    function rule() { ensure(6); doc.setDrawColor(221, 216, 205); doc.line(L, y, L + Wt, y); y += 6; }
+    function rule() { ensure(6); doc.setDrawColor(220, 220, 216); doc.line(L, y, L + Wt, y); y += 6; }
     function chart(svg, w, hmm) {
       var holder = document.createElement('div'); holder.style.cssText = 'position:absolute;left:-9999px;top:0;width:640px'; holder.innerHTML = svg; document.body.appendChild(holder);
       var el = holder.querySelector('svg'), vb = el.getAttribute('viewBox').split(' '); el.setAttribute('width', vb[2]); el.setAttribute('height', vb[3]);

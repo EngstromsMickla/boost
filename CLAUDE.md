@@ -154,7 +154,10 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 
 ## Formgivning
 
-- Färger och typsnitt finns som variabler i `css/style.css` (papper `#f6f4ef`, grön accent `#2f6b5e`, svaghet `#b8532c`, styrka `#a57a12`, serif i rubriker, systemets sans-serif i brödtext).
+- Grafisk profil (förslag 2026-10-29, gren `grafisk-profil`): knyter an till mickla.se. Svart sidhuvud med ormen, vit arbetsyta på ljusgrå botten (`#f3f3f1`), raka hörn (`--r` 3px), inga mjuka skuggor.
+- Färg bär betydelse, inget annat: svart (`#141414`) är ni och era val, rödorange `--weak` (`#d1431d`) är svaghet och risk, blått `--strong` (`#1e5fcc`) är styrka och möjlighet. Samma färger i diagram (hårdkodade i varje `app.js`) och PDF.
+- Typsnitt, självhostade i `vendor/fonts` (SIL Open Font License): Poppins 600/700 i rubriker och knappar (som mickla.se), IBM Plex Sans i brödtext, IBM Plex Mono i etiketter, siffror och skalvärden. PDF-rapporten använder fortfarande Helvetica.
+- Landningssidans scen: mörkt band med lärandekurvan som ett penseldrag (`curveSVG` i `js/app.js`), tre punkter Sense, See, Shift.
 - Ett steg per skärm, tydlig Nästa och Tillbaka, fungerar på telefon.
 - PDF-rapport skapas med jsPDF och svg2pdf i `vendor/`.
 
