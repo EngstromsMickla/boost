@@ -1,7 +1,7 @@
 // Innehållsfil för landningssidan. Texter kan redigeras här utan att röra koden.
 // Status per modul: "oppen" (länkas) eller "kommer" (visas som under utveckling).
 window.CONTENT = {
- "version": "prototyp v0.4",
+ "version": "prototyp v0.5",
  "fredLank": "https://www.researchgate.net/profile/Dalia-Mukhtar-Landgren/publication/366482837_Larande_genom_temporar_organisering_-_projekt_piloter_och_experiment_i_Malmo_stad/links/63a3341cc3c9bb1647fb905d/Laerande-genom-temporaer-organisering-projekt-piloter-och-experiment-i-Malmoe-stad.pdf",
  "upphov": "© Engströms Mickla AB 2026",
  "eyebrow": "Smart Built Boost",
@@ -15,10 +15,10 @@ window.CONTENT = {
  "film": {
   "rubrik": "Se hur det går till",
   "text": "En kort film om metoden, de tre faserna, hur det ser ut att arbeta i verktyget och vad ni får ut. Filmen är knappt två minuter lång och har text men inget ljud.",
-  "ladda": "Ladda ner filmen (MP4, 6 MB)",
+  "ladda": "Ladda ner filmen (MP4, 5 MB)",
   "fil": "video/intro.mp4",
   "webm": "video/intro.webm",
-  "affisch": "video/intro-poster.jpg?v=2"
+  "affisch": "video/intro-poster.jpg?v=3"
  },
  "perspektiv": {
   "rubrik": "Det är mottagaren som avgör",

@@ -2,7 +2,7 @@
 // Strukturen bygger på Dans Collision Compass, generaliserad från fastighet till verksamhet.
 // Forskningsstöd per skede: se CLAUDE.md och Teoriplattformen (teori/).
 window.CONTENT = {
- "version": "prototyp v0.4",
+ "version": "prototyp v0.5",
  "titel": "Sense",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "undertitel": "Collision Compass: var möter framtiden er verksamhet?",

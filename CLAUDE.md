@@ -21,7 +21,7 @@ Arbetsbeskrivning för den som utvecklar verktygen vidare, människa eller Claud
 - Upphovsrad: "© Engströms Mickla AB 2026". Raden om Smart Built Environment och Formas läggs till först när finansieringen är beslutad.
 - Verktygen är dialogverktyg, inte mätinstrument. Inga psykometriska anspråk.
 - Publicera aldrig till `main` utan att Dan har sagt "publicera". Förslag läggs i en egen gren.
-- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See). "prototyp v0.3" lade till sidan Spårbarhet. "prototyp v0.4" (2026-10-24): See granskad mot forskningen, egna källor per förmåga, 42 texter ändrade.
+- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See). "prototyp v0.3" lade till sidan Spårbarhet. "prototyp v0.4" (2026-10-24): See granskad mot forskningen, egna källor per förmåga, 42 texter ändrade. "prototyp v0.5" (2026-10-29): ny grafisk profil och ny introduktionsfilm.
 - Kommunikation om forskningsgrunden (Dans beslut 2026-10-24): skriv att verktygen är forskningsbaserade, aldrig att allt eller varje del kommer från forskningen. Där forskningen inte matchar exakt är rekommendationerna omdömen som är utformade och avvägda utifrån forskningen.
 
 ## Grundperspektiv: absorptionsförmåga, inte implementering
@@ -115,8 +115,8 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 - Första gången ett begrepp eller en canvas dyker upp i en modul visas en kort beskrivning med länk till begreppslistan.
 
 ## Introduktionsfilm
-- `video/intro.mp4` (100 sekunder, 1280×720, H.264, text men inget ljud) och `video/intro-poster.jpg` (filmens startbild med titeln) visas på startsidan, mellan de två inledande styckena, med en nedladdningslänk. Texterna i `js/content.js` under `film`.
-- Filmen är byggd av skärmbilder från verktygen med Engströms Mickla AB som exempelföretag (påhittade svar) och textskyltar, bland annat om att förändring inte börjar i ledningsrummet och om varje medarbetare som ett trimroder. Den ska göras om när verktygen ändras märkbart.
+- `video/intro.mp4` (95 sekunder, 1280×720, H.264, text men inget ljud, gjord om i den grafiska profilen 2026-10-29) och `video/intro-poster.jpg` (filmens startbild med titeln) visas på startsidan, mellan de två inledande styckena, med en nedladdningslänk. Texterna i `js/content.js` under `film`.
+- Filmen är byggd av skärmbilder från verktygen med Engströms Mickla AB som exempelföretag (påhittade svar) och textskyltar på mörk scen, bland annat om att förändring inte börjar i ledningsrummet och om varje medarbetare som ett trimroder. Den ska göras om när verktygen ändras märkbart. Byggs med Playwright: exempeldata körs genom Sense, See, Shift och slutsidan, skärmbilderna panoreras i en ram, skyltarna är HTML i profilens typsnitt, 25 bilder per sekund med korta övertoningar.
 
 ## Navigering och sparande
 - Länken Hem finns i sidhuvudet på alla sidor utom startsidan. Körningen sparas löpande i webbläsaren, och varje modul minns senaste steg (`state.steg`), så Fortsätt tar användaren tillbaka exakt dit hen var.
@@ -154,7 +154,7 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 
 ## Formgivning
 
-- Grafisk profil (förslag 2026-10-29, gren `grafisk-profil`): knyter an till mickla.se. Svart sidhuvud med ormen, vit arbetsyta på ljusgrå botten (`#f3f3f1`), raka hörn (`--r` 3px), inga mjuka skuggor.
+- Grafisk profil (beslutad och publicerad 2026-10-29): knyter an till mickla.se. Svart sidhuvud med ormen, vit arbetsyta på ljusgrå botten (`#f3f3f1`), raka hörn (`--r` 3px), inga mjuka skuggor.
 - Färg bär betydelse, inget annat: svart (`#141414`) är ni och era val, rödorange `--weak` (`#d1431d`) är svaghet och risk, blått `--strong` (`#1e5fcc`) är styrka och möjlighet. Samma färger i diagram (hårdkodade i varje `app.js`) och PDF.
 - Typsnitt, självhostade i `vendor/fonts` (SIL Open Font License): Poppins 600/700 i rubriker och knappar (som mickla.se), IBM Plex Sans i brödtext, IBM Plex Mono i etiketter, siffror och skalvärden. PDF-rapporten använder fortfarande Helvetica.
 - Landningssidans scen: mörkt band med lärandekurvan som ett penseldrag (`curveSVG` i `js/app.js`), tre punkter Sense, See, Shift.

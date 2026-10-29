@@ -500,6 +500,14 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.5",
+   "datum": "2026-10-29",
+   "text": [
+    "Ny grafisk profil i linje med mickla.se: svart sidhuvud med Micklas logotyp, nya typsnitt och färger som bär betydelse (rödorange för svaghet, blått för styrka). Inga regler eller texter ändrades.",
+    "Introduktionsfilmen är gjord om i den nya profilen."
+   ]
+  },
+  {
    "version": "prototyp v0.4",
    "datum": "2026-10-24",
    "text": [
