@@ -187,7 +187,7 @@
   }
   /* Vägvisaren rullas så att aktuellt steg syns, också på telefon. */
   if (typeof document !== 'undefined' && window.MutationObserver) {
-    var syncRoute = function () { var r = document.querySelector('.route'), c = r && r.querySelector('li.cur'); if (r && c && r.scrollWidth > r.clientWidth) r.scrollLeft = Math.max(0, c.offsetLeft - r.clientWidth / 3); };
+    var syncRoute = function () { var r = document.querySelector('.route'), c = r && r.querySelector('li.cur'); if (!r || !c) return; var l = c.offsetLeft - r.offsetLeft, rr = l + c.offsetWidth; if (rr > r.scrollLeft + r.clientWidth || l < r.scrollLeft) r.scrollLeft = Math.max(0, l - r.clientWidth / 3); };
     var startObs = function () { var a = document.getElementById('app'); if (a) new MutationObserver(syncRoute).observe(a, { childList: true }); };
     if (document.getElementById('app')) startObs(); else document.addEventListener('DOMContentLoaded', startObs);
     window.addEventListener('load', syncRoute);
