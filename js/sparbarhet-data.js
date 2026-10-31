@@ -375,7 +375,7 @@ window.SPAR = {
    "id": "SHI-11",
    "modul": "Shift",
    "steg": "Spel (Förmågefällan)",
-   "regel": "Mönster: fällan när förmågan har sjunkit minst 3 och snittet är under 4 timmar; uppför när den har stigit minst 8; annars mellanläge. Dessutom genvägar (minst 3 veckor), vid sidan av (minst 2 veckor, lyft fram eller inte), svacka med 8 timmar eller mer som hölls eller släpptes (minst 4 timmar de tre sista veckorna) och tiden tagen tillbaka. Hypotesen följer axeln och snittet av förbättringstiden avrundat till 4, 8 eller 12 timmar. Den läggs in i ramen och första trimförsöket bara när gruppen väljer det.",
+   "regel": "Mönster: fällan när förmågan har sjunkit minst 3 (i modellens enheter); uppför när den har stigit minst 8; annars mellanläge. Dessutom genvägar (minst 3 veckor), vid sidan av (minst 2 veckor, lyft fram eller inte), svacka med 8 timmar eller mer som hölls eller släpptes (minst 4 timmar de tre sista veckorna) och tiden tagen tillbaka. Hypotesen följer axeln och snittet av förbättringstiden avrundat till 4, 8 eller 12 timmar. Den läggs in i ramen och första trimförsöket bara när gruppen väljer det.",
    "param": "-3 / +8; 3 veckor; 2 veckor; 4 timmar",
    "grund": "Crookall 2010; Sitzmann 2011 (spel lär genom eftersamtal och som del av ett större lärande)",
    "typ": "Designval",

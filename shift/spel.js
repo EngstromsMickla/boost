@@ -111,12 +111,11 @@
   function monster(sim, beslut) {
     var r = sim.rec, n = r.length, out = [];
     if (!n) return out;
-    var snittT = beslut.reduce(function (a, b) { return a + (b.t || 0); }, 0) / n;
     var gen = beslut.filter(function (b) { return b.gen; }).length, vid = beslut.filter(function (b) { return b.vid; }).length;
     var dF = r[n - 1].F - sim.startF;
     var svacka = r.some(function (x) { return x.t >= 8 && x.gap < -5; });
     var holl = svacka && beslut.slice(-3).every(function (b) { return (b.t || 0) >= 4; });
-    if (dF <= -3 && snittT < 4) out.push('falla');
+    if (dF <= -3) out.push('falla');
     else if (dF >= 8) out.push('uppfor');
     else out.push('mellan');
     if (gen >= 3) out.push('genvagar');
