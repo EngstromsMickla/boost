@@ -552,7 +552,7 @@ window.SPAR = {
    "text": [
     "Nytt frivilligt första steg i Shift: spelet Förmågefällan, åtta veckor om att hinna förbättra när leveransen trycker på. Spelet följer organisationens svagaste axel, har ett val för det som görs vid sidan av (skunk works) och ger en hypotes som kan föras in i Learning Direction Canvas och det första trimförsöket. Resultatet kommer med i rapporten, sparfilen och slutsidan.",
     "Varje skede i Sense, See, Shift, Utvalda tillämpningar och slutsidan har en kort introduktion under rubriken: vad vi gör, varför, hur, vem och vad det leder till. Den öppnas och stängs på plats.",
-    "Fyra nya regler (SHI-8 till SHI-11) och sju nya källor i litteraturlistan."
+    "Fyra nya regler (SHI-8 till SHI-11) och åtta nya källor i litteraturlistan."
    ]
   },
   {
