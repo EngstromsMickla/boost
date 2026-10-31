@@ -1,4 +1,4 @@
-/* Dialogverktyg — Learning Curve Approach: spelmotorn för Kapabilitetsfällan (Shift, steg 0).
+/* Dialogverktyg — Learning Curve Approach: spelmotorn för Förmågefällan (Shift, steg 0).
    En förenklad modell efter Repenning & Sterman (2001; 2002): att jobba hårdare ger snabb effekt men
    eroderar förmågan, att jobba smartare ger en svacka först och ett lyft sedan. Förmågan syns sent.
    Vid sidan av (skunk works) efter Augsdorfer (2005), Criscuolo m.fl. (2014) och Mainemelis (2010):

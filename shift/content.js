@@ -13,7 +13,7 @@ window.CONTENT = {
  ],
  "gang": [
   { "namn": "Underlag", "text": "Läs in sparfilen från See (och Sense) eller svara på två korta frågor." },
-  { "namn": "Spel (frivilligt)", "text": "Kapabilitetsfällan: åtta veckor på 10 till 30 minuter, om att hinna förbättra när leveransen trycker på." },
+  { "namn": "Spel (frivilligt)", "text": "Förmågefällan: åtta veckor på 10 till 30 minuter, om att hinna förbättra när leveransen trycker på." },
   { "namn": "Riktning", "text": "Ledningsgruppen fyller i Learning Direction Canvas, 1 till 2 timmar." },
   { "namn": "Trimförsök", "text": "Ett litet försök per lärandefråga, som startar inom en vecka." },
   { "namn": "Kursavläsning", "text": "Efter 1 till 2 veckor: vad hände, vad lärde vi oss och vad är nästa lilla försök?" },
@@ -23,7 +23,7 @@ window.CONTENT = {
 
  "skedeIntro": {
   "underlag": { "namn": "Underlag", "vad": "Ni läser in det som Sense och See har kommit fram till, eller beskriver kort vad som förändras och vad som håller tillbaka.", "varfor": "Försöken i Shift ska riktas mot det som faktiskt håller tillbaka er förmåga att ta emot förändringen. Utan underlag blir försöken allmänna goda idéer i stället för riktade steg.", "hur": "Läs in sparfilen från See; då följer resultaten från Sense med. Saknas See svarar ni på två korta frågor: vad behöver ni bli bättre på, och är det förmåga, mandat eller vilja som främst håller tillbaka?", "vem": "Den som håller i filen, gärna tillsammans med ledningsgruppen.", "leder": "Den svagaste axeln styr spelet i nästa steg och vilka lärandefrågor och försök som föreslås." },
-  "spel": { "namn": "Kapabilitetsfällan", "vad": "Ni spelar åtta veckor där leveransen trycker på, och väljer varje vecka hur mycket tid som går till förbättring. Spelet är frivilligt.", "varfor": "Det vanligaste skälet till att förbättringsarbete dör är att vardagen tar tiden. Att jobba hårdare syns direkt, medan förmågan förfaller i det tysta. Spelet låter er känna den skillnaden innan ni planerar riktiga försök.", "hur": "Läs veckans händelse, titta på leveransen och energin, fatta veckans beslut och spela högst ett kort. Efter vecka åtta visas vad som hände under ytan, och ni avslutar med ett kort eftersamtal.", "vem": "Ledningsgruppen eller den grupp som ska göra försöken, vid en gemensam skärm. Någon håller i musen, alla diskuterar besluten.", "leder": "Spelet ger en hypotes som kan föras in i Learning Direction Canvas och i det första trimförsöket." },
+  "spel": { "namn": "Förmågefällan", "vad": "Ni spelar åtta veckor där leveransen trycker på, och väljer varje vecka hur mycket tid som går till förbättring. Spelet är frivilligt.", "varfor": "Det vanligaste skälet till att förbättringsarbete dör är att vardagen tar tiden. Att jobba hårdare syns direkt, medan förmågan förfaller i det tysta. Spelet låter er känna den skillnaden innan ni planerar riktiga försök.", "hur": "Läs veckans händelse, titta på leveransen och energin, fatta veckans beslut och spela högst ett kort. Efter vecka åtta visas vad som hände under ytan, och ni avslutar med ett kort eftersamtal.", "vem": "Ledningsgruppen eller den grupp som ska göra försöken, vid en gemensam skärm. Någon håller i musen, alla diskuterar besluten.", "leder": "Spelet ger en hypotes som kan föras in i Learning Direction Canvas och i det första trimförsöket." },
   "riktning": { "namn": "Learning Direction Canvas", "vad": "Ledningen formulerar en riktning för lärandet: var trycket är störst, hur redo ni är och två till tre lärandefrågor.", "varfor": "Medarbetare prövar nya arbetssätt när de förstår varför och vart det leder. Lärandefrågor ger riktning utan att låsa svaret, så att försöken kan lära er något ni inte redan vet.", "hur": "Läs tryck och beredskap, som är förifyllda. Välj bland de föreslagna frågorna eller skriv egna som börjar med Hur kan vi …? och rikta varje fråga mot en axel.", "vem": "Ledningsgruppen, ungefär en timme.", "leder": "Frågorna får en rubrik och ett stöd från ledningen i nästa steg, och varje fråga får sitt första trimförsök." },
   "ram": { "namn": "Kommunikationsram och stöd", "vad": "Ni gör riktningen begriplig för alla och bestämmer vad ledningen bidrar med, särskilt vilket hinder som tas bort först.", "varfor": "Människor prövar och delar misslyckanden bara när det känns tryggt. Ledningens viktigaste bidrag är att ta bort det som stoppar försöken.", "hur": "Ge varje fråga en kort rubrik, skriv ett motto, utse en ansvarig och ett datum för gemensam återkoppling, och välj vad ledningen bidrar med.", "vem": "Ledningsgruppen.", "leder": "Riktningen kommuniceras, och de första trimförsöken planeras." },
   "forsok": { "namn": "Trimförsök", "vad": "Ni planerar ett litet försök för en lärandefråga, som kan starta inom en vecka.", "varfor": "Små försök som blir av skapar rörelse och lärdomar. En tydlig plan med när, var och en förutsägelse gör att försöket faktiskt startar och att ni kan lära av utfallet.", "hur": "Beskriv vad som skaver, välj vilket slags försök som passar den svagaste axeln, skriv Om vi … så tror vi att …, sätt startdatum och plats, och skriv en förutsägelse och ett till tre enkla tecken.", "vem": "De medarbetare som gör försöket, gärna med stöd av en kontaktperson.", "leder": "Efter en till två veckor gör ni en kursavläsning av försöket." },
@@ -60,10 +60,10 @@ window.CONTENT = {
  "skala5": ["Mycket svagt", "Svagt", "Varken eller", "Starkt", "Mycket starkt"],
 
  "spel": {
-  "namn": "Kapabilitetsfällan",
+  "namn": "Förmågefällan",
   "undertitel": "Ett spel om att hinna förbättra när leveransen trycker på",
-  "om": "Kapabilitetsfällan är ett kort spel som blandar spel och simulering. Ni leder en projektgrupp i åtta veckor och fördelar tiden mellan leverans och förbättring. Spelet bygger på forskning som visar att det lönar sig snabbt att jobba hårdare, men att förmågan då förfaller i det tysta, medan förbättring gör det sämre först och bättre sedan.",
-  "begrepp": "Kapabilitetsfällan",
+  "om": "Förmågefällan är ett kort spel som blandar spel och simulering. Ni leder en projektgrupp i åtta veckor och fördelar tiden mellan leverans och förbättring. Spelet bygger på forskning som visar att det lönar sig snabbt att jobba hårdare, men att förmågan då förfaller i det tysta, medan förbättring gör det sämre först och bättre sedan.",
+  "begrepp": "Förmågefällan",
   "intro": [
    "Ni leder en projektgrupp i åtta veckor, en runda per vecka. Varje vecka händer något, och ni bestämmer hur mycket tid som går till förbättring, om ni tar genvägar och om någon förbättrar vid sidan av. En gång per vecka får ni spela ett handlingskort.",
    "Leveransen och energin syns tydligt varje vecka. Förmågan syns bara ungefär och med två veckors fördröjning. Så är det ofta i verkligheten också, och det är där fällan uppstår.",
@@ -147,7 +147,7 @@ window.CONTENT = {
   },
   "monster": {
    "rubrik": "Ert mönster",
-   "falla": "Ni hamnade i kapabilitetsfällan. Leveransen fick gå först, och förmågan förföll i det tysta. Det kändes rätt varje enskild vecka, men till slut blev det trögare och fler saker kom tillbaka.",
+   "falla": "Ni hamnade i förmågefällan. Leveransen fick gå först, och förmågan förföll i det tysta. Det kändes rätt varje enskild vecka, men till slut blev det trögare och fler saker kom tillbaka.",
    "uppfor": "Ni tog er uppför. Förmågan blev starkare under spelet, och det gav utdelning i leveransen mot slutet.",
    "mellan": "Förmågan blev ungefär som den var. Ni höll emot förfallet, men hann inte bygga upp något nytt på åtta veckor.",
    "genvagar": "Ni tog genvägar flera veckor. Det gav luft för stunden, men det är genvägarna som sliter mest på förmågan.",
@@ -197,13 +197,13 @@ window.CONTENT = {
    ]
   },
   "spelaIgen": "Spela igen",
-  "spelaFranOversikt": "Spela Kapabilitetsfällan",
+  "spelaFranOversikt": "Spela Förmågefällan",
   "klar": "Spelet är spelat",
   "ejSpelat": "Spelet är inte spelat",
   "rapport": {
-   "titel": "Kapabilitetsfällan",
-   "spelat": "Gruppen spelade Kapabilitetsfällan med {axel} som svagaste axel.",
-   "hoppat": "Gruppen hoppade över spelet Kapabilitetsfällan."
+   "titel": "Förmågefällan",
+   "spelat": "Gruppen spelade Förmågefällan med {axel} som svagaste axel.",
+   "hoppat": "Gruppen hoppade över spelet Förmågefällan."
   }
  },
 

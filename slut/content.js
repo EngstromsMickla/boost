@@ -63,7 +63,7 @@ window.CONTENT = {
  },
 
  "rapport": {
-  "spelTitel": "Kapabilitetsfällan",
+  "spelTitel": "Förmågefällan",
   "spelHypotes": "Hypotesen från spelet: {hypotes}",
   "sammanfattning": "{org} har arbetat igenom de tre faserna i Learning Curve Approach.",
   "sense": "I Sense undersöktes frågan ”{fraga}”. Arbetet ledde till {n} och framtiden ”{framtid}”.",

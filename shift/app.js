@@ -336,7 +336,7 @@
     return h;
   }
 
-  /* ---------- spelet Kapabilitetsfällan (steg 0, frivilligt) ---------- */
+  /* ---------- spelet Förmågefällan (steg 0, frivilligt) ---------- */
   var SP = C.spel, SIM = window.LCASpel;
   function spel() {
     if (!state.spel) state.spel = { status: 'ny', axel: null, beslut: [], val: { t: 0, gen: false, vid: false, kort: null }, samtal: ['', '', '', ''] };

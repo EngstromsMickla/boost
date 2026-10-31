@@ -545,7 +545,7 @@ h2.details-head { border-top: 2px solid var(--ink); }
 }
 @media (max-width: 680px) { .topbar-inner:has(.crumb) .brand .kort { display: none; } }
 
-/* ---------- Kapabilitetsfällan (Shift, steg 0) ---------- */
+/* ---------- Förmågefällan (Shift, steg 0) ---------- */
 .sp-event { border-left: 4px solid var(--ink); }
 .sp-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 6px 0 12px; }
 .sp-tile { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }

@@ -60,7 +60,7 @@ window.CONTENT = {
    "lank": "shift/",
    "rubrik": "Shift: från insikt till rörelse",
    "underrubrik": "Hur vi gör ett första litet steg",
-   "text": "Ni kan börja med spelet Kapabilitetsfällan, åtta veckor om att hinna förbättra när leveransen trycker på. Ledningen formulerar sedan en riktning för lärande. Därefter planeras små trimförsök som riktas mot det som håller tillbaka, genomförs under några veckor och följs upp med en kursavläsning, så att varje försök leder till nästa.",
+   "text": "Ni kan börja med spelet Förmågefällan, åtta veckor om att hinna förbättra när leveransen trycker på. Ledningen formulerar sedan en riktning för lärande. Därefter planeras små trimförsök som riktas mot det som håller tillbaka, genomförs under några veckor och följs upp med en kursavläsning, så att varje försök leder till nästa.",
    "far": "En riktning för lärande, trimförsök och kursavläsningar, och er lärandekurva.",
    "tid": "En lärperiod om ungefär fyra veckor."
   }
