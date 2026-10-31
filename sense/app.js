@@ -599,6 +599,8 @@
       var nxt = s[i + 1] === 'rapport' ? 'Visa rapporten' : 'Nästa';
       html += '<div class="navrow"><button class="btn quiet" data-act="back">← Tillbaka</button><button class="btn quiet savebtn" data-act="savefile" title="Ladda ner en sparfil så att arbetet inte går förlorat">Spara sparfil</button><button class="btn" data-act="next"' + (canNext() ? '' : ' disabled') + '>' + nxt + ' →</button></div><div class="missing" id="missing" aria-live="polite">' + missingHTML() + '</div>';
     }
+    var sk = st === 'rapport' ? 'rapport' : skede(st);
+    if (sk != null) html = LCA.withIntro(html, (C.skedeIntro || {})[sk], 'sense-' + sk);
     app.innerHTML = html;
     document.getElementById('progress-bar').style.width = (st === 'start' ? 0 : Math.round(i / (s.length - 1) * 100)) + '%';
   }

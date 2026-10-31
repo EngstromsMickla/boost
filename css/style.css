@@ -544,3 +544,37 @@ h2.details-head { border-top: 2px solid var(--ink); }
   .landing .hero > .eyebrow { order: 1; } .landing .hero > h1 { order: 2; } .landing .hero > .lead { order: 3; } .landing .hero > .curve { order: 4; }
 }
 @media (max-width: 680px) { .topbar-inner:has(.crumb) .brand .kort { display: none; } }
+
+/* ---------- Kapabilitetsfällan (Shift, steg 0) ---------- */
+.sp-event { border-left: 4px solid var(--ink); }
+.sp-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 6px 0 12px; }
+.sp-tile { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.sp-tile .lbl { margin: 0; }
+.sp-val { font: 600 20px/1.2 var(--serif); }
+.sp-tile.lev .lv0, .sp-tile.en .lv2, .sp-tile.fog .lv2 { color: var(--strong); }
+.sp-tile.lev .lv2, .sp-tile.lev .lv3, .sp-tile.en .lv0, .sp-tile.fog .lv0 { color: var(--weak); }
+.sp-tile.fog { background: repeating-linear-gradient(135deg, #fff 0 8px, #f4f4f2 8px 16px); }
+.sp-tile.fog .sp-val { filter: blur(0.6px); opacity: .8; }
+.sp-sig { list-style: none; padding: 0; margin: 0 0 12px; }
+.sp-sig li { font-size: 15px; padding: 6px 0 6px 14px; border-left: 3px solid var(--line); margin-bottom: 4px; }
+.sp-hist { margin: 0 0 14px; }
+.sp-hist > div { display: flex; gap: 4px; flex-wrap: wrap; }
+.sp-hist span:not(.lbl) { width: 30px; height: 26px; display: inline-flex; align-items: center; justify-content: center; font: 500 12px/1 var(--mono); color: #fff; border-radius: var(--r); }
+.sp-hist .lv0 { background: var(--strong); } .sp-hist .lv1 { background: #8a8a86; } .sp-hist .lv2 { background: #e0835f; } .sp-hist .lv3 { background: var(--weak); }
+.sp-kort { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.sp-kort .choice { text-align: left; grid-template-columns: 1fr; padding: 12px 14px; }
+.sp-kort .choice.off { opacity: .5; }
+.sp-kort .choice b { display: block; }
+.sp-kort .sp-kt { display: block; margin-top: 4px; line-height: 1.45; }
+@media (max-width: 600px) { .sp-tiles { gap: 6px; } .sp-tile { padding: 8px 9px; } .sp-tile .lbl { font-size: 11px; } .sp-val { font-size: 15px; } .sp-tile .small { font-size: 11px; line-height: 1.3; } .sp-kort { grid-template-columns: 1fr; } }
+
+/* ---------- Om skedet (öppnas på plats, alla moduler) ---------- */
+.skede-intro { margin: 0 0 16px; border: 1px solid var(--line); border-left: 3px solid var(--strong); background: var(--card); border-radius: var(--r); }
+.skede-intro > summary { cursor: pointer; padding: 10px 14px; font: 500 12px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--strong); list-style: none; }
+.skede-intro > summary::-webkit-details-marker { display: none; }
+.skede-intro > summary::before { content: "+ "; }
+.skede-intro[open] > summary::before { content: "− "; }
+.skede-intro .si-body { padding: 0 14px 12px; }
+.skede-intro dl { margin: 0 0 8px; }
+.skede-intro dt { font: 600 15px/1.3 var(--serif); margin-top: 10px; }
+.skede-intro dd { margin: 2px 0 0; font-size: 15px; }

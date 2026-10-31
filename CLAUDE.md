@@ -21,7 +21,7 @@ Arbetsbeskrivning för den som utvecklar verktygen vidare, människa eller Claud
 - Upphovsrad: "© Engströms Mickla AB 2026". Raden om Smart Built Environment och Formas läggs till först när finansieringen är beslutad.
 - Verktygen är dialogverktyg, inte mätinstrument. Inga psykometriska anspråk.
 - Publicera aldrig till `main` utan att Dan har sagt "publicera". Förslag läggs i en egen gren.
-- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See). "prototyp v0.3" lade till sidan Spårbarhet. "prototyp v0.4" (2026-10-24): See granskad mot forskningen, egna källor per förmåga, 42 texter ändrade. "prototyp v0.5" (2026-10-29): ny grafisk profil och ny introduktionsfilm.
+- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See). "prototyp v0.3" lade till sidan Spårbarhet. "prototyp v0.4" (2026-10-24): See granskad mot forskningen, egna källor per förmåga, 42 texter ändrade. "prototyp v0.5" (2026-10-29): ny grafisk profil och ny introduktionsfilm. "prototyp v0.6" (gren `shift-spel-v0.6`, 2026-10-31): spelet Kapabilitetsfällan i Shift och introduktion till varje skede.
 - Kommunikation om forskningsgrunden (Dans beslut 2026-10-24): skriv att verktygen är forskningsbaserade, aldrig att allt eller varje del kommer från forskningen. Där forskningen inte matchar exakt är rekommendationerna omdömen som är utformade och avvägda utifrån forskningen.
 
 ## Grundperspektiv: absorptionsförmåga, inte implementering
@@ -73,6 +73,19 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 - Perspektiv i kursavläsningen, grundade i litteraturen om lärandekurvor: effekt i vardagen (tid, kvalitet, energi, trivsel, intäkter, från Trim Tab Canvas), **lärdomens väg** (stannar hos oss, delad med kollegor, införd i rutin eller beslut; Zollo & Winter 2002: erfarenhet, artikulering, kodifiering), förutsägelse mot utfall, beslut och nästa lilla försök. Organisationer med samma erfarenhet lär i olika takt beroende på reflektion och delning (Pisano, Bohmer & Edmondson 2001; Edmondson m.fl. 2001). "Lärande" läggs därför inte till som ett sjätte effektvärde.
 - Översikten visar försöken som kedjor per lärandefråga, **er lärandekurva** (kumulativt antal lärdomar, delade och införda) och rörelsen per axel.
 - Steg: underlag (sparfil från See, eller två korta frågor om See och Sense saknas), Learning Direction Canvas (tryck och beredskap förifyllda, förslag på lärandefrågor ur kollision × förmåga × svagaste axel), kommunikationsram och stöd (inklusive vilket hinder ledningen tar bort; Edmondson 1999), första trimförsöket per fråga, översikt, kursavläsning, lärperiodens slut (pröva frågorna: behåll, justera, byt; Argyris & Schön 1978).
+
+### Kapabilitetsfällan, spel i Shift (version 0.6, Dans beslut 2026-10-31)
+- Frivilligt steg 0 i Shift (`spel`, efter underlaget och före Learning Direction Canvas), en blandning av spel och simulering. Knappen Nästa heter Hoppa över spelet tills spelet har startats. Kan spelas senare från översikten. När Shift öppnas igen för nästa cykel hoppar man över det.
+- Grund: Repenning & Sterman 2001; 2002 (jobba hårdare eller smartare, förmågan syns sent, sämre före bättre), Sterman 1989 (simulator för ledare), vid sidan av efter Augsdorfer 2005, Mainemelis 2010 och Criscuolo, Salter & Ter Wal 2014, eftersamtal efter Crookall 2010 och Sitzmann 2011.
+- Åtta veckor (Dans beslut, i stället för tolv). Samma händelser för alla utom vecka 6, som beror på axeln. Spelas med företagets svagaste axel (Dans beslut), föreslagen ur See eller underlaget; gruppen kan byta. Axeln styr villkoren och vilka handlingskort som finns.
+- Beslut per vecka: förbättringstid (0, 4, 8, 12 timmar), genvägar, **vid sidan av** och högst ett kort. Ingen övertid (Dans beslut: många företag har inte övertid men desto fler skunk works). Vid sidan av förklaras "på engelska ofta kallat skunk works" (Dans beslut).
+- Modellen ligger i `shift/spel.js` (rena funktioner, konstanterna i `M`), texter, händelser och kort i `C.spel` i `shift/content.js`. Talen visas aldrig; leveransen och energin i ord, förmågan med två veckors fördröjning och i förhållande till startläget. Efter vecka 8 kurvor utan tal mot två referensvägar (leverans först, skyddad tid), mönster, hypotes och eftersamtal.
+- Hypotesen förs in i ramen (vilket hinder ledningen tar bort) och det första trimförsöket bara när gruppen trycker på knappen. Resultatet kommer med i rapporten, PDF:en, sparfilen (`data.spel`, `lamnar.spel`) och slutsidans analys.
+- Regler SHI-8 till SHI-11 i Spårbarhet. Ändras modellen ska reglerna ändras i samma omgång.
+
+## Om skedet (version 0.6, Dans beslut 2026-10-31)
+- Varje skede i Sense, See, Shift, Utvalda tillämpningar och slutsidan har en kort introduktion direkt under rubriken: vad gör vi, varför är det viktigt, hur gör vi det, vem gör det och vad leder det till. Den är stängd från början, öppnas på plats och stängs med Stäng och fortsätt, så att användaren är kvar där hen var.
+- Texterna ligger i `skedeIntro` i respektive innehållsfil (i See under `boost.skedeIntro`; i tillämpningarna med `{ord}` och `{objekt}` som fylls från fallet). Rubrikerna och mekaniken ligger i `LCA.INTRO`, `LCA.skedeIntro` och `LCA.withIntro` i `js/lca.js`.
 
 ## Slutsidan, version 0.1 (byggd 2026-10-10)
 - `slut/` visas bara när Sense, See och Shift är gjorda i följd (Shift-filen bär kedjan). Annars förklarar sidan vad som saknas; modulrapporterna räcker när en eller två faser är gjorda.
@@ -146,7 +159,7 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 
 - **Sense lämnar:** `scenario {namn, text}`, `kollisioner [{namn, tryck, tempo, synlighet, antagande}]`, `fokus []`, `robustaAtgarder []`.
 - **See lämnar:** `scenario`, `index`, `form`, `omdome`, `valda [{id, namn, niva, axlar {formaga, mandat, vilja, tilltro}, svagastAxel [], beslut, atgard}]`, `styrka`, `egnaAtgarder`.
-- **Shift lämnar:** `riktning [lärandefrågor]`, `tester [{testkort, larkort}]`.
+- **Shift lämnar:** `riktning [lärandefrågor]`, `tester [{testkort, larkort}]`, `spel {spelat, axel, monster, text, hypotes}`.
 - **En tillämpning lämnar:** `id`, `namn`, `objekt`, `samlad`, `samladIndex`, `sakerhet`, `sarbara []`, `styrkor []`, `robustaAtgarder []`, `scenarier [{namn, utveckling}]`, `monster`, `osakert`.
 - Varje modul läser vilken tidigare fil som helst. Saknas underlag frågar modulen kort efter det, och rapporten anger vad som saknats.
 - Gamla sparfiler från See (`app: "dialogverktyget"`, utan kuvert) läses fortfarande.

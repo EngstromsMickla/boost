@@ -264,6 +264,8 @@
       var N = C.nav;
       html += '<div class="navrow"><button class="btn quiet" data-act="back">' + esc(N.tillbaka) + '</button><button class="btn quiet savebtn" data-act="savefile" title="Ladda ner en sparfil så att arbetet inte går förlorat">' + esc(N.spara) + '</button><button class="btn" data-act="next"' + (canNext() ? '' : ' disabled') + '>' + esc(s[i + 1] === 'rapport' ? N.rapport : N.nasta) + ' →</button></div><div class="missing" id="missing" aria-live="polite">' + missingHTML() + '</div>';
     }
+    var sk = /^bed-/.test(st) ? 'bed' : st, si = (C.skedeIntro || {})[sk];
+    if (si) { var map = { ord: F.faktorOrd.flera, objekt: F.objekt.ref || 'verksamheten' }, o = {}; Object.keys(si).forEach(function (k) { o[k] = fill(si[k], map); }); html = LCA.withIntro(html, o, 'till-' + sk); }
     app.innerHTML = html;
     bar.style.width = (st === 'start' ? 0 : Math.round(i / (s.length - 1) * 100)) + '%';
   }

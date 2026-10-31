@@ -1,12 +1,14 @@
 // Innehållsfil för slutsidan. Texter kan redigeras här utan att röra koden.
 // Slutsidan visas när Sense, See och Shift är gjorda i följd. Den läser sparfilen från Shift, som bär med sig hela kedjan.
 window.CONTENT = {
- "version": "prototyp v0.5",
+ "version": "prototyp v0.6",
  "titel": "Slutsida",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "upphov": "© Engströms Mickla AB 2026",
  "undertitel": "Huvuddragen av arbetet med Sense, See och Shift",
  "integritet": "Allt ni skriver sparas bara i er webbläsare och i de filer ni själva laddar ner. Ingenting skickas till oss eller någon annan.",
+
+ "skedeIntro": { "namn": "Slutsidan", "vad": "Ni ser de tre faserna vägas samman: trycket från Sense, förmågan från See och rörelsen från Shift, med framtidsberedskap, lärandekurvan och slutrekommendationer.", "varfor": "Var för sig visar modulerna en del av bilden. Tillsammans svarar de på vad som behöver hända i er organisation för att det nya ska tas emot.", "hur": "Läs sammanfattning, analys och förslag. Jämför läget för framtidsberedskap med var ni står på lärandekurvan. Ladda ner slutrapporten som PDF.", "vem": "Ledningsgruppen, gärna tillsammans med dem som har gjort försöken i Shift.", "leder": "En ny lärperiod i Shift, och efter en tid en ny runda med Sense och See för att se om läget har förändrats." },
 
  "start": {
   "text": "Slutsidan väger samman de tre faserna: vad som förändras (Sense), hur redo organisationen är att ta emot det (See) och vilken rörelse som har kommit igång (Shift). Den bygger på sparfilen från Shift, som bär med sig resultaten från Sense och See.",
@@ -61,6 +63,8 @@ window.CONTENT = {
  },
 
  "rapport": {
+  "spelTitel": "Kapabilitetsfällan",
+  "spelHypotes": "Hypotesen från spelet: {hypotes}",
   "sammanfattning": "{org} har arbetat igenom de tre faserna i Learning Curve Approach.",
   "sense": "I Sense undersöktes frågan ”{fraga}”. Arbetet ledde till {n} och framtiden ”{framtid}”.",
   "see": "I See bedömdes mottagningsförmågan inför den framtiden till lärandeindex {index} av 4 ({omdome}). De förmågor som mest behövde stärkas var {valda}.",
