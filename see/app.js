@@ -103,6 +103,17 @@
   }
   function go(step) { view.step = step; if (step !== 'start' && state) { state.steg = step; save(); } render(); window.scrollTo(0, 0); app.focus({ preventScroll: true }); }
   function nav(delta) { var s = steps(); var i = s.indexOf(view.step); go(s[Math.max(0, Math.min(s.length - 1, i + delta))]); }
+  /* Vägvisaren: uppgifter, förmågorna, profilen, de valda förmågorna, egna åtgärder och rapporten. */
+  function etapp(st) { return st === 'uppgifter' ? 0 : /^f\d+$/.test(st) ? 1 : st === 'profil' ? 2 : /^(agency|diagnos)-/.test(st) || st === 'styrka' ? 3 : st === 'egna' ? 4 : st === 'rapport' ? 5 : 0; }
+  function nastaText(st, n) {
+    var V = B.vag; if (!n) return V.nasta;
+    if (n === 'rapport') return 'Visa rapporten';
+    if (/^f\d+$/.test(st) && /^f\d+$/.test(n)) return V.nastaFormaga;
+    if (/^agency-/.test(n)) return V.nasta + ': ' + V.agency;
+    if (/^diagnos-/.test(n)) return V.nasta + ': ' + V.diagnos;
+    if (n === 'styrka') return V.nasta + ': ' + V.styrka;
+    return V.nasta + ': ' + V.etapper[etapp(n)].namn;
+  }
   function canNext() {
     var st = view.step;
     if (st[0] === 'f' && /^f\d+$/.test(st)) return typeof state.nivaer[+st.slice(1)] === 'number';
@@ -349,11 +360,13 @@
     else if (st === 'egna') html = renderEgna();
     else if (st === 'rapport') html = reportHTML();
     if (st !== 'start' && st !== 'facil' && st !== 'rapport') {
-      var nxt = s[i + 1] === 'rapport' ? 'Visa rapporten' : 'Nästa';
+      var nxt = esc(nastaText(st, s[i + 1]));
       html += '<div class="navrow"><button class="btn quiet" data-act="back">← Tillbaka</button><span class="hint" id="nexthint"></span><button class="btn quiet savebtn" data-act="savefile" title="Ladda ner en sparfil så att arbetet inte går förlorat">Spara sparfil</button><button class="btn" data-act="next"' + (canNext() ? '' : ' disabled') + '>' + nxt + ' →</button></div>';
     }
     var sk = /^f\d+$/.test(st) ? 'formagor' : st.indexOf('agency-') === 0 ? 'agency' : st.indexOf('diagnos-') === 0 ? 'diagnos' : st;
-    html = LCA.withIntro(html, (B.skedeIntro || {})[sk], 'see-' + sk);
+    html = LCA.withIntro(html, (B.skedeIntro || {})[sk]);
+    if (st === 'start') html = html.replace('<div class="startgrid">', LCA.infoIntroHTML() + '<div class="startgrid">');
+    else if (st !== 'facil') html = LCA.route(B.vag.etapper, etapp(st)) + html;
     app.innerHTML = html;
     var pct = st === 'start' || st === 'facil' ? 0 : Math.round(i / (s.length - 1) * 100);
     document.getElementById('progress-bar').style.width = pct + '%';

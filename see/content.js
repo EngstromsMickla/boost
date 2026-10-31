@@ -2,7 +2,8 @@
 // MatchUp-delen är hämtad ur Självskattning mottagningsförmåga MatchUp v1.0 (rättad referens för Strategiskt ledarskap, Nej).
 window.CONTENT = {
  "boost": {
-  "version": "prototyp v0.6",
+  "version": "prototyp v0.7",
+  "vag": { "etapper": [{ "namn": "Uppgifter" }, { "namn": "Skatta förmågorna" }, { "namn": "Er profil" }, { "namn": "Valda förmågor" }, { "namn": "Egna åtgärder" }, { "namn": "Rapport" }], "nasta": "Nästa", "nastaFormaga": "Nästa förmåga", "agency": "Förmåga, mandat, vilja och tilltro", "diagnos": "Diagnos och beslut", "styrka": "En tydlig styrka" },
   "skedeIntro": {
    "formagor": { "namn": "Skatta förmågorna", "vad": "Ni skattar tolv förmågor som tillsammans beskriver organisationens förmåga att ta emot förändring: att upptäcka, välja, pröva och förändra.", "varfor": "Det är sällan resultaten som fattas när något nytt ska tas emot. Det är mottagarens förmåga, mandat och vilja. Skattningen visar var förmågan är starkast och svagast.", "hur": "Läs beskrivningen av varje nivå och välj den som stämmer bäst i dag, inte den ni önskar. Halvsteg går bra. Det finns inga rätta svar; skillnader mellan er är bra att samtala om.", "vem": "En grupp som tillsammans känner verksamheten, eller var och en för sig följt av ett gemensamt samtal i facilitatorläget.", "leder": "Er profil, där de förmågor som behöver stärkas mest föreslås." },
    "profil": { "namn": "Er profil", "vad": "Ni ser profilens form och väljer två till tre förmågor att arbeta vidare med.", "varfor": "Formen säger mer än medelvärdet. En dipp i en enda förmåga kan hålla tillbaka allt annat, och en tydlig styrka kan bära förändring.", "hur": "Verktyget föreslår de lägst skattade förmågorna. Ni kan byta, men skriv då varför. Ta också ställning till om en tydlig styrka har betydelse.", "vem": "Hela gruppen.", "leder": "För de valda förmågorna bedömer ni förmåga, mandat, vilja och tilltro." },

@@ -79,7 +79,7 @@
     h += phasesHTML();
     h += '<section><h2 class="section">' + esc(P.rubrik) + '</h2>' + P.text.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') +
       '<blockquote class="quote"><p>' + esc(P.citat) + '</p><cite>' + esc(P.kalla) + '</cite></blockquote></section>';
-    h += '<section><h2 class="section">' + esc(C.modulerRubrik) + '</h2><div class="modgrid">' + ORDNING.map(moduleHTML).join('') + '</div></section>';
+    h += '<section><h2 class="section">' + esc(C.modulerRubrik) + '</h2>' + LCA.infoIntroHTML() + '<div class="modgrid">' + ORDNING.map(moduleHTML).join('') + '</div></section>';
     var T = C.tillampningar;
     if (T) h += '<section class="tillampningar"><h2 class="section">' + esc(T.rubrik) + '</h2><p>' + esc(T.text) + '</p><div class="modgrid tillgrid">' + T.lista.map(function (t) { return '<article class="card modcard"><h3 style="margin-top:0">' + esc(t.namn) + '</h3><p class="small">' + esc(t.text) + '</p><a class="btn ghost" href="' + esc(t.lank) + '">Öppna →</a></article>'; }).join('') + '</div><p style="margin-top:14px"><a href="tillampningar/">' + esc(T.knapp) + ' →</a></p></section>';
     h += '<section class="split"><div><h2 class="section">' + esc(O.rubrik) + '</h2><p>' + esc(O.text) + '</p><p>' + esc(O.slut) + '</p><p><a class="btn ghost" href="slut/">' + esc(O.slutKnapp) + ' →</a></p></div>' +

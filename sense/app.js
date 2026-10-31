@@ -168,6 +168,17 @@
   /* ---------- steg ---------- */
   var SKEDE = { fokus: 0, signaler: 1, bedomning: 2, urval: 3, matris: 3, axlar: 4, scenarier: 4, varden: 5, syntes: 7, karta: 8 };
   function skede(st) { if (/^q-/.test(st)) return 3; if (/^vind-/.test(st)) return 6; return SKEDE[st]; }
+  /* Vägvisaren och Nästa-knappen: skedena är huvudvägen. */
+  function vagItems() { return [{ namn: C.vag.uppgifter }].concat(C.skeden.map(function (k) { return { namn: k.namn }; })).concat([{ namn: C.vag.rapport }]); }
+  function nastaText(st, n) {
+    if (!n) return C.vag.nasta;
+    if (n === 'rapport') return 'Visa rapporten';
+    if (/^q-/.test(st) && /^q-/.test(n)) return C.vag.nastaFraga;
+    if (/^vind-/.test(st) && /^vind-/.test(n)) return C.vag.nastaFramtid;
+    var a = skede(st), b = skede(n);
+    if (a === b) return C.vag.nasta;
+    return C.vag.nasta + ': ' + C.skeden[b].namn;
+  }
   function steps() {
     var s = ['start', 'uppgifter', 'fokus', 'signaler', 'bedomning', 'urval'];
     pairs().forEach(function (p, i) { s.push('q-' + i); });
@@ -596,11 +607,13 @@
     else if (st === 'rapport') html = renderRapport();
     if (st !== 'start' && st !== 'rapport') {
       if (st !== 'uppgifter') html += parking();
-      var nxt = s[i + 1] === 'rapport' ? 'Visa rapporten' : 'Nästa';
+      var nxt = esc(nastaText(st, s[i + 1]));
       html += '<div class="navrow"><button class="btn quiet" data-act="back">← Tillbaka</button><button class="btn quiet savebtn" data-act="savefile" title="Ladda ner en sparfil så att arbetet inte går förlorat">Spara sparfil</button><button class="btn" data-act="next"' + (canNext() ? '' : ' disabled') + '>' + nxt + ' →</button></div><div class="missing" id="missing" aria-live="polite">' + missingHTML() + '</div>';
     }
     var sk = st === 'rapport' ? 'rapport' : skede(st);
-    if (sk != null) html = LCA.withIntro(html, (C.skedeIntro || {})[sk], 'sense-' + sk);
+    html = LCA.withIntro(html, sk != null ? (C.skedeIntro || {})[sk] : null);
+    if (st === 'start') html = html.replace('<div class="startgrid">', LCA.infoIntroHTML() + '<div class="startgrid">');
+    else html = LCA.route(vagItems(), st === 'uppgifter' ? 0 : st === 'rapport' ? C.skeden.length + 1 : skede(st) + 1) + html;
     app.innerHTML = html;
     document.getElementById('progress-bar').style.width = (st === 'start' ? 0 : Math.round(i / (s.length - 1) * 100)) + '%';
   }

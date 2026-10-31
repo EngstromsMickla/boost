@@ -53,6 +53,31 @@
     return state.eget.behov.filter(function (b) { return b.text.trim() && b.axel && b.niva; }).map(function (b) { return { id: b.id, namn: b.text.trim(), text: lc(b.text.trim()), axel: b.axel, fore: b.niva, axlar: {} }; });
   }
   function behov(id) { return behovLista().filter(function (b) { return b.id === id; })[0]; }
+  function kallaSense() { return sense() ? C.vag.franSense : C.vag.egetUnderlag; }
+  function kallaSee() { return see() ? C.vag.franSee : C.vag.egetUnderlag; }
+  /* Vägvisaren: varje steg hör till en etapp på huvudvägen eller till en avstickare. */
+  function etapp(st) {
+    if (st === 'uppgifter' || st === 'underlag') return 0;
+    if (st === 'spel') return 1;
+    if (st === 'riktning' || st === 'ram') return 2;
+    if (/^(plan|f)-/.test(st)) return 3;
+    if (st === 'oversikt' || /^a-/.test(st) || st === 'period') return 4;
+    if (st === 'rapport') return 5;
+    return -1;
+  }
+  function etappNamn(st) {
+    if (st === 'riktning') return C.riktning.rubrik;
+    if (st === 'ram') return C.ram.rubrik;
+    if (/^plan-/.test(st)) { var q = fraga(st.slice(5)); return C.forsok.rubrik + (state.fragor.length > 1 && q ? ' för lärandefråga ' + (state.fragor.indexOf(q) + 1) : ''); }
+    return C.vag.etapper[etapp(st)].namn;
+  }
+  function nastaText(st, s, i) {
+    if (sideView(st)) return C.vag.tillOversikt;
+    if (st === 'spel') { var g = spel(); return g.status === 'klar' ? C.vag.spelKlar : g.status === 'pagar' ? C.vag.spelAvbryt : C.spel.hoppa; }
+    var n = s[i + 1]; if (!n) return 'Nästa';
+    if (n === 'spel' && spel().status !== 'ny') n = s[i + 2] || n;
+    return n === 'rapport' ? 'Visa rapporten' : 'Nästa: ' + etappNamn(n) + (n === 'spel' ? ' ' + C.vag.frivilligt : '');
+  }
   function axNamn(a) { return C.axlar[a] ? C.axlar[a].namn : a; }
 
   /* ---------- riktning ---------- */
@@ -219,8 +244,8 @@
   }
   function renderRiktning() {
     var R = C.riktning, h = eyebrow('Steg 1 · Riktning') + '<h2>' + esc(R.rubrik) + '</h2>' + omNote({ rubrik: R.rubrik, om: R.om, begrepp: R.begrepp });
-    h += '<div class="canvas"><div class="card tight"><div class="eyebrow">' + esc(R.falt1) + '</div>' + tryckHTML() + '</div><div class="card tight"><div class="eyebrow">' + esc(R.falt2) + '</div>' + beredskapHTML() + '</div></div>';
-    h += spelFranHTML('riktning') + '<h3>' + esc(R.falt3) + '</h3><p class="muted small">' + esc(R.falt3Text) + '</p>';
+    h += '<div class="underlag-band"><div class="ub-head">' + esc(C.vag.underlagRubrik) + '</div><div class="canvas"><div class="card tight">' + LCA.kalla(kallaSense()) + '<div class="eyebrow">' + esc(R.falt1) + '</div>' + tryckHTML() + '</div><div class="card tight">' + LCA.kalla(kallaSee()) + '<div class="eyebrow">' + esc(R.falt2) + '</div>' + beredskapHTML() + '</div></div>' + spelFranHTML('riktning') + '</div>';
+    h += '<h3 class="task-head">' + esc(R.falt3) + '</h3><p class="muted small">' + esc(R.falt3Text) + '</p>';
     var fs = forslagFragor();
     if (fs.length && state.fragor.length < 3) h += '<div class="card tight"><div class="eyebrow">' + esc(R.forslag) + '</div>' + fs.map(function (f, i) { return '<div class="prop"><div>' + esc(f.text) + '</div><button class="btn ghost small-btn" data-act="addfraga" data-i="' + i + '">Ta med</button></div>'; }).join('') + '</div>';
     var bl = behovLista();
@@ -414,40 +439,73 @@
     h += '</div><div class="actions" style="margin-top:14px"><button class="btn" data-act="spelkor">' + esc(w === SIM.VECKOR - 1 ? SP.korSista : fill(SP.kor, { n: w + 1 })) + ' →</button></div></div>';
     return h;
   }
-  /* Kurvor utan tal: formen är poängen. */
+  /* Kurvor utan tal: formen är poängen. Er väg är tjock och svart, jämförelsevägarna tunna och nedtonade,
+     namnen står vid linjernas slut, och i leveransen visas ytan före och efter plan. */
   function spelKurva(serier, typ) {
-    var W = 640, H = 230, L = 74, T = 14, R = 14, B = 34, w = W - L - R, hh = H - T - B, A = SP.avslojande, all = [];
+    var sm = typeof window !== 'undefined' && window.innerWidth < 600, fs = sm ? 13 : 11;
+    var W = sm ? 380 : 680, H = sm ? 270 : 250, L = sm ? 80 : 74, T = 16, R = sm ? 96 : 128, B = 36, w = W - L - R, hh = H - T - B, A = SP.avslojande, all = [];
     serier.forEach(function (s) { s.v.forEach(function (x) { all.push(x); }); });
     var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
-    if (typ === 'lev') { var m = Math.max(Math.abs(lo), Math.abs(hi), 10); lo = -m; hi = m; } else { var pad = Math.max(4, (hi - lo) * 0.1); lo -= pad; hi += pad; }
+    if (typ === 'lev') { var m = Math.max(Math.abs(lo), Math.abs(hi), 10) * 1.1; lo = -m; hi = m; } else { var pad = Math.max(4, (hi - lo) * 0.12); lo -= pad; hi += pad; }
     function x(i) { return L + i / (SIM.VECKOR - 1) * w; } function y(v) { return T + hh - (v - lo) / (hi - lo) * hh; }
-    var g = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="' + esc(typ === 'lev' ? A.leveransKurva : A.formagaKurva) + '">';
-    g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + hh + '" fill="#fff" stroke="#dcdcd8"/>';
-    if (typ === 'lev') g += '<line x1="' + L + '" y1="' + y(0) + '" x2="' + (L + w) + '" y2="' + y(0) + '" stroke="#8a8a86" stroke-dasharray="2 3"/><text x="' + (L - 8) + '" y="' + (y(0) + 4) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(A.ifas) + '</text><text x="' + (L - 8) + '" y="' + (T + 11) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(A.fore) + '</text><text x="' + (L - 8) + '" y="' + (T + hh - 2) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(A.efter) + '</text>';
-    else g += '<text x="' + (L - 8) + '" y="' + (T + 11) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(A.starkare) + '</text><text x="' + (L - 8) + '" y="' + (T + hh - 2) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(A.svagare) + '</text>';
-    for (var i = 0; i < SIM.VECKOR; i++) g += '<text x="' + x(i) + '" y="' + (T + hh + 16) + '" font-size="11" fill="#5c5c5c" text-anchor="middle">' + (i + 1) + '</text>';
-    g += '<text x="' + (L + w / 2) + '" y="' + (H - 2) + '" font-size="11" fill="#5c5c5c" text-anchor="middle">Vecka</text>';
+    var g = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="' + esc(typ === 'lev' ? A.leveransFraga : A.formagaFraga) + '">';
+    if (typ === 'lev') {
+      g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + (y(0) - T) + '" fill="#e3ebfa"/><rect x="' + L + '" y="' + y(0) + '" width="' + w + '" height="' + (T + hh - y(0)) + '" fill="#fbe3da"/>';
+      g += '<text x="' + (L - 8) + '" y="' + (T + 11) + '" font-size="' + fs + '" fill="#1e5fcc" font-weight="bold" text-anchor="end">' + esc(A.fore) + '</text><text x="' + (L - 8) + '" y="' + (T + hh - 2) + '" font-size="' + fs + '" fill="#d1431d" font-weight="bold" text-anchor="end">' + esc(A.efter) + '</text>';
+      g += '<line x1="' + L + '" y1="' + y(0) + '" x2="' + (L + w) + '" y2="' + y(0) + '" stroke="#5c5c5c" stroke-dasharray="3 3"/><text x="' + (L - 8) + '" y="' + (y(0) + 4) + '" font-size="' + fs + '" fill="#5c5c5c" text-anchor="end">' + esc(A.ifas) + '</text>';
+    } else {
+      g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + hh + '" fill="#fff"/>';
+      var s0 = serier[0].v0;
+      if (s0 != null) g += '<line x1="' + L + '" y1="' + y(s0) + '" x2="' + (L + w) + '" y2="' + y(s0) + '" stroke="#5c5c5c" stroke-dasharray="3 3"/><text x="' + (L - 8) + '" y="' + (y(s0) + 4) + '" font-size="' + fs + '" fill="#5c5c5c" text-anchor="end">' + esc(A.start) + '</text>';
+      g += '<text x="' + (L - 8) + '" y="' + (T + 11) + '" font-size="' + fs + '" fill="#1e5fcc" text-anchor="end" font-weight="bold">' + esc(A.starkare) + '</text><text x="' + (L - 8) + '" y="' + (T + hh - 2) + '" font-size="' + fs + '" fill="#d1431d" text-anchor="end" font-weight="bold">' + esc(A.svagare) + '</text>';
+    }
+    g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + hh + '" fill="none" stroke="#dcdcd8"/>';
+    for (var i = 0; i < SIM.VECKOR; i++) g += '<text x="' + x(i) + '" y="' + (T + hh + 16) + '" font-size="' + fs + '" fill="#5c5c5c" text-anchor="middle">' + (i + 1) + '</text>';
+    g += '<text x="' + (L + w / 2) + '" y="' + (H - 2) + '" font-size="' + fs + '" fill="#5c5c5c" text-anchor="middle">' + esc(A.vecka) + '</text>';
     serier.slice().reverse().forEach(function (s) {
-      g += '<polyline points="' + s.v.map(function (v, i) { return x(i) + ',' + y(v); }).join(' ') + '" fill="none" stroke="' + s.farg + '" stroke-width="' + (s.tjock ? 4 : 2.5) + '"' + (s.streck ? ' stroke-dasharray="' + s.streck + '"' : '') + ' stroke-linejoin="round"/>';
+      g += '<polyline points="' + s.v.map(function (v, i) { return x(i) + ',' + y(v); }).join(' ') + '" fill="none" stroke="' + s.farg + '" stroke-width="' + (s.tjock ? 4.5 : 2) + '"' + (s.streck ? ' stroke-dasharray="' + s.streck + '" stroke-opacity=".75"' : '') + ' stroke-linejoin="round"/>';
       if (s.tjock) s.v.forEach(function (v, i) { g += '<circle cx="' + x(i) + '" cy="' + y(v) + '" r="4" fill="' + s.farg + '"/>'; });
     });
+    /* Svackan: den svagaste veckan på er väg medan ni lade tid på förbättring. */
+    if (typ === 'lev' && serier[0].svacka != null) { var sv = serier[0].svacka, vy = y(serier[0].v[sv]); g += '<circle cx="' + x(sv) + '" cy="' + vy + '" r="10" fill="none" stroke="#141414" stroke-width="1.5"/><text x="' + x(sv) + '" y="' + (vy + 24) + '" font-size="' + fs + '" font-weight="bold" fill="#141414" text-anchor="middle">' + esc(A.svacka) + '</text>'; }
+    /* Namn vid linjernas slut, med avstånd så att de inte krockar. */
+    var ends = serier.map(function (s) { return { s: s, y: y(s.v[s.v.length - 1]) }; }).sort(function (a, b) { return a.y - b.y; });
+    for (var k = 1; k < ends.length; k++) if (ends[k].y - ends[k - 1].y < fs + 4) ends[k].y = ends[k - 1].y + fs + 4;
+    ends.forEach(function (e) { g += '<text x="' + (L + w + 10) + '" y="' + (e.y + 4) + '" font-size="' + (e.s.tjock ? fs + 2 : fs) + '" font-weight="' + (e.s.tjock ? 'bold' : 'normal') + '" fill="' + e.s.farg + '">' + esc(e.s.kort) + '</text>'; });
     return g + '</svg>';
   }
+  function spelSims() { var ax = spelAxel(), o = { hogtTryck: hogtTryck() }; return { er: spelSim(), lev: SIM.referens(ax, 'leverans', SP.handelser, o), sk: SIM.referens(ax, 'skyddad', SP.handelser, o) }; }
   function spelSerier(falt) {
-    var ax = spelAxel(), o = { hogtTryck: hogtTryck() }, A = SP.avslojande;
-    var lev = SIM.referens(ax, 'leverans', SP.handelser, o), sk = SIM.referens(ax, 'skyddad', SP.handelser, o), er = spelSim();
+    var A = SP.avslojande, S = spelSims(), b = spel().beslut;
     function v(sim) { return sim.rec.map(function (r) { return r[falt]; }); }
-    return [{ namn: A.erVag, v: v(er), farg: '#141414', tjock: true }, { namn: A.leveransForst, v: v(lev), farg: '#d1431d', streck: '6 4' }, { namn: A.skyddad, v: v(sk), farg: '#1e5fcc', streck: '6 4' }];
+    var er = { namn: A.erVag, kort: A.erKort, v: v(S.er), farg: '#141414', tjock: true, v0: S.er.startF };
+    if (falt === 'gap') { var sv = null; S.er.rec.forEach(function (r, i) { if ((b[i] && b[i].t >= 4) && r.gap < -5 && (sv === null || r.gap < S.er.rec[sv].gap)) sv = i; }); er.svacka = sv; }
+    return [er, { namn: A.leveransForst, kort: A.levKort, v: v(S.lev), farg: '#d1431d', streck: '6 4' }, { namn: A.skyddad, kort: A.skyddKort, v: v(S.sk), farg: '#1e5fcc', streck: '6 4' }];
+  }
+  /* Svaret på diagrammets fråga, i ord. */
+  function spelSvar(typ) {
+    var A = SP.avslojande, S = spelSims(), n = SIM.VECKOR - 1;
+    if (typ === 'F') {
+      var f = S.er.rec[n].F, d = f - S.er.startF, lage = d >= 8 ? A.svarStarkare : d <= -3 ? A.svarSvagare : A.svarSom;
+      var dl = Math.abs(f - S.lev.rec[n].F), ds = Math.abs(f - S.sk.rec[n].F);
+      return fill(A.svarFormaga, { lage: lage, narmast: ds < dl ? A.skyddKort : A.levKort });
+    }
+    var sv = spelSerier('gap')[0].svacka;
+    return fill(A.svarLeverans, { lage: lc(SP.leverans.nivaer[SIM.leveransNiva(S.er.rec[n].gap)]) }) + (sv != null ? ' ' + fill(A.svarSvacka, { v: sv + 1 }) : '');
+  }
+  function spelDiagram() {
+    var A = SP.avslojande;
+    return '<div class="card tight chartcard spel-chart"><h4 class="chart-q">' + esc(A.formagaFraga) + '</h4><p class="chart-a">' + esc(spelSvar('F')) + '</p><div class="chart">' + spelKurva(spelSerier('F'), 'F') + '</div></div>' +
+      '<div class="card tight chartcard spel-chart"><h4 class="chart-q">' + esc(A.leveransFraga) + '</h4><p class="chart-a">' + esc(spelSvar('lev')) + '</p><div class="chart">' + spelKurva(spelSerier('gap'), 'lev') + '</div></div>' + spelLegend();
   }
   function spelLegend() {
     var A = SP.avslojande;
-    return '<div class="legend"><span><i style="background:#141414"></i>' + esc(A.erVag) + '</span><span><i style="border:2px dashed #d1431d"></i>' + esc(A.leveransForst) + '</span><span><i style="border:2px dashed #1e5fcc"></i>' + esc(A.skyddad) + '</span></div>';
+    return '<p class="small muted chart-key"><b>' + esc(A.levKort) + ':</b> ' + esc(A.leveransForst) + '. <b>' + esc(A.skyddKort) + ':</b> ' + esc(A.skyddad) + '. ' + esc(A.formNot) + '</p>';
   }
   function renderSpelSlut() {
     var g = spel(), A = SP.avslojande, Mo = SP.monster, mo = spelMonster(), hy = spelHypotes();
-    var h = '<h3>' + esc(A.rubrik) + '</h3><p class="small muted">' + esc(A.text) + '</p>';
-    h += '<div class="card tight chartcard"><div class="eyebrow">' + esc(A.formagaKurva) + '</div><div class="chart">' + spelKurva(spelSerier('F'), 'F') + '</div><div class="eyebrow" style="margin-top:10px">' + esc(A.leveransKurva) + '</div><div class="chart">' + spelKurva(spelSerier('gap'), 'lev') + '</div>' + spelLegend() + '</div>';
-    h += '<div class="card summary"><div class="eyebrow">' + esc(Mo.rubrik) + '</div>' + mo.map(function (k) { return '<p class="small">' + esc(Mo[k]) + '</p>'; }).join('') + '</div>';
+    var h = '<div class="card summary"><div class="eyebrow">' + esc(Mo.rubrik) + '</div><p style="font-weight:600">' + esc(Mo[mo[0]]) + '</p>' + mo.slice(1).map(function (k) { return '<p class="small">' + esc(Mo[k]) + '</p>'; }).join('') + '</div>';
+    h += '<h3>' + esc(A.rubrik) + '</h3>' + spelDiagram();
     h += '<div class="card next"><div class="eyebrow">' + esc(SP.hypotes.rubrik) + '</div><p style="margin-bottom:6px"><b>Om vi</b> ' + esc(hy.om) + ' <b>så tror vi att</b> ' + esc(hy.tror) + '.</p><p class="small muted" style="margin:0">' + esc(SP.hypotes.text) + '</p></div>';
     h += '<h3>' + esc(SP.samtal.rubrik) + '</h3><p class="small muted">' + esc(SP.samtal.text) + '</p><div class="card">' + SP.samtal.fragor.map(function (q, i) { return field(q, 'spel.samtal.' + i, g.samtal[i] || '', { area: true }); }).join('') + '</div>';
     h += '<div class="actions"><button class="btn quiet" data-act="spelom">' + esc(SP.spelaIgen) + '</button></div>';
@@ -456,9 +514,9 @@
   function spelFranHTML(typ) {
     if (!spelKlart()) return '';
     var hy = spelHypotes(), H = SP.hypotes;
-    if (typ === 'hinder') return '<div class="note strong small"><b>' + esc(H.franSpelet) + ':</b> ' + esc(hy.hinder) + ' <button class="btn ghost small-btn" data-act="spelhinder">' + esc(H.anvandHinder) + '</button></div>';
-    if (typ === 'forsok') return '<div class="note strong small"><b>' + esc(H.franSpelet) + ':</b> Om vi ' + esc(hy.om) + ' så tror vi att ' + esc(hy.tror) + '. <button class="btn ghost small-btn" data-act="spelforsok">' + esc(H.anvandForsok) + '</button></div>';
-    var mo = spelMonster(); return mo.length ? '<div class="note strong small"><b>' + esc(H.franSpelet) + ':</b> ' + esc(SP.monster[mo[0]]) + '</div>' : '';
+    if (typ === 'hinder') return '<div class="note small">' + LCA.kalla(H.franSpelet) + esc(hy.hinder) + ' <button class="btn ghost small-btn" data-act="spelhinder">' + esc(H.anvandHinder) + '</button></div>';
+    if (typ === 'forsok') return '<div class="note small">' + LCA.kalla(H.franSpelet) + 'Om vi ' + esc(hy.om) + ' så tror vi att ' + esc(hy.tror) + '. <button class="btn ghost small-btn" data-act="spelforsok">' + esc(H.anvandForsok) + '</button></div>';
+    var mo = spelMonster(); return mo.length ? '<div class="note small">' + LCA.kalla(H.franSpelet) + esc(SP.monster[mo[0]]) + '</div>' : '';
   }
   function spelRapport() {
     var g = spel(), R = SP.rapport;
@@ -534,7 +592,7 @@
     h += '<div class="card tight"><div class="eyebrow">' + esc(C.riktning.falt3) + '</div><ol class="small">' + state.fragor.map(function (q) { return '<li><b>' + esc(q.text) + '</b>' + (q.rubrik || q.vi ? '<br>' + esc(q.rubrik) + (q.vi ? ': ' + esc(lc(viText(q.vi))) : '') : '') + '</li>'; }).join('') + '</ol>' +
       (state.ram.motto ? '<p class="small"><b>Motto:</b> ' + esc(state.ram.motto) + '</p>' : '') + '<p class="small" style="margin:0">' + (state.ram.ansvarig ? '<b>Ansvarig:</b> ' + esc(state.ram.ansvarig) + ' · ' : '') + (state.ram.datum ? '<b>Återkoppling:</b> ' + esc(state.ram.datum) + ' · ' : '') + (state.ram.stod.length ? '<b>Stöd:</b> ' + esc(state.ram.stod.join(', ').toLowerCase()) : '') + '</p></div>';
     var spr2 = spelRapport();
-    if (spr2) h += '<h3>' + esc(C.spel.namn) + '</h3><div class="card tight chartcard"><div class="eyebrow">' + esc(C.spel.avslojande.formagaKurva) + '</div><div class="chart">' + spelKurva(spelSerier('F'), 'F') + '</div><div class="eyebrow" style="margin-top:10px">' + esc(C.spel.avslojande.leveransKurva) + '</div><div class="chart">' + spelKurva(spelSerier('gap'), 'lev') + '</div>' + spelLegend() + '</div><div class="card tight"><p class="small">' + esc(spr2.text) + '</p><p class="small"><b>' + esc(C.spel.hypotes.rubrik) + ':</b> ' + esc(spr2.hypotes) + '</p>' + C.spel.samtal.fragor.map(function (q, i) { var a = (spel().samtal[i] || '').trim(); return a ? '<p class="small" style="margin-bottom:4px"><b>' + esc(q) + '</b><br>' + esc(a) + '</p>' : ''; }).join('') + '</div>';
+    if (spr2) h += '<h3>' + esc(C.spel.namn) + '</h3>' + spelDiagram() + '<div class="card tight"><p class="small">' + esc(spr2.text) + '</p><p class="small"><b>' + esc(C.spel.hypotes.rubrik) + ':</b> ' + esc(spr2.hypotes) + '</p>' + C.spel.samtal.fragor.map(function (q, i) { var a = (spel().samtal[i] || '').trim(); return a ? '<p class="small" style="margin-bottom:4px"><b>' + esc(q) + '</b><br>' + esc(a) + '</p>' : ''; }).join('') + '</div>';
     h += '<h3>Trimförsök och kursavläsningar</h3>' + state.forsok.map(forsokDetalj).join('');
     if (state.period.monster || state.period.skala) h += '<h3>' + esc(C.period.rubrik) + '</h3><div class="card tight">' + (state.period.monster ? '<p class="small"><b>Mönster:</b> ' + esc(state.period.monster) + '</p>' : '') + state.fragor.map(function (q) { var v = state.period.fragaVal[q.id]; return v ? '<p class="small" style="margin-bottom:4px">' + esc(C.period.fragaVal[v]) + ': ' + esc(q.text) + '</p>' : ''; }).join('') + (state.period.nasta ? '<p class="small" style="margin:0"><b>Nästa lärperiod:</b> ' + esc(state.period.nasta) + '</p>' : '') + '</div>';
     if (state.parkering.trim()) h += '<h3>Parkerade frågor</h3><p class="small" style="white-space:pre-wrap">' + esc(state.parkering) + '</p>';
@@ -562,10 +620,12 @@
     else if (st === 'rapport') html = renderRapport();
     if (st !== 'start' && st !== 'rapport') {
       if (st !== 'uppgifter') html += parking();
-      var side = sideView(st), nxt = side ? 'Klar, till översikten' : (st === 'spel' && spel().status === 'ny' ? C.spel.hoppa : s[i + 1] === 'rapport' ? 'Visa rapporten' : 'Nästa');
-      html += '<div class="navrow"><button class="btn quiet" data-act="back">← ' + (side ? 'Översikten' : 'Tillbaka') + '</button><button class="btn quiet savebtn" data-act="savefile" title="Ladda ner en sparfil så att arbetet inte går förlorat">Spara sparfil</button><button class="btn" data-act="next"' + (canNext() ? '' : ' disabled') + '>' + nxt + ' →</button></div><div class="missing" id="missing" aria-live="polite">' + missingHTML() + '</div>';
+      var side = sideView(st), nxt = esc(nastaText(st, s, i)), tyst = st === 'spel' && spel().status !== 'klar';
+      html += '<div class="navrow"><button class="btn quiet" data-act="back">← ' + (side ? 'Översikten' : 'Tillbaka') + '</button><button class="btn quiet savebtn" data-act="savefile" title="Ladda ner en sparfil så att arbetet inte går förlorat">Spara sparfil</button><button class="btn' + (tyst ? ' quietnext' : '') + '" data-act="next"' + (canNext() ? '' : ' disabled') + '>' + nxt + ' →</button></div><div class="missing" id="missing" aria-live="polite">' + missingHTML() + '</div>';
     }
-    html = LCA.withIntro(html, skedeIntroFor(st), st.replace(/-.*/, ''));
+    html = LCA.withIntro(html, skedeIntroFor(st));
+    if (st === 'start') html = html.replace('<div class="startgrid">', LCA.infoIntroHTML() + '<div class="startgrid">');
+    else if (etapp(st) >= 0) html = LCA.route(C.vag.etapper, etapp(st)) + html;
     app.innerHTML = html;
     var pi = sideView(st) ? s.indexOf('oversikt') : i;
     document.getElementById('progress-bar').style.width = (st === 'start' ? 0 : Math.round(pi / (s.length - 1) * 100)) + '%';

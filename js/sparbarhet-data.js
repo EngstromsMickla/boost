@@ -547,6 +547,16 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.7",
+   "datum": "2026-10-31",
+   "text": [
+    "Tydligare väg genom verktygen. Överst i varje modul visar en vägvisare var ni är, och frivilliga steg ritas som avstickare. Knappen Nästa säger vart den leder och följer med längst ner på sidan.",
+    "Vägledningen ligger bakom en i-symbol vid rubriken: vad ni gör i steget, varför, hur, vem och vad det leder till, och beskrivningen av begreppet. Den öppnas när man hovrar eller trycker och presenteras på startsidan och första gången den visas.",
+    "Underlag från tidigare moduler och från spelet har en etikett som säger var det kommer ifrån, och ligger i ett eget band skilt från uppgiften.",
+    "Förmågefällans diagram har en fråga och ett svar i ord, namnen vid linjerna, tonade ytor för före och efter plan och svackan utmärkt. Inga regler ändrades."
+   ]
+  },
+  {
    "version": "prototyp v0.6",
    "datum": "2026-10-31",
    "text": [

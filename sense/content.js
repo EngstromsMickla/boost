@@ -2,7 +2,7 @@
 // Strukturen bygger på Dans Collision Compass, generaliserad från fastighet till verksamhet.
 // Forskningsstöd per skede: se CLAUDE.md och Teoriplattformen (teori/).
 window.CONTENT = {
- "version": "prototyp v0.6",
+ "version": "prototyp v0.7",
  "titel": "Sense",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "undertitel": "Collision Compass: var möter framtiden er verksamhet?",
@@ -23,6 +23,7 @@ window.CONTENT = {
   { "nr": 7, "namn": "Syntes", "tid": "20 min" },
   { "nr": 8, "namn": "Collision Map", "tid": "20 min" }
  ],
+ "vag": { "uppgifter": "Uppgifter", "rapport": "Rapport", "nasta": "Nästa", "nastaFraga": "Nästa fråga", "nastaFramtid": "Nästa framtid" },
  "skedeIntro": {
   "0": { "namn": "Fokus", "vad": "Ni väljer vilka utmaningar som är viktigast för er och formulerar en fokusfråga med en tidshorisont.", "varfor": "Omvärldsarbete utan fokus blir en lång lista över allt som händer. En skarp fråga gör det möjligt att skilja det som spelar roll för just er från resten.", "hur": "Kryssa de utmaningar som berör er mest, eller skriv en egen. Formulera fokusfrågan så som ni själva skulle ställa den, och välj hur långt fram ni tittar.", "vem": "Hela gruppen, gärna både ledning och några som möter kunder och projekt. Facilitatorn skriver.", "leder": "Valen styr vilka områden och exempel som föreslås när ni samlar signaler och trender." },
   "1": { "namn": "Signaler och trender", "vad": "Ni samlar signaler och trender inom de områden som hör till er fokusfråga.", "varfor": "Förändring syns ofta först som svaga signaler i utkanten. Flera personer med olika erfarenhet ser mer än en person, och det minskar risken att bara se det man redan tror.", "hur": "Använd exemplen som utgångspunkt, hämta fler förslag och skriv egna. Ni behöver minst fem trender. Har deltagarna gjort förarbete på egen hand läser facilitatorn in deras filer här.", "vem": "Alla deltagare bidrar. Facilitatorn skriver och slår ihop dubbletter.", "leder": "Varje trend bedöms efter påverkan och säkerhet i nästa skede." },
