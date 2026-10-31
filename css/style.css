@@ -573,23 +573,25 @@ h2.details-head { border-top: 2px solid var(--ink); }
    vägledningen ligger bakom i-symbolen vid rubriken. */
 .head-row { position: relative; }
 .head-row h1, .head-row h2 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.info-i { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--strong); background: #fff; color: var(--strong); font: italic 600 15px/1 Georgia, "Times New Roman", serif; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; touch-action: manipulation; }
-.info-i:hover, .info-i[aria-expanded="true"] { background: var(--strong); color: #fff; }
+.info-i { flex: none; width: 26px; height: 26px; border-radius: var(--r); border: 1.5px solid var(--ink); background: #fff; color: var(--ink); font: 700 15px/1 var(--serif); transition: transform .12s, box-shadow .12s; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; touch-action: manipulation; }
+.info-i:hover, .info-i[aria-expanded="true"] { background: var(--ink); color: #fff; }
+@media (hover: hover) { .info-i:hover { box-shadow: 3px 3px 0 var(--strong); transform: translate(-1px, -1px); } }
+@media (prefers-reduced-motion: reduce) { .info-i { transition: none; } .info-i:hover { transform: none; } }
 .info-i:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .info-i.demo { cursor: default; }
-.info-tip { display: inline-block; margin: -2px 0 10px; font: 500 12px/1.4 var(--mono); color: var(--strong); background: var(--strong-soft); padding: 5px 9px; border-radius: var(--r); }
+.info-tip { display: inline-block; margin: -2px 0 10px; font: 500 12px/1.4 var(--mono); color: var(--ink); background: var(--accent-soft); border-left: 3px solid var(--ink); padding: 5px 9px; border-radius: var(--r); }
 .info-tip::before { content: "↑ "; }
-.info-pop { position: absolute; left: 0; top: 100%; z-index: 30; width: min(600px, 100%); background: #fff; border: 2px solid var(--ink); border-top: 4px solid var(--strong); border-radius: var(--r); padding: 14px 16px 10px; box-shadow: 6px 6px 0 rgba(20,20,20,.12); }
+.info-pop { position: absolute; left: 0; top: 100%; z-index: 30; width: min(600px, 100%); background: #fff; border: 1.5px solid var(--ink); border-top: 5px solid var(--ink); border-radius: var(--r); padding: 14px 16px 10px; box-shadow: 6px 6px 0 var(--accent-soft); }
 .info-pop.static { position: static; width: auto; box-shadow: none; }
-.info-pop .pop-eyebrow { font: 500 12px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--strong); margin-bottom: 4px; }
+.info-pop .pop-eyebrow { font: 500 12px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); margin-bottom: 4px; }
 .info-pop dl { margin: 0; }
 .info-pop dt { font: 600 14px/1.3 var(--serif); margin-top: 9px; }
 .info-pop dd { margin: 2px 0 0; font-size: 14.5px; line-height: 1.5; }
 .info-pop .pop-begrepp { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 14.5px; }
 .info-pop .pop-begrepp p { margin: 0 0 8px; }
-.info-pop .pop-begrepp a { color: var(--strong); font-weight: 600; }
+.info-pop .pop-begrepp a { color: var(--ink); font-weight: 600; }
 .info-pop [data-info-close] { margin-top: 2px; padding-left: 0; }
-.info-intro { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--strong); border-radius: var(--r); padding: 12px 14px; margin: 0 0 18px; font-size: 15px; }
+.info-intro { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--ink); border-radius: var(--r); padding: 12px 14px; margin: 0 0 18px; font-size: 15px; }
 .info-intro .info-i { margin-top: 1px; }
 
 /* Vägvisaren: huvudvägen som en linje, avstickare som en gren. */
@@ -599,7 +601,7 @@ h2.details-head { border-top: 2px solid var(--ink); }
 .route li::before { content: ""; position: absolute; left: 6px; right: 0; top: 6px; height: 2px; background: #c9c9c5; }
 .route li:last-child::before { display: none; }
 .route li.done::before { background: var(--ink); }
-.route .dot { position: relative; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #b5b5b1; background: var(--paper); margin-bottom: 6px; }
+.route .dot { position: relative; width: 14px; height: 14px; border-radius: 2px; border: 2px solid #b5b5b1; background: var(--paper); margin-bottom: 6px; }
 .route li.done .dot { background: var(--ink); border-color: var(--ink); }
 .route li.cur .dot { background: #fff; border: 4px solid var(--ink); }
 .route li.cur { color: var(--ink); font-weight: 600; }
