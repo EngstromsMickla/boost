@@ -547,6 +547,13 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.8",
+   "datum": "2026-10-31",
+   "text": [
+    "Introduktionsfilmen är gjord om: den visar gränssnittet från v0.7 med vägvisaren och i-symbolen, och har en ny scen om spelet Förmågefällan. Inga regler eller texter i verktygen ändrades."
+   ]
+  },
+  {
    "version": "prototyp v0.7",
    "datum": "2026-10-31",
    "text": [

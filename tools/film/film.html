@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<title>Introduktionsfilm</title>
+<!-- Introduktionsfilmen till boost.mickla.se. Varje scen ritas som en funktion av tiden t (sekunder),
+     så att render.py kan ta en exakt bild per ruta. Manuset ligger i MANUS nedan. -->
+<style>
+@font-face { font-family: "Poppins"; font-weight: 600; src: url(../../vendor/fonts/poppins-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Poppins"; font-weight: 700; src: url(../../vendor/fonts/poppins-latin-700-normal.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 400; src: url(../../vendor/fonts/ibm-plex-sans-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 600; src: url(../../vendor/fonts/ibm-plex-sans-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url(../../vendor/fonts/ibm-plex-mono-latin-500-normal.woff2) format("woff2"); }
+html, body { margin: 0; padding: 0; }
+#stage { position: relative; width: 1280px; height: 720px; overflow: hidden; font-family: "IBM Plex Sans", sans-serif; }
+.dark { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 70% at 72% 8%, #34405a 0%, #262a33 35%, #1d1d1f 70%); color: #fff; }
+.light { position: absolute; inset: 0; background: #f3f3f1; color: #141414; }
+.eyebrow { font: 500 13px/1.3 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ""; width: 22px; height: 2px; background: currentColor; }
+h1, h2 { font-family: "Poppins", sans-serif; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+.big { font-size: 62px; line-height: 1.05; }
+.mid { font-size: 44px; line-height: 1.12; font-weight: 600; }
+.huge { font-size: 116px; line-height: 1; }
+.body { font-size: 21px; line-height: 1.5; color: #d8d8d8; }
+.ghost { position: absolute; font: 700 300px/1 "Poppins", sans-serif; color: rgba(255,255,255,.05); }
+.logo { width: 52px; height: 52px; border: 1.5px solid #fff; background: #000; display: flex; align-items: center; justify-content: center; }
+.logo img { width: 40px; filter: invert(1); }
+.tabs { position: absolute; top: 18px; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; }
+.tabs span { font: 500 11px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; padding: 6px 9px; border: 1px solid #c9c9c5; color: #8a8a86; background: #fff; }
+.tabs span.on { background: #141414; color: #fff; border-color: #141414; }
+.frame { position: absolute; left: 110px; top: 52px; width: 1060px; height: 568px; background: #fff; border: 1.5px solid #141414; box-shadow: 10px 10px 0 #141414; overflow: hidden; }
+.frame img { position: absolute; left: 14px; width: 1032px; }
+.caption { position: absolute; left: 0; right: 0; top: 646px; text-align: center; font-size: 20px; color: #141414; }
+.cols { display: flex; gap: 0; border-top: 2px solid #fff; margin-top: 26px; width: 560px; }
+.cols div { flex: 1; padding: 16px 18px 0 0; }
+.cols b { font: 600 26px/1.2 "Poppins", sans-serif; display: block; }
+.cols small { display: block; font-size: 15px; color: #cfcfcf; margin-top: 4px; }
+.cols i { font: 500 11px/1 "IBM Plex Mono", monospace; font-style: normal; letter-spacing: .08em; border: 1px solid #fff; padding: 4px 6px; display: inline-block; margin-top: 10px; }
+ul.list { list-style: none; margin: 26px 0 0; padding: 0; width: 900px; }
+ul.list li { font-size: 25px; padding: 13px 0 13px 30px; border-bottom: 1px solid rgba(255,255,255,.12); position: relative; }
+ul.list li::before { content: ""; position: absolute; left: 0; top: 24px; width: 10px; height: 10px; background: #6e96ff; }
+.small { font: 500 14px/1.6 "IBM Plex Mono", monospace; color: #bdbdbd; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+'use strict';
+/* ---------- Manus ---------- */
+var MANUS = [
+ { id: 'titel', dur: 6, typ: 'titel', eyebrow: 'Smart Built Boost', rubrik: 'Dialogverktyg — Learning Curve Approach', text: 'Förändring börjar med lärande.' },
+ { id: 'varfor', dur: 5.5, typ: 'kort', eyebrow: 'Varför', rubrik: 'Projekt levererar resultat. Men får de fäste?', text: 'Problemet är sällan resultaten. Det är att organisationen som ska ta emot dem saknar förmåga, mandat och vilja att göra det.' },
+ { id: 'ledning', dur: 5.5, typ: 'kort', eyebrow: 'Så börjar förändring', rubrik: 'Verklig förändring börjar inte med ett stort beslut i ledningsrummet.', text: 'Den börjar när ni sätter ord på era möjliga framtider och på er förmåga att möta dem. Sedan prövar ni något litet, lär er av det och gör om. Igen och igen.' },
+ { id: 'faser', dur: 6.5, typ: 'faser', eyebrow: 'Tre faser', rubrik: 'Sense, See, Shift', text: 'Görs de i följd bildar de en lärandekurva: från oro, via insikt, till rörelse.' },
+ { id: 'sense', dur: 3.8, typ: 'fas', nr: '01', eyebrow: 'Fas 1 av 3', rubrik: 'Sense', text: 'En förmiddag i grupp. Från signaler och trender till de framtidskollisioner där omvärlden krockar med era antaganden.' },
+ { id: 'sense-fokus', dur: 5.5, typ: 'bild', flik: 'SENSE', bild: 'sense-fokus.png', fran: 0, till: 260, text: 'Börja i det ni undrar över: välj utmaningar och formulera en fokusfråga.' },
+ { id: 'sense-karta', dur: 6.5, typ: 'bild', flik: 'SENSE', bild: 'sense-karta.png', fran: 0, till: 1290, text: 'Resultatet är en Collision Map: där omvärldens tryck möter det verksamheten vilar på.' },
+ { id: 'see', dur: 3.8, typ: 'fas', nr: '02', eyebrow: 'Fas 2 av 3', rubrik: 'See', text: 'En timme. Hur redo är ni att ta emot det som kommer, och vad håller tillbaka?' },
+ { id: 'see-profil', dur: 5.5, typ: 'bild', flik: 'SEE', bild: 'see-profil.png', fran: 0, till: 380, text: 'Tolv förmågor skattas tillsammans. Profilen visar var ni är starka och vad som behöver stärkas.' },
+ { id: 'see-diagnos', dur: 5.5, typ: 'bild', flik: 'SEE', bild: 'see-diagnos.png', fran: 60, till: 330, text: 'Diagnosen pekar ut vad som håller tillbaka: förmåga, mandat eller vilja.' },
+ { id: 'trimroder', dur: 6.5, typ: 'trimroder', eyebrow: 'Trimrodret', rubrik: 'Varje medarbetare kan vara ett trimroder.', text: 'Ett stort fartyg vänds av ett litet roder på rodrets kant. Ett litet försök på rätt plats, som får tid, kan ändra kursen för hela organisationen.' },
+ { id: 'shift', dur: 4.2, typ: 'fas', nr: '03', eyebrow: 'Fas 3 av 3', rubrik: 'Shift', text: 'Fyra veckor. Börja gärna med spelet Förmågefällan. Sedan sätter ledningen riktningen, och medarbetare gör små trimförsök i vardagen och lär av varje försök.' },
+ { id: 'fallan', dur: 6, typ: 'fallan', eyebrow: 'Förmågefällan · ett frivilligt spel', rubrik: 'Att jobba hårdare syns direkt. Förmågan förfaller i det tysta.', text: 'Åtta veckor där leveransen trycker på. Ni fördelar tiden mellan leverans och förbättring, och ser sedan vad som hände under ytan.' },
+ { id: 'spel-vecka', dur: 6, typ: 'bild', flik: 'SHIFT', bild: 'shift-spel-vecka.png', fran: 0, till: 330, text: 'Varje vecka händer något. Ni väljer förbättringstid, genvägar och om någon förbättrar vid sidan av.' },
+ { id: 'spel-slut', dur: 6.5, typ: 'bild', flik: 'SHIFT', bild: 'shift-spel-avslojande.png', fran: 0, till: 470, text: 'Efter vecka åtta: er väg jämfört med två andra vägar genom samma veckor, och en hypotes att pröva på riktigt.' },
+ { id: 'shift-riktning', dur: 5.5, typ: 'bild', flik: 'SHIFT', bild: 'shift-riktning.png', fran: 0, till: 200, text: 'Ledningen formulerar lärandefrågor som bygger på det ni har sett i Sense, See och spelet.' },
+ { id: 'shift-avlasning', dur: 5.5, typ: 'bild', flik: 'SHIFT', bild: 'shift-avlasning.png', fran: 120, till: 540, text: 'Efter varje försök: vad hände, hur långt har lärdomen nått, och vad är nästa lilla steg?' },
+ { id: 'slut', dur: 5.5, typ: 'bild', flik: 'SLUTSIDA', bild: 'slut.png', fran: 0, till: 120, text: 'Er lärandekurva växer med varje försök. Slutsidan visar om ni har kommit upp på den.' },
+ { id: 'far', dur: 6.5, typ: 'lista', eyebrow: 'Det här får ni', rader: ['En rapport efter varje fas, med sammanfattning, analys och förslag', 'Ett spel som visar varför förbättring dör i vardagen', 'En slutrapport när alla tre faserna är gjorda', 'Sparfiler som bär resultaten vidare mellan faserna', 'Inget lämnar er dator: allt sparas hos er', 'Ingen inloggning. Fritt att använda för alla'] },
+ { id: 'slutkort', dur: 6.5, typ: 'slutkort', eyebrow: 'Prova själv', rubrik: 'boost.mickla.se', text: 'Ingen inloggning. Fritt att använda för alla.', rad: 'Dialogverktyg — Learning Curve Approach', kontakt: 'Dan Engström, Engströms Mickla AB\ndan@mickla.se · 0709 60 70 76' }
+];
+var FLIKAR = ['SENSE', 'SEE', 'SHIFT', 'SLUTSIDA'];
+
+/* ---------- hjälp ---------- */
+function clamp(x) { return Math.max(0, Math.min(1, x)); }
+function ease(x) { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+function inn(t, start, d) { return ease((t - start) / (d || .7)); }
+function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); }
+function fade(t, start, d, dy) { var a = inn(t, start, d); return 'opacity:' + a.toFixed(3) + ';transform:translateY(' + ((1 - a) * (dy == null ? 14 : dy)).toFixed(1) + 'px);'; }
+
+/* Lärandekurvan: ritas fram, sedan tänds Sense, See och Shift. */
+function curve(t, start, opts) {
+  opts = opts || {};
+  var pts = [], N = 80;
+  for (var i = 0; i <= N; i++) { var x = 30 + i * 500 / N, y = 296 - 245 / (1 + Math.exp(-(x - 280) / 48)); pts.push([x, y]); }
+  var len = 0; for (var k = 1; k < pts.length; k++) len += Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]);
+  var p = inn(t, start, 2.2), d = 'M' + pts.map(function (q) { return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' L');
+  var P = [[80, 293], [280, 174], [480, 57]], col = ['#d1431d', '#ffffff', '#6e96ff'], nm = ['01 SENSE', '02 SEE', '03 SHIFT'], q = ['Oro', 'Insikt', 'Rörelse'], dx = [16, 18, -18], anc = ['start', 'start', 'end'];
+  var g = '<svg viewBox="0 0 560 340" style="width:' + (opts.w || 470) + 'px;overflow:visible"><line x1="30" y1="318" x2="530" y2="318" stroke="#5a5a5a"/><line x1="30" y1="318" x2="30" y2="20" stroke="#5a5a5a"/>' +
+    '<text x="530" y="336" text-anchor="end" font-family="IBM Plex Mono" font-size="12" fill="#9a9a9a">tid</text><text x="40" y="30" font-family="IBM Plex Mono" font-size="12" fill="#9a9a9a">lärande</text>' +
+    '<path d="' + d + '" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="' + len.toFixed(0) + '" stroke-dashoffset="' + ((1 - p) * len).toFixed(1) + '"/>';
+  P.forEach(function (pp, i) {
+    var a = inn(t, start + 0.5 + i * 0.6, .5), y = pp[1] + (i === 2 ? 30 : 22);
+    g += '<g style="opacity:' + a.toFixed(3) + '"><circle cx="' + pp[0] + '" cy="' + pp[1] + '" r="' + (i === 1 ? 9 : 7) + '" fill="' + col[i] + '" stroke="#1f1f1f" stroke-width="3"/>' +
+      '<text x="' + (pp[0] + dx[i]) + '" y="' + y + '" text-anchor="' + anc[i] + '" font-family="IBM Plex Mono" font-weight="500" font-size="13" fill="#fff">' + nm[i] + '</text>' +
+      '<text x="' + (pp[0] + dx[i]) + '" y="' + (y + 17) + '" text-anchor="' + anc[i] + '" font-family="IBM Plex Sans" font-size="12" fill="#9a9a9a">' + q[i] + '</text></g>';
+  });
+  return g + '</svg>';
+}
+
+/* ---------- scener ---------- */
+function titel(s, t) {
+  return '<div class="dark"><div style="position:absolute;left:96px;top:150px;width:560px">' +
+    '<div class="logo" style="' + fade(t, .1) + '"><img src="../../img/mickla.png"></div>' +
+    '<div class="eyebrow" style="margin-top:30px;color:#cfcfcf;' + fade(t, .3) + '">' + esc(s.eyebrow) + '</div>' +
+    '<h1 class="big" style="margin-top:14px;' + fade(t, .5) + '">' + esc(s.rubrik) + '</h1>' +
+    '<p class="body" style="margin-top:22px;' + fade(t, .9) + '">' + esc(s.text) + '</p></div>' +
+    '<div style="position:absolute;left:690px;top:170px">' + curve(t, .6) + '</div></div>';
+}
+function kort(s, t) {
+  return '<div class="dark"><div style="position:absolute;left:96px;top:250px;width:980px">' +
+    '<div class="eyebrow" style="color:#cfcfcf;' + fade(t, .15) + '">' + esc(s.eyebrow) + '</div>' +
+    '<h2 class="mid" style="margin-top:16px;' + fade(t, .35) + '">' + esc(s.rubrik) + '</h2>' +
+    '<p class="body" style="margin-top:22px;width:880px;' + fade(t, .9) + '">' + esc(s.text) + '</p></div></div>';
+}
+function faser(s, t) {
+  var F = [['Sense', 'Vad förändras?', 'ORO'], ['See', 'Hur redo är vi?', 'INSIKT'], ['Shift', 'Vad gör vi nu?', 'RÖRELSE']];
+  return '<div class="dark"><div style="position:absolute;left:96px;top:190px;width:600px">' +
+    '<div class="eyebrow" style="color:#cfcfcf;' + fade(t, .1) + '">' + esc(s.eyebrow) + '</div>' +
+    '<h2 class="mid" style="margin-top:14px;' + fade(t, .3) + '">' + esc(s.rubrik) + '</h2>' +
+    '<div class="cols" style="' + fade(t, .5, .5, 0) + '">' + F.map(function (f, i) { return '<div style="' + fade(t, 1.1 + i * .6) + '"><b>' + f[0] + '</b><small>' + f[1] + '</small><i>' + f[2] + '</i></div>'; }).join('') + '</div>' +
+    '<p class="body" style="margin-top:30px;width:560px;' + fade(t, 3.2) + '">' + esc(s.text) + '</p></div>' +
+    '<div style="position:absolute;left:720px;top:190px">' + curve(t, .9) + '</div></div>';
+}
+function fas(s, t) {
+  return '<div class="dark"><div class="ghost" style="right:60px;bottom:-40px;' + fade(t, .2, 1, 30) + '">' + s.nr + '</div><div style="position:absolute;left:96px;top:250px;width:900px">' +
+    '<div class="eyebrow" style="color:#cfcfcf;' + fade(t, .1) + '">' + esc(s.eyebrow) + '</div>' +
+    '<h1 class="huge" style="margin-top:14px;' + fade(t, .3) + '">' + esc(s.rubrik) + '</h1>' +
+    '<p class="body" style="margin-top:22px;width:820px;' + fade(t, .8) + '">' + esc(s.text) + '</p></div></div>';
+}
+function bild(s, t) {
+  var p = ease(clamp((t - .9) / (s.dur - 1.8))), y = s.fran + (s.till - s.fran) * p, sc = 1032 / 860;
+  return '<div class="light"><div class="tabs">' + FLIKAR.map(function (f) { return '<span class="' + (f === s.flik ? 'on' : '') + '">' + f + '</span>'; }).join('') + '</div>' +
+    '<div class="frame" style="' + fade(t, 0, .6, 18) + '"><img src="shots/' + s.bild + '" style="top:' + (14 - y * sc).toFixed(1) + 'px"></div>' +
+    '<div class="caption" style="' + fade(t, .4) + '">' + esc(s.text) + '</div></div>';
+}
+function trimroder(s, t) {
+  var a = inn(t, .3, 1.2), b = inn(t, 1.3, .8), c = inn(t, 2.1, 1);
+  var g = '<svg viewBox="0 0 520 300" style="width:520px">' +
+    '<path d="M150,80 L380,80 Q470,110 490,150 Q470,190 380,220 L150,220 Z" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="900" stroke-dashoffset="' + ((1 - a) * 900).toFixed(0) + '"/>' +
+    '<text x="300" y="156" text-anchor="middle" font-family="IBM Plex Sans" font-size="15" fill="#fff" style="opacity:' + a.toFixed(2) + '">organisationen</text>' +
+    '<line x1="150" y1="170" x2="' + (150 - 90 * b).toFixed(1) + '" y2="' + (170 + 40 * b).toFixed(1) + '" stroke="#fff" stroke-width="5" stroke-linecap="round"/>' +
+    '<line x1="60" y1="210" x2="' + (60 - 26 * c).toFixed(1) + '" y2="' + (210 - 8 * c).toFixed(1) + '" stroke="#d1431d" stroke-width="5" stroke-linecap="round" style="opacity:' + c.toFixed(2) + '"/>' +
+    '<text x="96" y="226" font-family="IBM Plex Mono" font-size="11" fill="#9a9a9a" style="opacity:' + b.toFixed(2) + '">roder</text>' +
+    '<text x="10" y="236" font-family="IBM Plex Mono" font-size="13" fill="#d1431d" style="opacity:' + c.toFixed(2) + '">trimroder</text>' +
+    '<path d="M500,150 Q520,110 512,60" fill="none" stroke="#6e96ff" stroke-width="2.5" stroke-dasharray="5 5" style="opacity:' + inn(t, 3, .8).toFixed(2) + '"/>' +
+    '<path d="M504,66 L512,52 L520,66" fill="none" stroke="#6e96ff" stroke-width="2.5" style="opacity:' + inn(t, 3, .8).toFixed(2) + '"/></svg>';
+  return '<div class="dark"><div style="position:absolute;left:60px;top:200px">' + g + '</div><div style="position:absolute;left:640px;top:220px;width:560px">' +
+    '<div class="eyebrow" style="color:#cfcfcf;' + fade(t, .2) + '">' + esc(s.eyebrow) + '</div>' +
+    '<h2 class="mid" style="margin-top:14px;font-size:40px;' + fade(t, .4) + '">' + esc(s.rubrik) + '</h2>' +
+    '<p class="body" style="margin-top:20px;' + fade(t, 1.4) + '">' + esc(s.text) + '</p></div></div>';
+}
+/* Förmågefällan: två kurvor som växer fram. Leverans först (rödorange) ser bra ut i början och faller; skyddad tid (blå) dippar och lyfter. */
+function fallan(s, t) {
+  var W = 470, H = 250, n = 8, lev = [0, 4, 3, 1, -3, -8, -14, -18], sk = [0, -6, -8, -5, 0, 6, 11, 15];
+  function x(i) { return 40 + i * (W - 80) / (n - 1); } function y(v) { return H / 2 - v * 5.5; }
+  var p = inn(t, 1, 3.2), k = p * (n - 1);
+  function path(a) { var out = []; for (var i = 0; i <= Math.floor(k); i++) out.push([x(i), y(a[i])]); var fr = k - Math.floor(k); if (fr > 0 && Math.floor(k) < n - 1) { var i0 = Math.floor(k); out.push([x(i0) + fr * (x(i0 + 1) - x(i0)), y(a[i0] + fr * (a[i0 + 1] - a[i0]))]); } return out.map(function (q) { return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' '); }
+  var g = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:' + W + 'px;overflow:visible"><line x1="40" y1="' + y(0) + '" x2="' + (W - 40) + '" y2="' + y(0) + '" stroke="#5a5a5a" stroke-dasharray="3 4"/>' +
+    '<text x="34" y="' + (y(0) + 4) + '" text-anchor="end" font-family="IBM Plex Mono" font-size="11" fill="#9a9a9a">start</text>' +
+    '<polyline points="' + path(lev) + '" fill="none" stroke="#d1431d" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<polyline points="' + path(sk) + '" fill="none" stroke="#6e96ff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<text x="' + (W - 30) + '" y="' + (y(lev[7]) + 4) + '" font-family="IBM Plex Sans" font-weight="600" font-size="14" fill="#d1431d" style="opacity:' + inn(t, 3.9, .5).toFixed(2) + '">Jobba hårdare</text>' +
+    '<text x="' + (W - 30) + '" y="' + (y(sk[7]) + 4) + '" font-family="IBM Plex Sans" font-weight="600" font-size="14" fill="#6e96ff" style="opacity:' + inn(t, 3.9, .5).toFixed(2) + '">Skydda tiden</text>' +
+    '<text x="' + (W / 2) + '" y="' + (H + 6) + '" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#9a9a9a">förmågan, vecka 1 till 8</text></svg>';
+  return '<div class="dark"><div style="position:absolute;left:96px;top:200px;width:600px">' +
+    '<div class="eyebrow" style="color:#cfcfcf;' + fade(t, .1) + '">' + esc(s.eyebrow) + '</div>' +
+    '<h2 class="mid" style="margin-top:14px;font-size:40px;' + fade(t, .3) + '">' + esc(s.rubrik) + '</h2>' +
+    '<p class="body" style="margin-top:20px;' + fade(t, 1.2) + '">' + esc(s.text) + '</p></div>' +
+    '<div style="position:absolute;left:690px;top:230px;' + fade(t, .6, .6, 0) + '">' + g + '</div></div>';
+}
+function lista(s, t) {
+  return '<div class="dark"><div style="position:absolute;left:96px;top:150px">' +
+    '<div class="eyebrow" style="color:#cfcfcf;' + fade(t, .1) + '">' + esc(s.eyebrow) + '</div><ul class="list">' +
+    s.rader.map(function (r, i) { return '<li style="' + fade(t, .4 + i * .55, .5, 10) + '">' + esc(r) + '</li>'; }).join('') + '</ul></div></div>';
+}
+function slutkort(s, t) {
+  return '<div class="dark"><div style="position:absolute;left:96px;top:170px;width:620px">' +
+    '<div class="logo" style="' + fade(t, .1) + '"><img src="../../img/mickla.png"></div>' +
+    '<div class="eyebrow" style="margin-top:30px;color:#cfcfcf;' + fade(t, .3) + '">' + esc(s.eyebrow) + '</div>' +
+    '<h1 class="big" style="margin-top:12px;font-size:70px;' + fade(t, .5) + '">' + esc(s.rubrik) + '</h1>' +
+    '<p class="body" style="margin-top:16px;font-size:24px;color:#fff;' + fade(t, .9) + '">' + esc(s.text) + '</p>' +
+    '<p class="body" style="margin-top:6px;' + fade(t, 1.1) + '">' + esc(s.rad) + '</p>' +
+    '<p class="small" style="margin-top:22px;white-space:pre-line;' + fade(t, 1.4) + '">' + esc(s.kontakt) + '</p></div>' +
+    '<div style="position:absolute;left:720px;top:200px">' + curve(t, .4) + '</div></div>';
+}
+var R = { titel: titel, kort: kort, faser: faser, fas: fas, bild: bild, trimroder: trimroder, fallan: fallan, lista: lista, slutkort: slutkort };
+window.MANUS = MANUS;
+window.renderScene = function (i, t) { var s = MANUS[i]; document.getElementById('stage').innerHTML = R[s.typ](s, t); };
+</script>
+</body>
+</html>
