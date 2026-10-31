@@ -59,6 +59,14 @@
 
   /* ---------- steg ---------- */
   function steps() { return ['start', 'uppgifter', 'underlag', 'faktorer', 'bed-0', 'bed-1', 'bed-2', 'bed-3', 'syntes', 'rapport']; }
+  function etapp(st) { return st === 'uppgifter' ? 0 : st === 'underlag' ? 1 : st === 'faktorer' ? 2 : /^bed-/.test(st) ? 3 : st === 'syntes' ? 4 : 5; }
+  function vagItems() { var V = C.vag; return [V.uppgifter, V.framtiderna, fill(V.faktorer, { ord: F.faktorOrd.flera }), V.bedomning, V.syntes, V.rapport].map(function (n) { return { namn: n.charAt(0).toUpperCase() + n.slice(1) }; }); }
+  function nastaText(st, n) {
+    var N = C.nav, V = C.vag; if (!n) return N.nasta;
+    if (n === 'rapport') return N.rapport;
+    if (/^bed-/.test(st) && /^bed-/.test(n)) return V.nastaFramtid;
+    return N.nasta + ': ' + lc(vagItems()[etapp(n)].namn).replace(/^./, function (c) { return c.toUpperCase(); });
+  }
   function canNext(st) {
     st = st || view.step;
     if (st === 'uppgifter') return !!state.meta.objekt.trim();
@@ -262,10 +270,12 @@
     else if (st === 'rapport') html = renderRapport();
     if (st !== 'start' && st !== 'rapport') {
       var N = C.nav;
-      html += '<div class="navrow"><button class="btn quiet" data-act="back">' + esc(N.tillbaka) + '</button><button class="btn quiet savebtn" data-act="savefile" title="Ladda ner en sparfil så att arbetet inte går förlorat">' + esc(N.spara) + '</button><button class="btn" data-act="next"' + (canNext() ? '' : ' disabled') + '>' + esc(s[i + 1] === 'rapport' ? N.rapport : N.nasta) + ' →</button></div><div class="missing" id="missing" aria-live="polite">' + missingHTML() + '</div>';
+      html += '<div class="navrow"><button class="btn quiet" data-act="back">' + esc(N.tillbaka) + '</button><button class="btn quiet savebtn" data-act="savefile" title="Ladda ner en sparfil så att arbetet inte går förlorat">' + esc(N.spara) + '</button><button class="btn" data-act="next"' + (canNext() ? '' : ' disabled') + '>' + esc(nastaText(st, s[i + 1])) + ' →</button></div><div class="missing" id="missing" aria-live="polite">' + missingHTML() + '</div>';
     }
     var sk = /^bed-/.test(st) ? 'bed' : st, si = (C.skedeIntro || {})[sk];
-    if (si) { var map = { ord: F.faktorOrd.flera, objekt: F.objekt.ref || 'verksamheten' }, o = {}; Object.keys(si).forEach(function (k) { o[k] = fill(si[k], map); }); html = LCA.withIntro(html, o, 'till-' + sk); }
+    if (si) { var map = { ord: F.faktorOrd.flera, objekt: F.objekt.ref || 'verksamheten' }, o = {}; Object.keys(si).forEach(function (k) { o[k] = fill(si[k], map); }); html = LCA.withIntro(html, o); }
+    if (st === 'start') html = html.replace('<div class="startgrid">', LCA.infoIntroHTML() + '<div class="startgrid">');
+    else html = LCA.route(vagItems(), etapp(st)) + html;
     app.innerHTML = html;
     bar.style.width = (st === 'start' ? 0 : Math.round(i / (s.length - 1) * 100)) + '%';
   }

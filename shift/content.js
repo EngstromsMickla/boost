@@ -1,7 +1,7 @@
 // Innehållsfil för Shift. Texter kan redigeras här utan att röra koden.
 // Bygger på Learning Direction Canvas och Trim Tab Canvas (Dan Engström), uppdelad i trimförsök och kursavläsning.
 window.CONTENT = {
- "version": "prototyp v0.6",
+ "version": "prototyp v0.7",
  "titel": "Shift",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "undertitel": "Från insikt till rörelse: små trimförsök som ger momentum",
@@ -21,6 +21,24 @@ window.CONTENT = {
  ],
  "tidstext": "Shift är en process över ungefär fyra veckor, inte ett formulär. Samma körning sparas och öppnas igen vid varje steg. En kontaktperson håller i filen, eller facilitatorn om ni har gemensamma avstämningar.",
 
+ "vag": {
+  "etapper": [
+   { "namn": "Underlag" },
+   { "namn": "Förmågefällan", "sido": true },
+   { "namn": "Riktning" },
+   { "namn": "Trimförsök" },
+   { "namn": "Uppföljning" },
+   { "namn": "Rapport" }
+  ],
+  "frivilligt": "(frivilligt)",
+  "underlagRubrik": "Det här bygger ni på",
+  "franSense": "Från Sense",
+  "franSee": "Från See",
+  "egetUnderlag": "Ert underlag",
+  "tillOversikt": "Klar, till översikten",
+  "spelKlar": "Ta med hypotesen till Learning Direction Canvas",
+  "spelAvbryt": "Avbryt spelet och gå vidare"
+ },
  "skedeIntro": {
   "underlag": { "namn": "Underlag", "vad": "Ni läser in det som Sense och See har kommit fram till, eller beskriver kort vad som förändras och vad som håller tillbaka.", "varfor": "Försöken i Shift ska riktas mot det som faktiskt håller tillbaka er förmåga att ta emot förändringen. Utan underlag blir försöken allmänna goda idéer i stället för riktade steg.", "hur": "Läs in sparfilen från See; då följer resultaten från Sense med. Saknas See svarar ni på två korta frågor: vad behöver ni bli bättre på, och är det förmåga, mandat eller vilja som främst håller tillbaka?", "vem": "Den som håller i filen, gärna tillsammans med ledningsgruppen.", "leder": "Den svagaste axeln styr spelet i nästa steg och vilka lärandefrågor och försök som föreslås." },
   "spel": { "namn": "Förmågefällan", "vad": "Ni spelar åtta veckor där leveransen trycker på, och väljer varje vecka hur mycket tid som går till förbättring. Spelet är frivilligt.", "varfor": "Det vanligaste skälet till att förbättringsarbete dör är att vardagen tar tiden. Att jobba hårdare syns direkt, medan förmågan förfaller i det tysta. Spelet låter er känna den skillnaden innan ni planerar riktiga försök.", "hur": "Läs veckans händelse, titta på leveransen och energin, fatta veckans beslut och spela högst ett kort. Efter vecka åtta visas vad som hände under ytan, och ni avslutar med ett kort eftersamtal.", "vem": "Ledningsgruppen eller den grupp som ska göra försöken, vid en gemensam skärm. Någon håller i musen, alla diskuterar besluten.", "leder": "Spelet ger en hypotes som kan föras in i Learning Direction Canvas och i det första trimförsöket." },
@@ -137,13 +155,20 @@ window.CONTENT = {
   },
   "avslojande": {
    "rubrik": "Det här hände under ytan",
-   "text": "Linjerna visar er väg genom de åtta veckorna, jämfört med två andra vägar genom exakt samma veckor och samma svagaste axel. Talen visas inte, eftersom de inte säger något om er verksamhet; det är formen som är poängen.",
    "erVag": "Er väg",
-   "leveransForst": "Leverans först: ingen förbättringstid, genvägar när det släpar",
-   "skyddad": "Skyddad tid: 8 timmar i veckan och ett första kort",
+   "leveransForst": "ingen förbättringstid, genvägar när det släpar",
+   "skyddad": "8 timmar i veckan och axelns första kort",
    "formagaKurva": "Förmågan, vecka för vecka",
    "leveransKurva": "Leveransen, vecka för vecka",
-   "starkare": "Starkare", "svagare": "Svagare", "fore": "Före plan", "efter": "Efter", "ifas": "I fas"
+   "starkare": "Starkare", "svagare": "Svagare", "fore": "Före plan", "efter": "Efter plan", "ifas": "I fas", "start": "Start", "vecka": "Vecka",
+   "erKort": "Er väg", "levKort": "Leverans först", "skyddKort": "Skyddad tid", "svacka": "Svackan",
+   "formagaFraga": "Hur gick det med förmågan?",
+   "leveransFraga": "Hur gick det med leveransen?",
+   "svarFormaga": "Förmågan blev {lage}. Er väg liknar mest {narmast}.",
+   "svarStarkare": "starkare än vid start", "svarSvagare": "svagare än vid start", "svarSom": "ungefär som vid start",
+   "svarLeverans": "Vecka 8 låg ni {lage}.",
+   "svarSvacka": "Svackan, när förbättringen tog tid från leveransen, kom vecka {v}.",
+   "formNot": "Talen visas inte, eftersom de inte säger något om er verksamhet. Det är formen som är poängen."
   },
   "monster": {
    "rubrik": "Ert mönster",

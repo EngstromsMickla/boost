@@ -568,13 +568,65 @@ h2.details-head { border-top: 2px solid var(--ink); }
 .sp-kort .sp-kt { display: block; margin-top: 4px; line-height: 1.45; }
 @media (max-width: 600px) { .sp-tiles { gap: 6px; } .sp-tile { padding: 8px 9px; } .sp-tile .lbl { font-size: 11px; } .sp-val { font-size: 15px; } .sp-tile .small { font-size: 11px; line-height: 1.3; } .sp-kort { grid-template-columns: 1fr; } }
 
-/* ---------- Om skedet (öppnas på plats, alla moduler) ---------- */
-.skede-intro { margin: 0 0 16px; border: 1px solid var(--line); border-left: 3px solid var(--strong); background: var(--card); border-radius: var(--r); }
-.skede-intro > summary { cursor: pointer; padding: 10px 14px; font: 500 12px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--strong); list-style: none; }
-.skede-intro > summary::-webkit-details-marker { display: none; }
-.skede-intro > summary::before { content: "+ "; }
-.skede-intro[open] > summary::before { content: "− "; }
-.skede-intro .si-body { padding: 0 14px 12px; }
-.skede-intro dl { margin: 0 0 8px; }
-.skede-intro dt { font: 600 15px/1.3 var(--serif); margin-top: 10px; }
-.skede-intro dd { margin: 2px 0 0; font-size: 15px; }
+/* ---------- Vägledning och vägvisning (v0.7) ----------
+   Tre nivåer: huvudvägen (rubrik, uppgift, Nästa) har mest tyngd; underlaget är lågmält med källetikett;
+   vägledningen ligger bakom i-symbolen vid rubriken. */
+.head-row { position: relative; }
+.head-row h1, .head-row h2 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.info-i { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--strong); background: #fff; color: var(--strong); font: italic 600 15px/1 Georgia, "Times New Roman", serif; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; touch-action: manipulation; }
+.info-i:hover, .info-i[aria-expanded="true"] { background: var(--strong); color: #fff; }
+.info-i:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.info-i.demo { cursor: default; }
+.info-tip { display: inline-block; margin: -2px 0 10px; font: 500 12px/1.4 var(--mono); color: var(--strong); background: var(--strong-soft); padding: 5px 9px; border-radius: var(--r); }
+.info-tip::before { content: "↑ "; }
+.info-pop { position: absolute; left: 0; top: 100%; z-index: 30; width: min(600px, 100%); background: #fff; border: 2px solid var(--ink); border-top: 4px solid var(--strong); border-radius: var(--r); padding: 14px 16px 10px; box-shadow: 6px 6px 0 rgba(20,20,20,.12); }
+.info-pop.static { position: static; width: auto; box-shadow: none; }
+.info-pop .pop-eyebrow { font: 500 12px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--strong); margin-bottom: 4px; }
+.info-pop dl { margin: 0; }
+.info-pop dt { font: 600 14px/1.3 var(--serif); margin-top: 9px; }
+.info-pop dd { margin: 2px 0 0; font-size: 14.5px; line-height: 1.5; }
+.info-pop .pop-begrepp { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 14.5px; }
+.info-pop .pop-begrepp p { margin: 0 0 8px; }
+.info-pop .pop-begrepp a { color: var(--strong); font-weight: 600; }
+.info-pop [data-info-close] { margin-top: 2px; padding-left: 0; }
+.info-intro { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--strong); border-radius: var(--r); padding: 12px 14px; margin: 0 0 18px; font-size: 15px; }
+.info-intro .info-i { margin-top: 1px; }
+
+/* Vägvisaren: huvudvägen som en linje, avstickare som en gren. */
+.route { margin: 0 0 18px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+.route ol { list-style: none; display: flex; margin: 0; padding: 0; min-width: max-content; }
+.route li { position: relative; display: flex; flex-direction: column; align-items: flex-start; padding-right: 26px; font: 500 11.5px/1.25 var(--mono); letter-spacing: .03em; color: #8a8a86; }
+.route li::before { content: ""; position: absolute; left: 6px; right: 0; top: 6px; height: 2px; background: #c9c9c5; }
+.route li:last-child::before { display: none; }
+.route li.done::before { background: var(--ink); }
+.route .dot { position: relative; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #b5b5b1; background: var(--paper); margin-bottom: 6px; }
+.route li.done .dot { background: var(--ink); border-color: var(--ink); }
+.route li.cur .dot { background: #fff; border: 4px solid var(--ink); }
+.route li.cur { color: var(--ink); font-weight: 600; }
+.route li.done { color: var(--ink); }
+.route li.side .dot { border-style: dashed; width: 12px; height: 12px; margin-left: 1px; }
+.route li.side::before { background: repeating-linear-gradient(90deg, #c9c9c5 0 5px, transparent 5px 9px); }
+.route li.side .rn { font-style: normal; }
+.route li.side.cur .dot { border-style: solid; }
+.route .rn em { display: block; font-style: normal; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: #8a8a86; }
+
+/* Underlaget: lågmält band med källetiketter, tydligt skilt från uppgiften. */
+.src { display: inline-block; font: 500 10.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); border: 1px solid var(--ink); border-radius: var(--r); padding: 4px 6px; margin: 0 8px 6px 0; background: #fff; vertical-align: middle; }
+.underlag-band { background: #ebebe8; border-radius: var(--r); padding: 12px 12px 4px; margin: 0 0 22px; }
+.underlag-band .ub-head { font: 500 11.5px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 2px 10px; }
+.underlag-band .card { background: #fbfbfa; margin-bottom: 8px; }
+.underlag-band .canvas { margin-bottom: 0; }
+.underlag-band .note { background: #fbfbfa; border-left-color: var(--line); font-size: 14.5px; margin-bottom: 8px; }
+.task-head { border-left: 5px solid var(--ink); padding-left: 12px; margin-top: 8px; }
+.task-head + p { padding-left: 17px; }
+
+/* Nästa-raden följer med längst ner, så att nästa steg alltid syns. */
+.navrow { position: sticky; bottom: 0; z-index: 20; background: var(--paper); padding-bottom: 12px; margin-bottom: -4px; }
+.navrow .btn[data-act=next] { white-space: normal; text-align: left; line-height: 1.25; }
+.navrow .btn.quietnext { background: #fff; color: var(--ink); border: 1.5px solid var(--ink); }
+@media (max-width: 680px) { .navrow .btn[data-act=next] { padding: 12px 14px; font-size: 14px; } .info-tip { font-size: 11.5px; } }
+.spel-chart { margin-bottom: 12px; }
+.chart-q { font: 600 17px/1.3 var(--serif); margin: 2px 0 2px; }
+.chart-a { font-size: 15px; margin: 0 0 6px; }
+.chart-key { margin: 0 0 18px; }
+.route li:has(+ li.side)::before { background: repeating-linear-gradient(90deg, #c9c9c5 0 5px, transparent 5px 9px); }

@@ -1,11 +1,12 @@
 // Innehållsfil för Utvalda tillämpningar. Texter kan redigeras här utan att röra koden.
 // Ett nytt fall läggs till som ett nytt objekt i listan "fall". Koden behöver inte ändras.
 window.CONTENT = {
- "version": "prototyp v0.6",
+ "version": "prototyp v0.7",
  "titel": "Utvalda tillämpningar",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "upphov": "© Engströms Mickla AB 2026",
  "undertitel": "Fördjupningar som använder framtiderna från Sense för en särskild fråga",
+ "vag": { "uppgifter": "Uppgifter", "framtiderna": "Framtiderna", "faktorer": "Välj {ord}", "bedomning": "Bedömning per framtid", "syntes": "Syntes", "rapport": "Rapport", "nastaFramtid": "Nästa framtid" },
  "skedeIntro": {
   "underlag": { "namn": "Framtiderna", "vad": "Ni hämtar de fyra framtiderna från Sense, eller skriver in fyra egna om Sense inte är gjord.", "varfor": "Tillämpningen prövar {objekt} mot flera framtider i stället för en prognos. Det som håller i flera framtider är tryggare att bygga på.", "hur": "Läs in sparfilen från Sense. Saknas den ger ni varje framtid ett namn och en kort beskrivning.", "vem": "Den som håller i arbetet, gärna tillsammans med gruppen.", "leder": "Ni väljer vilka {ord} som ska bedömas." },
   "faktorer": { "namn": "Välj {ord}", "vad": "Ni markerar de {ord} som betyder mest för {objekt}.", "varfor": "Det går inte att bedöma allt. Att välja det som betyder mest gör bedömningen skarpare och samtalet bättre.", "hur": "Läs listan, markera de {ord} som är viktigast och skriv kort hur det ser ut i dag. Där det efterfrågas anger ni också hur stark varje del är i dag.", "vem": "Hela gruppen, gärna med någon som känner {objekt} väl.", "leder": "De valda {ord} bedöms mot en framtid i taget." },

@@ -21,7 +21,7 @@ Arbetsbeskrivning för den som utvecklar verktygen vidare, människa eller Claud
 - Upphovsrad: "© Engströms Mickla AB 2026". Raden om Smart Built Environment och Formas läggs till först när finansieringen är beslutad.
 - Verktygen är dialogverktyg, inte mätinstrument. Inga psykometriska anspråk.
 - Publicera aldrig till `main` utan att Dan har sagt "publicera". Förslag läggs i en egen gren.
-- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See). "prototyp v0.3" lade till sidan Spårbarhet. "prototyp v0.4" (2026-10-24): See granskad mot forskningen, egna källor per förmåga, 42 texter ändrade. "prototyp v0.5" (2026-10-29): ny grafisk profil och ny introduktionsfilm. "prototyp v0.6" (publicerad 2026-10-31): spelet Förmågefällan i Shift och introduktion till varje skede.
+- Versionsnummer (`version` i varje innehållsfil) räknas upp vid varje publicering och syns i sidfoten och i rapporterna. Sedan 2026-10-10 heter alla moduler och hela verktyget "prototyp v0.1" (första testrundan med användare). "prototyp v0.2" publicerades 2026-10-24 efter granskningen av regler och källor (stegprincipen, skalstegsprincipen, förmågepåståenden i See). "prototyp v0.3" lade till sidan Spårbarhet. "prototyp v0.4" (2026-10-24): See granskad mot forskningen, egna källor per förmåga, 42 texter ändrade. "prototyp v0.5" (2026-10-29): ny grafisk profil och ny introduktionsfilm. "prototyp v0.6" (publicerad 2026-10-31): spelet Förmågefällan i Shift och introduktion till varje skede. "prototyp v0.7" (gren `vagvisning-v0.7`, 2026-10-31): vägvisare, i-symbol med popup, underlag med källetikett och självförklarande diagram i Förmågefällan.
 - Kommunikation om forskningsgrunden (Dans beslut 2026-10-24): skriv att verktygen är forskningsbaserade, aldrig att allt eller varje del kommer från forskningen. Där forskningen inte matchar exakt är rekommendationerna omdömen som är utformade och avvägda utifrån forskningen.
 
 ## Grundperspektiv: absorptionsförmåga, inte implementering
@@ -83,9 +83,12 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 - Hypotesen förs in i ramen (vilket hinder ledningen tar bort) och det första trimförsöket bara när gruppen trycker på knappen. Resultatet kommer med i rapporten, PDF:en, sparfilen (`data.spel`, `lamnar.spel`) och slutsidans analys.
 - Regler SHI-8 till SHI-11 i Spårbarhet. Ändras modellen ska reglerna ändras i samma omgång.
 
-## Om skedet (version 0.6, Dans beslut 2026-10-31)
-- Varje skede i Sense, See, Shift, Utvalda tillämpningar och slutsidan har en kort introduktion direkt under rubriken: vad gör vi, varför är det viktigt, hur gör vi det, vem gör det och vad leder det till. Den är stängd från början, öppnas på plats och stängs med Stäng och fortsätt, så att användaren är kvar där hen var.
-- Texterna ligger i `skedeIntro` i respektive innehållsfil (i See under `boost.skedeIntro`; i tillämpningarna med `{ord}` och `{objekt}` som fylls från fallet). Rubrikerna och mekaniken ligger i `LCA.INTRO`, `LCA.skedeIntro` och `LCA.withIntro` i `js/lca.js`.
+## Vägledning och vägvisning (version 0.7, Dans beslut 2026-10-31)
+- Princip: tre nivåer på varje skärm. **Huvudvägen** (rubrik, uppgift och Nästa) har mest tyngd. **Underlaget** (det som kommer från tidigare moduler eller spelet) ligger i ett lågmält band (`underlag-band`) med källetikett (`LCA.kalla`: Från Sense, Från See, Från spelet, Ert underlag). **Vägledningen** ligger bakom i-symbolen vid rubriken. Allt för att det ska vara lätt att se vad nästa steg är.
+- **i-symbolen** (`LCA.withIntro` i `js/lca.js`): en popup vid stegets första rubrik med Om steget (vad gör vi, varför, hur, vem, vad det leder till; texterna i `skedeIntro` i varje innehållsfil, i See under `boost.skedeIntro`, i tillämpningarna med `{ord}` och `{objekt}`) och beskrivningen av begreppet. Rutor med klassen `about-note` flyttas automatiskt in i popupen (ersätter beslutet att visa begreppet som text första gången). Hover på dator, tryck på telefon, Esc stänger. Rutor med `about-note small` (slutsidan, tillämpningarnas startsida) ligger kvar som text.
+- i-symbolen presenteras tidigt (Dans beslut): på startsidan och modulernas startsidor (`LCA.infoIntroHTML`), och med ett tips vid symbolen tills användaren har öppnat den en gång (`lca.info.sett` i webbläsaren).
+- **Vägvisaren** (`LCA.route`) överst i varje steg: huvudvägens etapper, frivilliga steg som avstickare (streckade). Etapperna ligger i `vag` i varje innehållsfil. **Nästa** säger vart den leder ("Nästa: Learning Direction Canvas") och följer med längst ner (sticky).
+- **Förmågefällans diagram**: mönstret först, sedan två diagram som var och ett har en fråga och ett svar i ord, namnen vid linjernas slut, er väg tjock och svart, jämförelsevägarna tunna, tonade ytor före och efter plan, svackan utmärkt. Smalare diagram med större text på telefon.
 
 ## Slutsidan, version 0.1 (byggd 2026-10-10)
 - `slut/` visas bara när Sense, See och Shift är gjorda i följd (Shift-filen bär kedjan). Annars förklarar sidan vad som saknas; modulrapporterna räcker när en eller två faser är gjorda.
@@ -125,7 +128,7 @@ LCA v2 bygger på Mats Freds forskning (Fred & Mukhtar-Landgren 2022): när exte
 - Rapporterna listar inga källor; de hänvisar till Teoriplattformen (`LCA.teoriHTML`, `LCA.TEORI`). Nya källor läggs i `js/info.js`.
 - `begrepp/` är en sökbar begreppslista; `om/` beskriver bakgrund, upplägg, mål, upphovsman och kontakt (dan@mickla.se, 0709 60 70 76). Innehållet ligger i `js/info.js`.
 - Länkarna Begrepp och Om metoden finns i sidhuvudet på alla sidor och öppnas i en ny flik så att körningen inte avbryts.
-- Första gången ett begrepp eller en canvas dyker upp i en modul visas en kort beskrivning med länk till begreppslistan.
+- Beskrivningen av ett begrepp eller en canvas ligger i popupen vid i-symbolen, med länk till begreppslistan (sedan v0.7).
 
 ## Introduktionsfilm
 - `video/intro.mp4` (95 sekunder, 1280×720, H.264, text men inget ljud, gjord om i den grafiska profilen 2026-10-29) och `video/intro-poster.jpg` (filmens startbild med titeln) visas på startsidan, mellan de två inledande styckena, med en nedladdningslänk. Texterna i `js/content.js` under `film`.

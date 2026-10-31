@@ -11,7 +11,8 @@
   var MODUL = { see: 'See', sense: 'Sense', shift: 'Shift', slut: 'Slutsidan', till: 'Tillämpningar', start: 'Startsidan', info: 'Om metoden' };
   /* [mönster för sökväg, del, visas när, källa eller grund] */
   var MAP = [
-    [/\.skedeIntro/, 'Om skedet', 'Introduktion under stegets rubrik, öppnas av användaren', ''],
+    [/\.skedeIntro/, 'Om steget', 'Popup vid i-symbolen vid stegets rubrik', ''],
+    [/\.vag\./, 'Vägvisning', 'Vägvisaren överst och knappen Nästa', ''],
     [/^shift\.spel\.(handelser|kort|axlar)/, 'Spelets händelser, kort och axlar', 'Förmågefällan, varje vecka (SHI-8, SHI-9)', 'Repenning & Sterman 2002; Michie m.fl. 2011'],
     [/^shift\.spel\.vidSidan/, 'Vid sidan av', 'Förmågefällan, varje vecka (SHI-9)', 'Augsdorfer 2005; Criscuolo, Salter & Ter Wal 2014; Mainemelis 2010'],
     [/^shift\.spel\.(monster|avslojande|hypotes)/, 'Spelets mönster och hypotes', 'Förmågefällan efter vecka 8 (SHI-10, SHI-11)', 'Repenning & Sterman 2001; 2002'],

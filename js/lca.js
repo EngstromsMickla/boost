@@ -106,40 +106,97 @@
   }
 
 
-  /* Om skedet: en kort introduktion som öppnas på plats och stängs igen, så att man är kvar där man var.
-     Texterna ligger i varje moduls innehållsfil under skedeIntro. Öppet eller stängt minns per skede under besöket. */
-  var INTRO = { rubrik: 'Om skedet', fragor: [['vad', 'Vad gör vi?'], ['varfor', 'Varför är det viktigt?'], ['hur', 'Hur gör vi det?'], ['vem', 'Vem gör det?'], ['leder', 'Vad leder det till?']], stang: 'Stäng och fortsätt' };
-  var introOppen = {};
-  function skedeIntro(o, key) {
-    if (!o) return '';
-    key = key || o.namn;
-    return '<details class="skede-intro" data-intro="' + esc(key) + '"' + (introOppen[key] ? ' open' : '') + '><summary>' + esc(INTRO.rubrik) + ': ' + esc(o.namn) + '</summary><div class="si-body"><dl>' +
-      INTRO.fragor.filter(function (f) { return o[f[0]]; }).map(function (f) { return '<dt>' + esc(f[1]) + '</dt><dd>' + esc(o[f[0]]) + '</dd>'; }).join('') +
-      '</dl><button type="button" class="btn quiet small-btn" data-intro-close>' + esc(INTRO.stang) + '</button></div></details>';
+  /* Vägledning (v0.7): en i-symbol vid stegets rubrik öppnar en popup med Om skedet och beskrivningen av begreppet.
+     Hovra på dator, tryck på telefon och med tangentbord. Texterna ligger i varje moduls innehållsfil under skedeIntro.
+     Beskrivningar av begrepp (rutor med klassen about-note) flyttas in i samma popup, så att huvudvägen syns först. */
+  var INTRO = {
+    rubrik: 'Om steget',
+    fragor: [['vad', 'Vad gör vi?'], ['varfor', 'Varför är det viktigt?'], ['hur', 'Hur gör vi det?'], ['vem', 'Vem gör det?'], ['leder', 'Vad leder det till?']],
+    stang: 'Stäng',
+    ikonEtikett: 'Om steget',
+    tips: 'Nytt här? Hovra över eller tryck på i för att läsa vad ni gör i steget och varför.',
+    startRubrik: 'Vägledning finns vid varje rubrik',
+    startText: 'Hovra över eller tryck på symbolen vid rubriken. Där står vad ni gör i steget, varför det är viktigt, hur och vem som gör det, och vad det leder till. Där förklaras också begreppen. Sidan visar annars bara det ni ska göra.'
+  };
+  var INFO_SETT = 'lca.info.sett';
+  function infoSett() { try { return localStorage.getItem(INFO_SETT) === '1'; } catch (e) { return false; } }
+  function markSett() { try { localStorage.setItem(INFO_SETT, '1'); } catch (e) {} }
+  var popNr = 0;
+  function infoIntroHTML() {
+    return '<div class="info-intro"><span class="info-i demo" aria-hidden="true">i</span><div><b>' + esc(INTRO.startRubrik) + '.</b> ' + esc(INTRO.startText) + '</div></div>';
   }
-  /* Lägger introduktionen direkt under stegets rubrik. */
-  function withIntro(html, o, key) {
-    if (!o) return html;
-    var box = skedeIntro(o, key), m = /<\/h[12]>/.exec(html);
-    if (!m) return box + html;
-    var end = m.index + m[0].length, after = html.slice(end), lead = /^\s*<p class="lead"[^>]*>[\s\S]*?<\/p>/.exec(after);
-    if (lead) end += lead[0].length;
-    return html.slice(0, end) + box + html.slice(end);
+  function popBody(o, extra) {
+    var h = '';
+    if (o) h += '<div class="pop-eyebrow">' + esc(INTRO.rubrik) + ': ' + esc(o.namn) + '</div><dl>' + INTRO.fragor.filter(function (f) { return o[f[0]]; }).map(function (f) { return '<dt>' + esc(f[1]) + '</dt><dd>' + esc(o[f[0]]) + '</dd>'; }).join('') + '</dl>';
+    if (extra) h += '<div class="pop-begrepp">' + extra + '</div>';
+    return h;
   }
+  /* Lägger i-symbolen vid stegets första rubrik och flyttar begreppsrutorna in i popupen. */
+  function withIntro(html, o) {
+    var extra = '';
+    html = html.replace(/<div class="note about-note">([\s\S]*?)<\/div>/g, function (m, inner) { extra += '<p>' + inner + '</p>'; return ''; });
+    if (!o && !extra) return html;
+    var m = /<h([12])([^>]*)>([\s\S]*?)<\/h\1>/.exec(html);
+    if (!m) return html;
+    var id = 'pop-' + (++popNr), namn = o ? o.namn : INTRO.ikonEtikett;
+    var btn = '<button type="button" class="info-i" data-info="' + id + '" aria-expanded="false" aria-controls="' + id + '" aria-label="' + esc(INTRO.ikonEtikett + ': ' + namn) + '" title="' + esc(INTRO.ikonEtikett) + '">i</button>';
+    var tip = infoSett() ? '' : '<span class="info-tip">' + esc(INTRO.tips) + '</span>';
+    var pop = '<div class="info-pop" id="' + id + '" role="dialog" aria-label="' + esc(INTRO.ikonEtikett + ': ' + namn) + '" hidden>' + popBody(o, extra) + '<button type="button" class="btn quiet small-btn" data-info-close>' + esc(INTRO.stang) + '</button></div>';
+    var head = '<div class="head-row"><h' + m[1] + m[2] + '>' + m[3] + ' ' + btn + '</h' + m[1] + '>' + tip + pop + '</div>';
+    return html.slice(0, m.index) + head + html.slice(m.index + m[0].length);
+  }
+  function skedeIntro(o) { return o ? '<div class="info-pop static">' + popBody(o) + '</div>' : ''; }
+  var pinned = null;
+  function popOf(b) { return document.getElementById(b.getAttribute('data-info')); }
+  function openPop(b, pin) {
+    var p = popOf(b); if (!p) return;
+    closeAll(b); p.hidden = false; b.setAttribute('aria-expanded', 'true');
+    if (pin) pinned = b;
+    if (!infoSett()) { markSett(); var t = document.querySelector('.info-tip'); if (t) t.remove(); }
+  }
+  function closePop(b) { var p = popOf(b); if (p) p.hidden = true; b.setAttribute('aria-expanded', 'false'); if (pinned === b) pinned = null; }
+  function closeAll(except) { var bs = document.querySelectorAll('.info-i[aria-expanded="true"]'); for (var i = 0; i < bs.length; i++) if (bs[i] !== except) closePop(bs[i]); }
   if (typeof document !== 'undefined') {
-    document.addEventListener('toggle', function (e) { var d = e.target; if (d && d.classList && d.classList.contains('skede-intro')) introOppen[d.getAttribute('data-intro')] = d.open; }, true);
+    var hover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     document.addEventListener('click', function (e) {
-      var b = e.target.closest && e.target.closest('[data-intro-close]'); if (!b) return;
-      var d = b.closest('details'); if (!d) return;
-      d.open = false; introOppen[d.getAttribute('data-intro')] = false;
-      var s = d.querySelector('summary'), r = s.getBoundingClientRect();
-      if (r.top < 0) s.scrollIntoView({ block: 'start' });
-      s.focus({ preventScroll: true });
+      var c = e.target.closest && e.target.closest('[data-info-close]');
+      if (c) { var row = c.closest('.head-row'), b = row && row.querySelector('.info-i'); if (b) { closePop(b); b.focus(); } return; }
+      var b2 = e.target.closest && e.target.closest('.info-i[data-info]');
+      if (b2) { if (b2.getAttribute('aria-expanded') === 'true' && pinned === b2) closePop(b2); else openPop(b2, true); return; }
+      if (!(e.target.closest && e.target.closest('.info-pop'))) closeAll();
     });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var b = document.querySelector('.info-i[aria-expanded="true"]'); if (b) { closePop(b); b.focus(); } } });
+    if (hover) {
+      document.addEventListener('mouseover', function (e) { var b = e.target.closest && e.target.closest('.info-i[data-info]'); if (b && b.getAttribute('aria-expanded') !== 'true') openPop(b, false); });
+      document.addEventListener('mouseout', function (e) {
+        var row = e.target.closest && e.target.closest('.head-row'); if (!row) return;
+        if (e.relatedTarget && row.contains(e.relatedTarget)) return;
+        var b = row.querySelector('.info-i'); if (b && pinned !== b && b.getAttribute('aria-expanded') === 'true') closePop(b);
+      });
+    }
   }
+
+  /* Vägvisare: huvudvägen genom modulen, med frivilliga avstickare. items: [{namn, sido}], cur: index. */
+  function route(items, cur, etikett) {
+    var h = '<nav class="route" aria-label="' + esc(etikett || 'Var ni är') + '"><ol>';
+    items.forEach(function (it, i) {
+      var st = i === cur ? 'cur' : i < cur && !it.sido ? 'done' : '';
+      h += '<li class="' + (it.sido ? 'side ' : '') + st + '"' + (i === cur ? ' aria-current="step"' : '') + '><span class="dot" aria-hidden="true"></span><span class="rn">' + esc(it.namn) + (it.sido ? '<em>frivilligt</em>' : '') + '</span></li>';
+    });
+    return h + '</ol></nav>';
+  }
+  /* Vägvisaren rullas så att aktuellt steg syns, också på telefon. */
+  if (typeof document !== 'undefined' && window.MutationObserver) {
+    var syncRoute = function () { var r = document.querySelector('.route'), c = r && r.querySelector('li.cur'); if (r && c && r.scrollWidth > r.clientWidth) r.scrollLeft = Math.max(0, c.offsetLeft - r.clientWidth / 3); };
+    var startObs = function () { var a = document.getElementById('app'); if (a) new MutationObserver(syncRoute).observe(a, { childList: true }); };
+    if (document.getElementById('app')) startObs(); else document.addEventListener('DOMContentLoaded', startObs);
+    window.addEventListener('load', syncRoute);
+  }
+  /* Källetikett för underlag som kommer från ett tidigare steg eller en tidigare modul. */
+  function kalla(t) { return '<span class="src">' + esc(t) + '</span>'; }
 
   var TEORI = { text: 'Metodens vetenskapliga grund och litteraturlistan finns i Teoriplattformen', url: 'https://boost.mickla.se/teori/' };
   function teoriHTML(rel) { return '<p class="small muted teori-ref">' + TEORI.text + ': <a href="' + (rel || '../') + 'teori/" target="_blank" rel="noopener">' + TEORI.url.replace('https://', '') + '</a></p>'; }
-  window.LCA = { INTRO: INTRO, skedeIntro: skedeIntro, withIntro: withIntro, RUBRIK: RUBRIK, TEORI: TEORI, teoriHTML: teoriHTML, reportBlock: reportBlock, reportPDF: reportPDF, FORMAT: FORMAT, MODULER: MODULER, NYCKLAR: NYCKLAR, NAMN: NAMN, wrap: wrap, unwrap: unwrap, chainFrom: chainFrom,
+  window.LCA = { INTRO: INTRO, skedeIntro: skedeIntro, withIntro: withIntro, infoIntroHTML: infoIntroHTML, route: route, kalla: kalla, RUBRIK: RUBRIK, TEORI: TEORI, teoriHTML: teoriHTML, reportBlock: reportBlock, reportPDF: reportPDF, FORMAT: FORMAT, MODULER: MODULER, NYCKLAR: NYCKLAR, NAMN: NAMN, wrap: wrap, unwrap: unwrap, chainFrom: chainFrom,
     readFile: readFile, download: download, fileName: fileName, slug: slug, handOff: handOff, takeHandOff: takeHandOff, clearHandOff: clearHandOff, stored: stored };
 })();
