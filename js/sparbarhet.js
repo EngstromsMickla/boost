@@ -11,6 +11,12 @@
   var MODUL = { see: 'See', sense: 'Sense', shift: 'Shift', slut: 'Slutsidan', till: 'Tillämpningar', start: 'Startsidan', info: 'Om metoden' };
   /* [mönster för sökväg, del, visas när, källa eller grund] */
   var MAP = [
+    [/\.skedeIntro/, 'Om skedet', 'Introduktion under stegets rubrik, öppnas av användaren', ''],
+    [/^shift\.spel\.(handelser|kort|axlar)/, 'Spelets händelser, kort och axlar', 'Förmågefällan, varje vecka (SHI-8, SHI-9)', 'Repenning & Sterman 2002; Michie m.fl. 2011'],
+    [/^shift\.spel\.vidSidan/, 'Vid sidan av', 'Förmågefällan, varje vecka (SHI-9)', 'Augsdorfer 2005; Criscuolo, Salter & Ter Wal 2014; Mainemelis 2010'],
+    [/^shift\.spel\.(monster|avslojande|hypotes)/, 'Spelets mönster och hypotes', 'Förmågefällan efter vecka 8 (SHI-10, SHI-11)', 'Repenning & Sterman 2001; 2002'],
+    [/^shift\.spel\.samtal/, 'Eftersamtal', 'Förmågefällan efter vecka 8 (SHI-11)', 'Crookall 2010'],
+    [/^shift\.spel/, 'Förmågefällan', 'Steg 0 i Shift (SHI-8 till SHI-11)', 'Repenning & Sterman 2001; 2002; Sterman 1989'],
     [/^see\.boost\.svagastAxel/, 'Svagaste axel', 'Diagnos per vald förmåga (SEE-7)', 'Michie m.fl. 2011'],
     [/^see\.boost\.glapp/, 'Mandatglapp', 'Diagnos (SEE-8)', 'Kanter 1977; Spreitzer 1995'],
     [/^see\.boost\.tilltroGlapp/, 'Tilltroglapp', 'Diagnos (SEE-9)', 'Weiner 2009'],

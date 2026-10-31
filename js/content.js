@@ -1,7 +1,7 @@
 // Innehållsfil för landningssidan. Texter kan redigeras här utan att röra koden.
 // Status per modul: "oppen" (länkas) eller "kommer" (visas som under utveckling).
 window.CONTENT = {
- "version": "prototyp v0.5",
+ "version": "prototyp v0.6",
  "fredLank": "https://www.researchgate.net/profile/Dalia-Mukhtar-Landgren/publication/366482837_Larande_genom_temporar_organisering_-_projekt_piloter_och_experiment_i_Malmo_stad/links/63a3341cc3c9bb1647fb905d/Laerande-genom-temporaer-organisering-projekt-piloter-och-experiment-i-Malmoe-stad.pdf",
  "upphov": "© Engströms Mickla AB 2026",
  "eyebrow": "Smart Built Boost",
@@ -60,7 +60,7 @@ window.CONTENT = {
    "lank": "shift/",
    "rubrik": "Shift: från insikt till rörelse",
    "underrubrik": "Hur vi gör ett första litet steg",
-   "text": "Ledningen formulerar en riktning för lärande. Därefter planeras små trimförsök som riktas mot det som håller tillbaka, genomförs under några veckor och följs upp med en kursavläsning, så att varje försök leder till nästa.",
+   "text": "Ni kan börja med spelet Förmågefällan, åtta veckor om att hinna förbättra när leveransen trycker på. Ledningen formulerar sedan en riktning för lärande. Därefter planeras små trimförsök som riktas mot det som håller tillbaka, genomförs under några veckor och följs upp med en kursavläsning, så att varje försök leder till nästa.",
    "far": "En riktning för lärande, trimförsök och kursavläsningar, och er lärandekurva.",
    "tid": "En lärperiod om ungefär fyra veckor."
   }

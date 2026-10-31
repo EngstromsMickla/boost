@@ -99,7 +99,7 @@
 
   /* ---------- steg ---------- */
   function steps() {
-    var s = ['start', 'uppgifter', 'underlag', 'riktning', 'ram'];
+    var s = ['start', 'uppgifter', 'underlag', 'spel', 'riktning', 'ram'];
     state.fragor.forEach(function (q) { s.push('plan-' + q.id); });
     return s.concat(['oversikt', 'rapport']);
   }
@@ -220,7 +220,7 @@
   function renderRiktning() {
     var R = C.riktning, h = eyebrow('Steg 1 · Riktning') + '<h2>' + esc(R.rubrik) + '</h2>' + omNote({ rubrik: R.rubrik, om: R.om, begrepp: R.begrepp });
     h += '<div class="canvas"><div class="card tight"><div class="eyebrow">' + esc(R.falt1) + '</div>' + tryckHTML() + '</div><div class="card tight"><div class="eyebrow">' + esc(R.falt2) + '</div>' + beredskapHTML() + '</div></div>';
-    h += '<h3>' + esc(R.falt3) + '</h3><p class="muted small">' + esc(R.falt3Text) + '</p>';
+    h += spelFranHTML('riktning') + '<h3>' + esc(R.falt3) + '</h3><p class="muted small">' + esc(R.falt3Text) + '</p>';
     var fs = forslagFragor();
     if (fs.length && state.fragor.length < 3) h += '<div class="card tight"><div class="eyebrow">' + esc(R.forslag) + '</div>' + fs.map(function (f, i) { return '<div class="prop"><div>' + esc(f.text) + '</div><button class="btn ghost small-btn" data-act="addfraga" data-i="' + i + '">Ta med</button></div>'; }).join('') + '</div>';
     var bl = behovLista();
@@ -241,7 +241,7 @@
     });
     h += '<div class="card">' + field(R.motto, 'ram.motto', state.ram.motto) + '<div class="two">' + field(R.ansvarig, 'ram.ansvarig', state.ram.ansvarig) + field(R.datum, 'ram.datum', state.ram.datum, { type: 'date' }) + '</div>';
     h += '<span class="lbl">' + esc(R.stodRubrik) + '</span><div class="chips">' + R.stod.map(function (s) { var on = state.ram.stod.indexOf(s) >= 0; return '<button class="chip' + (on ? ' on' : '') + '" data-stod="' + esc(s) + '" aria-pressed="' + on + '">' + (on ? '✓ ' : '+ ') + esc(s) + '</button>'; }).join('') + '</div>';
-    h += field(R.hinder, 'ram.hinder', state.ram.hinder, { area: true, style: 'margin:0' }) + '<p class="hint" style="margin-top:6px">' + esc(R.hinderHjalp) + '</p></div>';
+    h += spelFranHTML('hinder') + field(R.hinder, 'ram.hinder', state.ram.hinder, { area: true, style: 'margin:0' }) + '<p class="hint" style="margin-top:6px">' + esc(R.hinderHjalp) + '</p></div>';
     return h;
   }
   function renderForsok(f, isPlan) {
@@ -250,6 +250,7 @@
     if (isPlan && state.fragor.indexOf(q) === 0) h += omNote({ rubrik: Fo.rubrik, om: Fo.om, begrepp: Fo.begrepp });
     if (f.fore) { var pf = forsok(f.fore); if (pf) h += '<p class="note small">Fortsättning på <b>' + esc(pf.titel) + '</b>. Nästa lilla försök enligt kursavläsningen: ' + esc(pf.av.nasta) + '</p>'; }
     h += '<div class="card tight"><div class="eyebrow">' + esc(Fo.fraga) + '</div><p style="margin:0">' + esc(q ? q.text : '') + '</p></div>';
+    if (isPlan && state.fragor.indexOf(q) === 0) h += spelFranHTML('forsok');
     h += '<div class="card">' + field(Fo.titel, p + 'titel', f.titel) + field(Fo.skaver, p + 'skaver', f.skaver, { area: true });
     var T = Fo.typer[f.typ] || Fo.typer.formaga;
     h += '<span class="lbl">' + esc(Fo.typRubrik) + '</span>' + seg('data-ftyp', function (k) { return AX[k]; }, AX.map(function (a) { return Fo.typer[a].namn; }), f.typ) + '<p class="small muted" style="margin:-4px 0 8px">' + esc(T.text) + ' ' + esc(Fo.typText) + '</p><div class="chips ex">' + T.exempel.map(function (e) { return '<button class="chip" data-act="useex" data-ex="' + esc(e) + '">' + esc(e) + '</button>'; }).join('') + '</div>';
@@ -322,7 +323,7 @@
       h += '<h3>' + esc(O.kurvaRubrik) + '</h3><div class="card tight chartcard"><div class="chart">' + kurvaSVG() + '</div>' + kurvaLegend() + '<p class="small muted" style="margin:8px 0 0">' + esc(O.kurvaText) + '</p></div>';
       h += '<h3>' + esc(O.rorelseRubrik) + '</h3><div class="card tight">' + rorelseHTML() + '</div>';
     }
-    h += '<div class="actions"><button class="btn ghost" data-act="ics">' + esc(O.kalender) + '</button><button class="btn ghost" data-act="period">' + esc(state.period.avslutad ? C.period.avslutad : O.period) + '</button></div>';
+    h += '<div class="actions"><button class="btn ghost" data-act="ics">' + esc(O.kalender) + '</button><button class="btn ghost" data-act="spelspela">' + esc(spelKlart() ? C.spel.namn : C.spel.spelaFranOversikt) + '</button><button class="btn ghost" data-act="period">' + esc(state.period.avslutad ? C.period.avslutad : O.period) + '</button></div>';
     return h;
   }
   function renderPeriod() {
@@ -333,6 +334,138 @@
     h += field(P.skala, 'period.skala', state.period.skala, { area: true }) + field(P.hinder, 'period.hinder', state.period.hinder, { area: true }) + field(P.nasta, 'period.nasta', state.period.nasta, { type: 'date' });
     h += '<div class="actions"><button class="btn" data-act="avsluta">' + esc(state.period.avslutad ? P.avslutad + ' ✓' : 'Markera lärperioden som avslutad') + '</button></div>';
     return h;
+  }
+
+  /* ---------- spelet Förmågefällan (steg 0, frivilligt) ---------- */
+  var SP = C.spel, SIM = window.LCASpel;
+  function spel() {
+    if (!state.spel) state.spel = { status: 'ny', axel: null, beslut: [], val: { t: 0, gen: false, vid: false, kort: null }, samtal: ['', '', '', ''] };
+    return state.spel;
+  }
+  /* Den svagaste axeln: den som oftast är svagast bland behoven från See eller underlaget. Vid lika väger det första behovet. */
+  function spelAxelForslag() {
+    var bl = behovLista(), n = {};
+    bl.forEach(function (b) { if (b.axel) n[b.axel] = (n[b.axel] || 0) + 1; });
+    var ax = AX.filter(function (a) { return n[a]; }).sort(function (a, b) { return n[b] - n[a]; });
+    return ax.length ? (n[ax[0]] === n[ax[1]] && bl[0] ? bl[0].axel : ax[0]) : null;
+  }
+  function spelAxel() { var g = spel(); return g.axel || spelAxelForslag(); }
+  function hogtTryck() { return kollisioner().some(function (k) { return (k.tryck || 0) >= 4; }); }
+  function spelSim(b) { return SIM.simulate(spelAxel(), b || spel().beslut, SP.handelser, { hogtTryck: hogtTryck() }); }
+  function spelHandelse(w) { var ax = spelAxel(); return w === 5 && SP.handelser.vecka6[ax] ? SP.handelser.vecka6[ax] : SP.handelser.veckor[w]; }
+  function spelKort() { var ax = spelAxel(); return SP.kort.filter(function (k) { return k.axel === 'alla' || k.axel === ax; }); }
+  function spelMonster() { var g = spel(); return g.status === 'klar' ? SIM.monster(spelSim(), g.beslut) : []; }
+  function spelTimmar() {
+    var b = spel().beslut, m = b.length ? b.reduce(function (a, x) { return a + (x.t || 0); }, 0) / b.length : 8;
+    return Math.max(4, Math.min(12, Math.round(m / 4) * 4));
+  }
+  function spelHypotes() {
+    var H = SP.hypotes, ax = spelAxel() || 'mandat', mo = spelMonster(), vid = mo.indexOf('vidDolt') >= 0 || mo.indexOf('vidLyft') >= 0;
+    return { om: fill(H.om[ax], { h: spelTimmar(), vid: vid ? H.vid : '' }), tror: H.tror[ax], forutsagelse: H.forutsagelse[ax], hinder: H.hinder[ax] };
+  }
+  function spelKlart() { return spel().status === 'klar'; }
+  function tile(rubrik, niva, namn, cls, sub) {
+    return '<div class="sp-tile ' + (cls || '') + '"><span class="lbl">' + esc(rubrik) + '</span><b class="sp-val lv' + niva + '">' + esc(namn) + '</b>' + (sub ? '<span class="small muted">' + esc(sub) + '</span>' : '') + '</div>';
+  }
+  function renderSpel() {
+    var g = spel(), h = eyebrow('Steg 0 · Spel') + '<h2>' + esc(SP.namn) + '</h2><p class="lead" style="margin-top:-4px">' + esc(SP.undertitel) + '</p>';
+    if (g.status === 'pagar' && g.beslut.length < SIM.VECKOR) return h + renderSpelVecka();
+    if (g.status === 'klar') return h + renderSpelSlut();
+    h += omNote({ rubrik: SP.namn, om: SP.om, begrepp: SP.begrepp }) + SP.intro.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
+    var ax = spelAxel(), forslag = spelAxelForslag();
+    h += '<div class="card"><h3 style="margin-top:0">' + esc(SP.axelRubrik) + '</h3><p class="small muted">' + esc(forslag ? (see() ? SP.axelFran.see : SP.axelFran.egen) + ' ' + lc(SP.axlar[forslag].namn) + '.' : SP.axelFran.ingen) + '</p>' +
+      seg('data-spax', function (k) { return AX[k]; }, AX.map(function (a) { return SP.axlar[a].namn; }), ax) + (ax ? '<p class="small" style="margin:6px 0 0">' + esc(SP.axlar[ax].text) + '</p>' : '') + '</div>';
+    h += '<p class="note small">' + esc(SP.varning) + '</p>';
+    h += '<div class="actions"><button class="btn" data-act="spelstart"' + (ax ? '' : ' disabled') + '>' + esc(SP.starta) + ' →</button></div><p class="small muted">' + esc(SP.hoppaText) + '</p>';
+    return h;
+  }
+  function renderSpelVecka() {
+    var g = spel(), w = g.beslut.length, sim = spelSim(), r = sim.rec, sist = r[w - 1], e = spelHandelse(w), v = g.val, S = SP.signaler;
+    var h = '<div class="card sp-event"><div class="eyebrow">' + esc(fill(SP.vecka, { n: w + 1 })) + '</div><h3 style="margin:2px 0 4px">' + esc(e.rubrik) + '</h3><p class="small" style="margin:0">' + esc(e.text) + '</p></div>';
+    var levN = sist ? SIM.leveransNiva(sist.gap) : 1, enN = SIM.energiNiva(sist ? sist.E : SIM.M.energi);
+    var synligF = w < 3 ? sim.startF : r[w - 3].F;
+    h += '<div class="eyebrow" style="margin-top:6px">' + esc(SP.lage) + '</div><div class="sp-tiles">' +
+      tile(SP.leverans.rubrik, levN, SP.leverans.nivaer[levN], 'lev') + tile(SP.energi.rubrik, enN, SP.energi.nivaer[enN], 'en') +
+      tile(SP.formaga.rubrik, SIM.formagaNiva(synligF, sim.startF), SP.formaga.nivaer[SIM.formagaNiva(synligF, sim.startF)], 'fog', SP.formaga.dimma) + '</div>';
+    var sig = [];
+    if (sist) {
+      if (sist.tagen) sig.push(S.tagen);
+      if (spelAxel() === 'vilja' && sist.t > 0 && sist.tEff < sist.t * 0.8) sig.push(S.halvhjartat);
+      if (sist.ankom > 3) sig.push(S.ankom);
+      if (sist.Rw > 14) sig.push(S.omarbete);
+      if ((sist.kort === 'lyft' || sist.kort === 'ja') && sim.slut.lyft > 0 && r.filter(function (x) { return x.kort === 'lyft' || x.kort === 'ja'; }).length === 1) sig.push(S.lyft);
+      if (w === 6 && sim.slut.stoppat > 0) sig.push(S.stoppat);
+      if (sist.S > 0.5) sig.push(S.vidSidan);
+    }
+    if (sig.length) h += '<ul class="sp-sig">' + sig.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+    if (w) h += '<div class="sp-hist" aria-label="' + esc(SP.historik) + '"><span class="lbl">' + esc(SP.historik) + '</span><div>' + r.map(function (x, i) { var n = SIM.leveransNiva(x.gap); return '<span class="lv' + n + '" title="Vecka ' + (i + 1) + ': ' + esc(SP.leverans.nivaer[n]) + '">' + (i + 1) + '</span>'; }).join('') + '</div></div>';
+    h += '<div class="card"><h3 style="margin-top:0">' + esc(SP.beslutRubrik) + '</h3>';
+    h += '<span class="lbl">' + esc(SP.tid.rubrik) + '</span>' + seg('data-spt', function (k) { return SP.tid.varden[k]; }, SP.tid.val, v.t) + '<p class="hint" style="margin-top:-2px">' + esc(SP.tid.hjalp) + '</p>';
+    h += '<div class="two"><div><span class="lbl">' + esc(SP.genvag.rubrik) + '</span>' + seg('data-spgen', function (k) { return k; }, SP.genvag.val, v.gen ? 1 : 0) + '<p class="small muted">' + esc(SP.genvag.text) + '</p></div>' +
+      '<div><span class="lbl">' + esc(SP.vidSidan.rubrik) + '</span>' + seg('data-spvid', function (k) { return k; }, SP.vidSidan.val, v.vid ? 1 : 0) + '<p class="small muted">' + esc(SP.vidSidan.text) + '</p></div></div>';
+    var used = {}; g.beslut.forEach(function (b, i) { if (b.kort) used[b.kort] = i + 1; });
+    h += '<span class="lbl">' + esc(SP.kortRubrik) + '</span><p class="small muted" style="margin:0 0 8px">' + esc(SP.kortText) + '</p><div class="sp-kort">';
+    h += '<button class="choice" data-spkort="" aria-pressed="' + (!v.kort) + '"><span><b>' + esc(SP.ingetKort) + '</b></span></button>';
+    spelKort().forEach(function (k) {
+      var spent = used[k.id], kanLyfta = sim.slut.S > 0.5;
+      var off = spent || (k.kraver === 'vid' && !kanLyfta);
+      h += '<button class="choice' + (off ? ' off' : '') + '" data-spkort="' + k.id + '" aria-pressed="' + (v.kort === k.id) + '"' + (off ? ' disabled' : '') + '><span><b>' + esc(k.namn) + '</b><span class="small sp-kt">' + esc(spent ? fill(SP.spelat, { n: spent }) : k.text) + '</span></span></button>';
+    });
+    h += '</div><div class="actions" style="margin-top:14px"><button class="btn" data-act="spelkor">' + esc(w === SIM.VECKOR - 1 ? SP.korSista : fill(SP.kor, { n: w + 1 })) + ' →</button></div></div>';
+    return h;
+  }
+  /* Kurvor utan tal: formen är poängen. */
+  function spelKurva(serier, typ) {
+    var W = 640, H = 230, L = 74, T = 14, R = 14, B = 34, w = W - L - R, hh = H - T - B, A = SP.avslojande, all = [];
+    serier.forEach(function (s) { s.v.forEach(function (x) { all.push(x); }); });
+    var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
+    if (typ === 'lev') { var m = Math.max(Math.abs(lo), Math.abs(hi), 10); lo = -m; hi = m; } else { var pad = Math.max(4, (hi - lo) * 0.1); lo -= pad; hi += pad; }
+    function x(i) { return L + i / (SIM.VECKOR - 1) * w; } function y(v) { return T + hh - (v - lo) / (hi - lo) * hh; }
+    var g = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="' + esc(typ === 'lev' ? A.leveransKurva : A.formagaKurva) + '">';
+    g += '<rect x="' + L + '" y="' + T + '" width="' + w + '" height="' + hh + '" fill="#fff" stroke="#dcdcd8"/>';
+    if (typ === 'lev') g += '<line x1="' + L + '" y1="' + y(0) + '" x2="' + (L + w) + '" y2="' + y(0) + '" stroke="#8a8a86" stroke-dasharray="2 3"/><text x="' + (L - 8) + '" y="' + (y(0) + 4) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(A.ifas) + '</text><text x="' + (L - 8) + '" y="' + (T + 11) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(A.fore) + '</text><text x="' + (L - 8) + '" y="' + (T + hh - 2) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(A.efter) + '</text>';
+    else g += '<text x="' + (L - 8) + '" y="' + (T + 11) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(A.starkare) + '</text><text x="' + (L - 8) + '" y="' + (T + hh - 2) + '" font-size="11" fill="#5c5c5c" text-anchor="end">' + esc(A.svagare) + '</text>';
+    for (var i = 0; i < SIM.VECKOR; i++) g += '<text x="' + x(i) + '" y="' + (T + hh + 16) + '" font-size="11" fill="#5c5c5c" text-anchor="middle">' + (i + 1) + '</text>';
+    g += '<text x="' + (L + w / 2) + '" y="' + (H - 2) + '" font-size="11" fill="#5c5c5c" text-anchor="middle">Vecka</text>';
+    serier.slice().reverse().forEach(function (s) {
+      g += '<polyline points="' + s.v.map(function (v, i) { return x(i) + ',' + y(v); }).join(' ') + '" fill="none" stroke="' + s.farg + '" stroke-width="' + (s.tjock ? 4 : 2.5) + '"' + (s.streck ? ' stroke-dasharray="' + s.streck + '"' : '') + ' stroke-linejoin="round"/>';
+      if (s.tjock) s.v.forEach(function (v, i) { g += '<circle cx="' + x(i) + '" cy="' + y(v) + '" r="4" fill="' + s.farg + '"/>'; });
+    });
+    return g + '</svg>';
+  }
+  function spelSerier(falt) {
+    var ax = spelAxel(), o = { hogtTryck: hogtTryck() }, A = SP.avslojande;
+    var lev = SIM.referens(ax, 'leverans', SP.handelser, o), sk = SIM.referens(ax, 'skyddad', SP.handelser, o), er = spelSim();
+    function v(sim) { return sim.rec.map(function (r) { return r[falt]; }); }
+    return [{ namn: A.erVag, v: v(er), farg: '#141414', tjock: true }, { namn: A.leveransForst, v: v(lev), farg: '#d1431d', streck: '6 4' }, { namn: A.skyddad, v: v(sk), farg: '#1e5fcc', streck: '6 4' }];
+  }
+  function spelLegend() {
+    var A = SP.avslojande;
+    return '<div class="legend"><span><i style="background:#141414"></i>' + esc(A.erVag) + '</span><span><i style="border:2px dashed #d1431d"></i>' + esc(A.leveransForst) + '</span><span><i style="border:2px dashed #1e5fcc"></i>' + esc(A.skyddad) + '</span></div>';
+  }
+  function renderSpelSlut() {
+    var g = spel(), A = SP.avslojande, Mo = SP.monster, mo = spelMonster(), hy = spelHypotes();
+    var h = '<h3>' + esc(A.rubrik) + '</h3><p class="small muted">' + esc(A.text) + '</p>';
+    h += '<div class="card tight chartcard"><div class="eyebrow">' + esc(A.formagaKurva) + '</div><div class="chart">' + spelKurva(spelSerier('F'), 'F') + '</div><div class="eyebrow" style="margin-top:10px">' + esc(A.leveransKurva) + '</div><div class="chart">' + spelKurva(spelSerier('gap'), 'lev') + '</div>' + spelLegend() + '</div>';
+    h += '<div class="card summary"><div class="eyebrow">' + esc(Mo.rubrik) + '</div>' + mo.map(function (k) { return '<p class="small">' + esc(Mo[k]) + '</p>'; }).join('') + '</div>';
+    h += '<div class="card next"><div class="eyebrow">' + esc(SP.hypotes.rubrik) + '</div><p style="margin-bottom:6px"><b>Om vi</b> ' + esc(hy.om) + ' <b>så tror vi att</b> ' + esc(hy.tror) + '.</p><p class="small muted" style="margin:0">' + esc(SP.hypotes.text) + '</p></div>';
+    h += '<h3>' + esc(SP.samtal.rubrik) + '</h3><p class="small muted">' + esc(SP.samtal.text) + '</p><div class="card">' + SP.samtal.fragor.map(function (q, i) { return field(q, 'spel.samtal.' + i, g.samtal[i] || '', { area: true }); }).join('') + '</div>';
+    h += '<div class="actions"><button class="btn quiet" data-act="spelom">' + esc(SP.spelaIgen) + '</button></div>';
+    return h;
+  }
+  function spelFranHTML(typ) {
+    if (!spelKlart()) return '';
+    var hy = spelHypotes(), H = SP.hypotes;
+    if (typ === 'hinder') return '<div class="note strong small"><b>' + esc(H.franSpelet) + ':</b> ' + esc(hy.hinder) + ' <button class="btn ghost small-btn" data-act="spelhinder">' + esc(H.anvandHinder) + '</button></div>';
+    if (typ === 'forsok') return '<div class="note strong small"><b>' + esc(H.franSpelet) + ':</b> Om vi ' + esc(hy.om) + ' så tror vi att ' + esc(hy.tror) + '. <button class="btn ghost small-btn" data-act="spelforsok">' + esc(H.anvandForsok) + '</button></div>';
+    var mo = spelMonster(); return mo.length ? '<div class="note strong small"><b>' + esc(H.franSpelet) + ':</b> ' + esc(SP.monster[mo[0]]) + '</div>' : '';
+  }
+  function spelRapport() {
+    var g = spel(), R = SP.rapport;
+    if (g.status === 'hoppat' || g.status === 'ny') return null;
+    if (!spelKlart()) return null;
+    var mo = spelMonster(), hy = spelHypotes(), ax = spelAxel();
+    return { titel: R.titel, text: fill(R.spelat, { axel: lc(SP.axlar[ax].namn).replace(/^svag[a-z]* /, '') }) + ' ' + mo.map(function (k) { return SP.monster[k]; }).join(' '), hypotes: 'Om vi ' + hy.om + ' så tror vi att ' + hy.tror + '.', monster: mo, axel: ax };
   }
 
   /* ---------- rapport ---------- */
@@ -356,6 +489,7 @@
       analys.push(fill(R.vag, { v0: v[0], v1: v[1], v2: v[2] }) + ' ' + (v[0] > v[1] + v[2] ? R.vagSvag : v[2] >= 1 ? R.vagStark : ''));
       if (mats) analys.push(upp === mats ? R.riktningPlus : upp ? fill(R.riktningDelvis || R.riktningPlus, { upp: upp, n: mats }) : R.riktningMinus);
     } else analys.push(R.rorelseIngen);
+    var spr = spelRapport(); if (spr) analys.push({ titel: spr.titel, text: spr.text });
     var dags = state.forsok.filter(function (f) { return status(f) === 'dags'; });
     if (dags.length) forslag.push({ titel: R.forslagAvlas, text: fill(R.forslagAvlasText, { lista: lista(dags.map(function (f) { return '”' + f.titel + '”'; })) }) });
     var oppna = av.filter(function (f) { return !state.forsok.some(function (x) { return x.fore === f.id; }); });
@@ -377,6 +511,7 @@
       larandekurva: (function () { var av = avlasta(); return { avlasningar: av.length, delade: av.filter(function (f) { return f.av.vag >= 1; }).length, inforda: av.filter(function (f) { return f.av.vag === 2; }).length }; })(),
       period: { avslutad: state.period.avslutad, monster: state.period.monster, nasta: state.period.nasta },
       ledningensHinder: (state.period.hinder || state.ram.hinder || '').trim(),
+      spel: (function () { var r = spelRapport(); return r ? { spelat: true, axel: r.axel, monster: r.monster, text: r.text, hypotes: r.hypotes } : { spelat: false }; })(),
       underlag: { sense: !!sense(), see: !!see(), egen: see() ? null : behovLista().map(function (b) { return { namn: b.namn, axel: b.axel, niva: b.fore }; }), utmaning: sense() ? null : state.eget.utmaning }
     };
   }
@@ -398,6 +533,8 @@
     h += '<h3>Learning Direction Canvas</h3><div class="canvas"><div class="card tight"><div class="eyebrow">' + esc(C.riktning.falt1) + '</div>' + tryckHTML() + '</div><div class="card tight"><div class="eyebrow">' + esc(C.riktning.falt2) + '</div>' + beredskapHTML() + '</div></div>';
     h += '<div class="card tight"><div class="eyebrow">' + esc(C.riktning.falt3) + '</div><ol class="small">' + state.fragor.map(function (q) { return '<li><b>' + esc(q.text) + '</b>' + (q.rubrik || q.vi ? '<br>' + esc(q.rubrik) + (q.vi ? ': ' + esc(lc(viText(q.vi))) : '') : '') + '</li>'; }).join('') + '</ol>' +
       (state.ram.motto ? '<p class="small"><b>Motto:</b> ' + esc(state.ram.motto) + '</p>' : '') + '<p class="small" style="margin:0">' + (state.ram.ansvarig ? '<b>Ansvarig:</b> ' + esc(state.ram.ansvarig) + ' · ' : '') + (state.ram.datum ? '<b>Återkoppling:</b> ' + esc(state.ram.datum) + ' · ' : '') + (state.ram.stod.length ? '<b>Stöd:</b> ' + esc(state.ram.stod.join(', ').toLowerCase()) : '') + '</p></div>';
+    var spr2 = spelRapport();
+    if (spr2) h += '<h3>' + esc(C.spel.namn) + '</h3><div class="card tight chartcard"><div class="eyebrow">' + esc(C.spel.avslojande.formagaKurva) + '</div><div class="chart">' + spelKurva(spelSerier('F'), 'F') + '</div><div class="eyebrow" style="margin-top:10px">' + esc(C.spel.avslojande.leveransKurva) + '</div><div class="chart">' + spelKurva(spelSerier('gap'), 'lev') + '</div>' + spelLegend() + '</div><div class="card tight"><p class="small">' + esc(spr2.text) + '</p><p class="small"><b>' + esc(C.spel.hypotes.rubrik) + ':</b> ' + esc(spr2.hypotes) + '</p>' + C.spel.samtal.fragor.map(function (q, i) { var a = (spel().samtal[i] || '').trim(); return a ? '<p class="small" style="margin-bottom:4px"><b>' + esc(q) + '</b><br>' + esc(a) + '</p>' : ''; }).join('') + '</div>';
     h += '<h3>Trimförsök och kursavläsningar</h3>' + state.forsok.map(forsokDetalj).join('');
     if (state.period.monster || state.period.skala) h += '<h3>' + esc(C.period.rubrik) + '</h3><div class="card tight">' + (state.period.monster ? '<p class="small"><b>Mönster:</b> ' + esc(state.period.monster) + '</p>' : '') + state.fragor.map(function (q) { var v = state.period.fragaVal[q.id]; return v ? '<p class="small" style="margin-bottom:4px">' + esc(C.period.fragaVal[v]) + ': ' + esc(q.text) + '</p>' : ''; }).join('') + (state.period.nasta ? '<p class="small" style="margin:0"><b>Nästa lärperiod:</b> ' + esc(state.period.nasta) + '</p>' : '') + '</div>';
     if (state.parkering.trim()) h += '<h3>Parkerade frågor</h3><p class="small" style="white-space:pre-wrap">' + esc(state.parkering) + '</p>';
@@ -414,6 +551,7 @@
     if (st === 'start') html = renderStart();
     else if (st === 'uppgifter') html = renderMeta();
     else if (st === 'underlag') html = renderUnderlag();
+    else if (st === 'spel') html = renderSpel();
     else if (st === 'riktning') html = renderRiktning();
     else if (st === 'ram') html = renderRam();
     else if (/^plan-/.test(st)) html = renderForsok(firstForsok(st.slice(5)), true);
@@ -424,12 +562,17 @@
     else if (st === 'rapport') html = renderRapport();
     if (st !== 'start' && st !== 'rapport') {
       if (st !== 'uppgifter') html += parking();
-      var side = sideView(st), nxt = side ? 'Klar, till översikten' : (s[i + 1] === 'rapport' ? 'Visa rapporten' : 'Nästa');
+      var side = sideView(st), nxt = side ? 'Klar, till översikten' : (st === 'spel' && spel().status === 'ny' ? C.spel.hoppa : s[i + 1] === 'rapport' ? 'Visa rapporten' : 'Nästa');
       html += '<div class="navrow"><button class="btn quiet" data-act="back">← ' + (side ? 'Översikten' : 'Tillbaka') + '</button><button class="btn quiet savebtn" data-act="savefile" title="Ladda ner en sparfil så att arbetet inte går förlorat">Spara sparfil</button><button class="btn" data-act="next"' + (canNext() ? '' : ' disabled') + '>' + nxt + ' →</button></div><div class="missing" id="missing" aria-live="polite">' + missingHTML() + '</div>';
     }
+    html = LCA.withIntro(html, skedeIntroFor(st), st.replace(/-.*/, ''));
     app.innerHTML = html;
     var pi = sideView(st) ? s.indexOf('oversikt') : i;
     document.getElementById('progress-bar').style.width = (st === 'start' ? 0 : Math.round(pi / (s.length - 1) * 100)) + '%';
+  }
+  function skedeIntroFor(st) {
+    var k = /^(plan|f)-/.test(st) ? 'forsok' : /^a-/.test(st) ? 'avlasning' : st;
+    return (C.skedeIntro || {})[k];
   }
   function missingHTML() { var m = canNext() ? [] : saknas(); return m.length ? '<b>För att gå vidare:</b> ' + m.map(esc).join(' ') : ''; }
   function refreshNext() { var b = app.querySelector('[data-act=next]'); if (b) b.disabled = !canNext(); var h = document.getElementById('missing'); if (h) h.innerHTML = missingHTML(); var na = document.getElementById('nastaact'); if (na) na.hidden = !canNext(); }
@@ -439,7 +582,7 @@
   app.addEventListener('click', function (e) {
     var t = e.target.closest('button'); if (!t) return;
     var act = t.getAttribute('data-act'), d = function (a) { return t.getAttribute(a); };
-    if (act === 'next') { if (canNext()) nav(1); return; }
+    if (act === 'next') { if (view.step === 'spel' && spel().status === 'ny') { spel().status = 'hoppat'; save(); } if (canNext()) nav(1); return; }
     if (act === 'back') { if (sideView(view.step)) go('oversikt'); else nav(-1); return; }
     if (act === 'new') { if (!load() || confirmReset()) { state = fresh(); save(); go('uppgifter'); } return; }
     if (act === 'resume') { state = load(); var sg = state.steg; go(sg && sg !== 'start' && (steps().indexOf(sg) >= 0 || (/^(f|a)-/.test(sg) && forsok(sg.slice(2))) || sg === 'period') ? sg : resumeStep()); return; }
@@ -462,6 +605,22 @@
     if (act === 'period') { go('period'); return; }
     if (act === 'ics') { kalender(); return; }
     if (act === 'avsluta') { state.period.avslutad = !state.period.avslutad; save(); rerender(); return; }
+    if (t.hasAttribute('data-spax')) { spel().axel = d('data-spax'); save(); rerender(); return; }
+    if (act === 'spelstart') { var g0 = spel(); if (!spelAxel()) return; g0.axel = spelAxel(); g0.status = 'pagar'; g0.beslut = []; g0.val = { t: 0, gen: false, vid: false, kort: null }; save(); render(); window.scrollTo(0, 0); return; }
+    if (t.hasAttribute('data-spt')) { spel().val.t = +d('data-spt'); save(); rerender(); return; }
+    if (t.hasAttribute('data-spgen')) { spel().val.gen = d('data-spgen') === '1'; save(); rerender(); return; }
+    if (t.hasAttribute('data-spvid')) { spel().val.vid = d('data-spvid') === '1'; save(); rerender(); return; }
+    if (t.hasAttribute('data-spkort')) { spel().val.kort = d('data-spkort') || null; save(); rerender(); return; }
+    if (act === 'spelkor') {
+      var g1 = spel(), vv = g1.val; g1.beslut.push({ t: vv.t, gen: vv.gen, vid: vv.vid, kort: vv.kort });
+      g1.val = { t: vv.t, gen: vv.gen, vid: vv.vid, kort: null };
+      if (g1.beslut.length >= SIM.VECKOR) g1.status = 'klar';
+      save(); render(); window.scrollTo(0, 0); return;
+    }
+    if (act === 'spelom') { var g2 = spel(); g2.status = 'pagar'; g2.beslut = []; g2.val = { t: 0, gen: false, vid: false, kort: null }; save(); render(); window.scrollTo(0, 0); return; }
+    if (act === 'spelspela') { go('spel'); return; }
+    if (act === 'spelhinder') { state.ram.hinder = spelHypotes().hinder; save(); rerender(); toast(C.spel.hypotes.inlagt); return; }
+    if (act === 'spelforsok') { var fs0 = curForsok(), hy0 = spelHypotes(); if (fs0) { if (!fs0.om.trim()) fs0.om = hy0.om; if (!fs0.tror.trim()) fs0.tror = hy0.tror; if (!fs0.forutsagelse.trim()) fs0.forutsagelse = hy0.forutsagelse; save(); rerender(); refreshNext(); toast(C.spel.hypotes.inlagt); } return; }
     if (t.hasAttribute('data-bax')) { state.eget.behov[+d('data-i')].axel = d('data-bax'); save(); rerender(); return; }
     if (t.hasAttribute('data-bniva')) { state.eget.behov[+d('data-i')].niva = +d('data-bniva'); save(); rerender(); return; }
     if (t.hasAttribute('data-qkalla')) { var qq = state.fragor[+d('data-i')], b = behov(d('data-qkalla')); qq.kalla = b.id; qq.axel = b.axel; qq.fore = b.fore; save(); rerender(); return; }
@@ -565,6 +724,8 @@
       if (state.ram.motto) text('Motto: ' + state.ram.motto, { size: 9.5, italic: true });
       if (state.ram.ansvarig || state.ram.datum) text((state.ram.ansvarig ? 'Ansvarig: ' + state.ram.ansvarig + '. ' : '') + (state.ram.datum ? 'Återkoppling: ' + state.ram.datum + '.' : ''), { size: 9.5 });
       if (state.ram.stod.length) text('Stöd från ledningen: ' + state.ram.stod.join(', ').toLowerCase() + '.', { size: 9.5 });
+      var spr3 = spelRapport();
+      if (spr3) { rule(); label(C.spel.namn); text(spr3.text, { size: 9.5 }); text(C.spel.hypotes.rubrik + ': ' + spr3.hypotes, { size: 9.5 }); C.spel.samtal.fragor.forEach(function (q, i) { var a = (spel().samtal[i] || '').trim(); if (a) { text(q, { size: 9.5, bold: true, after: 0.5 }); text(a, { size: 9.5, after: 1.5 }); } }); }
       rule(); label('Trimförsök och kursavläsningar');
       state.forsok.forEach(function (f) {
         var a = f.av, q = fraga(f.fraga); ensure(30);

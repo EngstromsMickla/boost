@@ -352,6 +352,8 @@
       var nxt = s[i + 1] === 'rapport' ? 'Visa rapporten' : 'Nästa';
       html += '<div class="navrow"><button class="btn quiet" data-act="back">← Tillbaka</button><span class="hint" id="nexthint"></span><button class="btn quiet savebtn" data-act="savefile" title="Ladda ner en sparfil så att arbetet inte går förlorat">Spara sparfil</button><button class="btn" data-act="next"' + (canNext() ? '' : ' disabled') + '>' + nxt + ' →</button></div>';
     }
+    var sk = /^f\d+$/.test(st) ? 'formagor' : st.indexOf('agency-') === 0 ? 'agency' : st.indexOf('diagnos-') === 0 ? 'diagnos' : st;
+    html = LCA.withIntro(html, (B.skedeIntro || {})[sk], 'see-' + sk);
     app.innerHTML = html;
     var pct = st === 'start' || st === 'facil' ? 0 : Math.round(i / (s.length - 1) * 100);
     document.getElementById('progress-bar').style.width = pct + '%';

@@ -1,11 +1,18 @@
 // Innehållsfil för Utvalda tillämpningar. Texter kan redigeras här utan att röra koden.
 // Ett nytt fall läggs till som ett nytt objekt i listan "fall". Koden behöver inte ändras.
 window.CONTENT = {
- "version": "prototyp v0.5",
+ "version": "prototyp v0.6",
  "titel": "Utvalda tillämpningar",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "upphov": "© Engströms Mickla AB 2026",
  "undertitel": "Fördjupningar som använder framtiderna från Sense för en särskild fråga",
+ "skedeIntro": {
+  "underlag": { "namn": "Framtiderna", "vad": "Ni hämtar de fyra framtiderna från Sense, eller skriver in fyra egna om Sense inte är gjord.", "varfor": "Tillämpningen prövar {objekt} mot flera framtider i stället för en prognos. Det som håller i flera framtider är tryggare att bygga på.", "hur": "Läs in sparfilen från Sense. Saknas den ger ni varje framtid ett namn och en kort beskrivning.", "vem": "Den som håller i arbetet, gärna tillsammans med gruppen.", "leder": "Ni väljer vilka {ord} som ska bedömas." },
+  "faktorer": { "namn": "Välj {ord}", "vad": "Ni markerar de {ord} som betyder mest för {objekt}.", "varfor": "Det går inte att bedöma allt. Att välja det som betyder mest gör bedömningen skarpare och samtalet bättre.", "hur": "Läs listan, markera de {ord} som är viktigast och skriv kort hur det ser ut i dag. Där det efterfrågas anger ni också hur stark varje del är i dag.", "vem": "Hela gruppen, gärna med någon som känner {objekt} väl.", "leder": "De valda {ord} bedöms mot en framtid i taget." },
+  "bed": { "namn": "Bedömning per framtid", "vad": "Ni bedömer för en framtid i taget om varje vald del försvagas, är opåverkad eller stärks, och hur {objekt} troligen utvecklas.", "varfor": "Att gå igenom framtiderna en och en gör det synligt vad som är sårbart oavsett hur det blir, och vad som bara är sårbart i en viss framtid.", "hur": "Ta en framtid i taget. Markera det som försvagas eller stärks, välj trolig utveckling och skriv orsaker och åtgärder kort.", "vem": "Hela gruppen.", "leder": "Syntesen samlar det som återkommer i flera framtider." },
+  "syntes": { "namn": "Syntes", "vad": "Ni ser vad som försvagas och stärks i flera framtider och gör en samlad bedömning.", "varfor": "Det som återkommer i flera framtider är en sårbarhet eller styrka oavsett hur det blir. Det är där robusta åtgärder gör mest nytta.", "hur": "Läs vad verktyget räknar fram, beskriv mönstren, formulera robusta åtgärder och ange hur säkra ni är och vad som är osäkert.", "vem": "Hela gruppen.", "leder": "Rapporten, och resultatet följer med i sparfilen till See, Shift och slutsidan." },
+  "rapport": { "namn": "Rapport", "vad": "Ni får en sammanfattning av bedömningen per framtid, sårbarheter, styrkor och robusta åtgärder.", "varfor": "Rapporten gör analysen möjlig att dela, och sparfilen bär den vidare.", "hur": "Läs sammanfattning, analys och förslag. Ladda ner rapporten som PDF och spara sparfilen.", "vem": "Den som håller i arbetet.", "leder": "I See bedömer ni om organisationen kan ta emot det ni har sett, och i Shift kan de robusta åtgärderna prövas i små försök." }
+ },
  "intro": [
   "Sense, See och Shift är huvudspåret: de hjälper en organisation att ta sig upp på sin lärandekurva. Underlaget från Sense går också att använda för analys och strategi i en särskild fråga.",
   "En tillämpning tar de fyra framtiderna från Sense och bedömer dem mot något annat än verksamheten som helhet, till exempel värdet på en fastighet. Resultatet får en egen rapport och följer med i sparfilen till See, Shift och slutsidan."

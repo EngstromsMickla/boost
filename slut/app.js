@@ -116,6 +116,7 @@
     var eff = {}; (sh.forsok || []).forEach(function (f) { (f.effekter || []).forEach(function (x) { eff[x] = (eff[x] || 0) + 1; }); });
     var top = Object.keys(eff).sort(function (a, c) { return eff[c] - eff[a]; }).slice(0, 2);
     if (top.length) analys.push(fill(R.effekter, { lista: lista(top.map(function (x) { return x.toLowerCase(); })) }));
+    if (sh.spel && sh.spel.spelat && sh.spel.text) analys.push({ titel: R.spelTitel, text: sh.spel.text + (sh.spel.hypotes ? ' ' + fill(R.spelHypotes, { hypotes: sh.spel.hypotes }) : '') });
     tillampningar().forEach(function (t) {
       analys.push({ titel: fill(R.tillampningTitel, { namn: t.namn }), text: fill(R.tillampningText, { objekt: t.objekt ? t.objekt + '. ' : '', samlad: lc(t.samlad || 'ej gjord'), sarbara: ((t.sarbara || []).length ? fill(R.tillampningSarbara, { lista: lista(t.sarbara.map(lc)) }) : '') + ((t.fallor || []).length ? fill(R.tillampningFallor, { namn: t.fallorNamn || 'Fällor', lista: lista(t.fallor.map(lc)) }) : '') }) });
     });
@@ -170,7 +171,7 @@
     h += '<div class="actions"><button class="btn" data-act="open">' + esc(S.oppna) + '</button><a class="btn ghost" href="../shift/">Till Shift</a></div>';
     return h + '<p class="note small" style="margin-top:20px">' + esc(C.integritet) + '</p>';
   }
-  function render(saknas) { app.innerHTML = env && !saknade(env).length ? renderSida() : renderStart(saknas); window.scrollTo(0, 0); }
+  function render(saknas) { app.innerHTML = env && !saknade(env).length ? LCA.withIntro(renderSida(), C.skedeIntro, 'slut') : renderStart(saknas); window.scrollTo(0, 0); }
   function use(e) {
     if (!e || e.modul !== 'shift') { env = null; render(); toast(C.start.fel); return; }
     var m = saknade(e);

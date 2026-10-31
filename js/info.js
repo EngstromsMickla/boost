@@ -1,6 +1,6 @@
 // Innehållsfil för sidorna Begrepp och Om metoden. Texter kan redigeras här utan att röra koden.
 window.INFO = {
- "version": "prototyp v0.5",
+ "version": "prototyp v0.6",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "upphov": "© Engströms Mickla AB 2026",
  "lankBegrepp": "Begrepp",
@@ -25,6 +25,7 @@ window.INFO = {
    { "term": "Förmåga, mandat och vilja", "fas": "See, Shift", "text": "De tre axlarna för agency. Förmåga: vi kan. Mandat: vi får, formellt och upplevt. Vilja: vi vill och tycker att det är angeläget. Den svagaste axeln styr vilket slags försök som passar i Shift.", "kalla": "Michie m.fl. 2011, COM-B" },
    { "term": "Förutbestämt element", "fas": "Sense", "text": "En förändring som redan är i rörelse men vars följder ännu inte märks. Den ingår i alla framtider.", "kalla": "Wack 1985; Burt & Wright 2006" },
    { "term": "Inkuransrisk", "fas": "Utvalda tillämpningar", "text": "En faktor som bär en fastighets värde i dag men försvagas i flera framtider. Byggnaden riskerar att bli omodern när det som var en styrka slutar motsvara efterfrågan.", "kalla": "Baum 1991" },
+   { "term": "Förmågefällan", "fas": "Shift", "text": "På engelska capability trap. Läget där en organisation jobbar hårdare i stället för smartare: leveransen får gå först, förbättringstiden försvinner och förmågan förfaller i det tysta tills allt blir trögare. Förbättring gör det sämre först och bättre sedan, och eftersom förmågan syns sent är det lätt att ge upp i svackan. Det är också namnet på spelet som kan inleda Shift.", "kalla": "Repenning & Sterman 2001; 2002" },
    { "term": "Kritisk osäkerhet", "fas": "Sense", "text": "En trend med stor påverkan och osäker utveckling. Kritiska osäkerheter skiljer framtiderna åt.", "kalla": "Wright, Bradfield & Cairns 2013" },
    { "term": "Kursavläsning", "fas": "Shift", "text": "Uppföljningen efter ett trimförsök: vad hände jämfört med förutsägelsen, vad lärde vi oss, hur långt har lärdomen nått, har mottagningsförmågan rört sig, och vilket är nästa lilla försök.", "kalla": "Zollo & Winter 2002; Reed & Card 2016" },
    { "term": "Learning Curve Approach", "fas": "Alla", "text": "Ett arbetssätt för att leda förändring genom lärande i tre faser: Sense (vad förändras), See (vad betyder det för oss) och Shift (vad gör vi nu). Namnet syftar på lärandekurvan: målet är att organisationen ska ta sig uppför den." },
@@ -48,6 +49,7 @@ window.INFO = {
    { "term": "Trimförsök", "fas": "Shift", "text": "Planen för ett litet försök: vad som skaver, vad vi prövar, när och var vi startar, vad vi tror ska hända och hur vi märker det. Riktat mot den svagaste axeln.", "kalla": "Gollwitzer & Sheeran 2006; IHI" },
    { "term": "Trimroder (trim tab)", "fas": "Shift", "text": "Det lilla rodret på ett stort roder. En liten rörelse i trimrodret får hela fartyget att ändra kurs. Bilden kommer från Buckminster Fuller och står för små, riktade handlingar med stor verkan." },
    { "term": "Utvalda tillämpningar", "fas": "Sense", "text": "Fördjupningar som använder de fyra framtiderna från Sense för en särskild fråga, till exempel värdet på en fastighet. Resultatet får en egen rapport och följer med i sparfilen till See, Shift och slutsidan." },
+   { "term": "Vid sidan av (skunk works)", "fas": "Shift", "text": "Förbättring som görs utan officiellt mandat, på engelska ofta kallat skunk works eller bootlegging. Det kan ge nya lösningar och kringgå ett svagt mandat, men lärdomen stannar hos dem som gjorde den tills den lyfts fram och blir en del av arbetssättet.", "kalla": "Augsdorfer 2005; Mainemelis 2010; Criscuolo, Salter & Ter Wal 2014" },
    { "term": "Vindtunnel", "fas": "Sense", "text": "Att pröva verksamhetens bärande delar mot varje framtid: försvagas, står sig eller stärks de?", "kalla": "van der Heijden 2005" },
    { "term": "Värdefaktor", "fas": "Utvalda tillämpningar", "text": "En egenskap som bär en fastighets värde, till exempel läge, tekniskt skick, flexibilitet eller klimatrisker på platsen. I tillämpningen om fastighetens värdeutveckling prövas värdefaktorerna mot varje framtid från Sense.", "kalla": "Rosen 1974; Sirmans m.fl. 2005" }
   ]
@@ -114,6 +116,7 @@ window.INFO = {
     "Ledningens första uppgift i Shift är att ge förändringen mening och göra riktningen begriplig för andra, det som Gioia och Chittipeddi (1991) kallar sensegiving. Learning Direction Canvas formulerar riktningen som öppna lärandefrågor, inte som mål.",
     "Försöken riktas mot det som håller tillbaka. Enligt beteendeförändringsmodellen COM-B kräver olika brister olika slags insatser: svag förmåga kräver kunskap och övning, svagt mandat kräver ändrade förutsättningar, och svag vilja kräver att nyttan blir synlig (Michie m.fl. 2011). Försöken formuleras som om-då-planer med när och var, vilket i en metaanalys klart ökade chansen att något faktiskt blev gjort (Gollwitzer & Sheeran 2006). De är små och korta och byggs ut i kedjor, enligt förbättringsarbetets modell (Institute for Healthcare Improvement), och varje försök har en förutsägelse, eftersom det är den som gör uppföljningen till lärande (Reed & Card 2016). Måtten är till för att lära, inte för att redovisa (Solberg, Mosser & McDonald 1997).",
     "Små vinster sänker motståndet och gör nästa steg möjligt (Weick 1984), och upplevda framsteg är den starkaste drivkraften för engagemang i vardagen (Amabile & Kramer 2011). Därför leder varje kursavläsning till nästa lilla försök.",
+    "Shift kan börja med spelet Förmågefällan. Det bygger på Repenning och Stermans forskning om förmågefällan, på engelska capability trap: varför förbättringsarbete så ofta dör: att jobba hårdare ger snabb effekt men låter förmågan förfalla i det tysta, medan förbättring gör det sämre först och bättre sedan, och eftersom förmågan syns sent fastnar organisationer i det första (Repenning & Sterman 2001; 2002). Formen är en förenklad simulator för ledare, där man kan pröva beslut och se följderna som är svåra att se i vardagen (Sterman 1989). Valet att förbättra vid sidan av, på engelska ofta kallat skunk works, bygger på forskningen om bootlegging och kreativ avvikelse: sådant arbete kan ge nytt, men lärdomen stannar hos dem som gjorde den tills den görs legitim (Augsdorfer 2005; Mainemelis 2010; Criscuolo, Salter & Ter Wal 2014). Simuleringsspel ger bäst lärande när de ingår i en större undervisning och följs av ett eftersamtal (Sitzmann 2011; Crookall 2010). Därför slutar spelet med ett eftersamtal och en hypotes som prövas i ett riktigt trimförsök. Spelets tal är valda så att mönstren syns inom åtta veckor och är inte mått på någon verksamhet.",
     "Namnet Learning Curve Approach syftar på lärandekurvan. Forskningen om lärandekurvor visar att organisationer med samma erfarenhet lär sig i mycket olika takt (Argote & Epple 1990). När sjukhus införde samma nya operationsmetod förklarades skillnaden av hur medvetet teamen reflekterade efter varje ingrepp och hur tryggt det var att säga ifrån (Pisano, Bohmer & Edmondson 2001; Edmondson, Bohmer & Pisano 2001; Edmondson 1999). Zollo och Winter (2002) beskriver tre mekanismer för medvetet lärande: att samla erfarenhet, att sätta ord på den tillsammans och att föra in den i rutiner. Det är grunden för lärdomens väg i kursavläsningen och för den lärandekurva som Shift visar. Vid lärperiodens slut prövas också själva riktningen, inte bara försöken, det som Argyris och Schön (1978) kallar dubbelkretslärande."
    ] },
    { "rubrik": "Utvalda tillämpningar: fastighetens värdeutveckling", "text": [
@@ -155,6 +158,7 @@ window.INFO = {
    "Argote, L. & Epple, D. (1990). Learning curves in manufacturing. Science, 247, 920-924.",
    "Argyris, C. & Schön, D. A. (1978). Organizational Learning: A Theory of Action Perspective. Addison-Wesley.",
    "Armenakis, A. A. & Bedeian, A. G. (1999). Organizational change: A review of theory and research in the 1990s. Journal of Management, 25(3), 293-315.",
+   "Augsdorfer, P. (2005). Bootlegging and path dependency. Research Policy, 34(1), 1-11.",
    "Baum, A. (1991). Property Investment Depreciation and Obsolescence. Routledge.",
    "Beane, M. (2019). Shadow learning: Building robotic surgical skill when approved means fail. Administrative Science Quarterly, 64(1), 87-123.",
    "Becker, J., Knackstedt, R. & Pöppelbuß, J. (2009). Developing maturity models for IT management: A procedure model and its application. Business & Information Systems Engineering, 1(3), 213-222.",
@@ -169,6 +173,8 @@ window.INFO = {
    "Christensen, C. M., Wang, D. & van Bever, D. (2013). Consulting on the cusp of disruption. Harvard Business Review, 91(10), 106-114.",
    "Cohen, W. M. & Levinthal, D. A. (1990). Absorptive capacity: A new perspective on learning and innovation. Administrative Science Quarterly, 35(1), 128-152.",
    "Cooper, R. G. (1990). Stage-gate systems: A new tool for managing new products. Business Horizons, 33(3), 44-54.",
+   "Criscuolo, P., Salter, A. & Ter Wal, A. L. J. (2014). Going underground: Bootlegging and individual innovative performance. Organization Science, 25(5), 1287-1305.",
+   "Crookall, D. (2010). Serious games, debriefing, and simulation/gaming as a discipline. Simulation & Gaming, 41(6), 898-920.",
    "Dahlander, L. & Gann, D. M. (2010). How open is innovation? Research Policy, 39(6), 699-709.",
    "Dawes, R. M. (1979). The robust beauty of improper linear models in decision making. American Psychologist, 34(7), 571-582.",
    "Debrezion, G., Pels, E. & Rietveld, P. (2007). The impact of railway stations on residential and commercial property value: A meta-analysis. Journal of Real Estate Finance and Economics, 35(2), 161-180.",
@@ -204,6 +210,7 @@ window.INFO = {
    "Leonard-Barton, D. (1992). Core capabilities and core rigidities: A paradox in managing new product development. Strategic Management Journal, 13(S1), 111-125.",
    "Lepak, D. P. & Snell, S. A. (1999). The human resource architecture: Toward a theory of human capital allocation and development. Academy of Management Review, 24(1), 31-48.",
    "Levitt, B. & March, J. G. (1988). Organizational learning. Annual Review of Sociology, 14, 319-340.",
+   "Mainemelis, C. (2010). Stealing fire: Creative deviance in the evolution of new ideas. Academy of Management Review, 35(4), 558-578.",
    "Maister, D. H. (1993). Managing the Professional Service Firm. Free Press.",
    "March, J. G. (1991). Exploration and exploitation in organizational learning. Organization Science, 2(1), 71-87.",
    "Marín-García, J. A. & Martínez Tomás, J. (2016). Deconstructing AMO framework: A systematic review. Intangible Capital, 12(4), 1040-1087.",
@@ -220,11 +227,15 @@ window.INFO = {
    "Rafferty, A. E., Jimmieson, N. L. & Armenakis, A. A. (2013). Change readiness: A multilevel review. Journal of Management, 39(1), 110-135.",
    "Ramírez, R. & Wilkinson, A. (2016). Strategic Reframing: The Oxford Scenario Planning Approach. Oxford University Press.",
    "Reed, J. E. & Card, A. J. (2016). The problem with Plan-Do-Study-Act cycles. BMJ Quality & Safety, 25(3), 147-152.",
+   "Repenning, N. P. & Sterman, J. D. (2001). Nobody ever gets credit for fixing problems that never happened: Creating and sustaining process improvement. California Management Review, 43(4), 64-88.",
+   "Repenning, N. P. & Sterman, J. D. (2002). Capability traps and self-confirming attribution errors in the dynamics of process improvement. Administrative Science Quarterly, 47(2), 265-295.",
    "Rohrbeck, R. & Kum, M. E. (2018). Corporate foresight and its impact on firm performance: A longitudinal analysis. Technological Forecasting and Social Change, 129, 105-116.",
    "Rosen, S. (1974). Hedonic prices and implicit markets: Product differentiation in pure competition. Journal of Political Economy, 82(1), 34-55.",
    "Sirmans, G. S., Macpherson, D. A. & Zietz, E. N. (2005). The composition of hedonic pricing models. Journal of Real Estate Literature, 13(1), 3-43.",
+   "Sitzmann, T. (2011). A meta-analytic examination of the instructional effectiveness of computer-based simulation games. Personnel Psychology, 64(2), 489-528.",
    "Solberg, L. I., Mosser, G. & McDonald, S. (1997). The three faces of performance measurement: Improvement, accountability, and research. Joint Commission Journal on Quality Improvement, 23(3), 135-147.",
    "Spreitzer, G. M. (1995). Psychological empowerment in the workplace: Dimensions, measurement, and validation. Academy of Management Journal, 38(5), 1442-1465.",
+   "Sterman, J. D. (1989). Modeling managerial behavior: Misperceptions of feedback in a dynamic decision making experiment. Management Science, 35(3), 321-339.",
    "Susskind, R. & Susskind, D. (2015). The Future of the Professions. Oxford University Press.",
    "Sydow, J., Schreyögg, G. & Koch, J. (2009). Organizational path dependence: Opening the black box. Academy of Management Review, 34(4), 689-709.",
    "Tafti, A. (2024). Introducing Asset-Dominant Logic to the Swedish Construction Consulting Industry. Licentiatuppsats, Luleå tekniska universitet.",

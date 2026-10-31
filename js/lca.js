@@ -105,8 +105,41 @@
     if (r.forslag && r.forslag.length) { t(RUBRIK.forslag, { size: 12, bold: true, after: 1.5 }); r.forslag.forEach(function (f, i) { t((i + 1) + '. ' + punkt(f.titel), { size: 10, bold: true, after: 0.5 }); t(f.text, { size: 9.5, x: L + 4, width: Wt - 4, after: 2.5 }); }); }
   }
 
+
+  /* Om skedet: en kort introduktion som öppnas på plats och stängs igen, så att man är kvar där man var.
+     Texterna ligger i varje moduls innehållsfil under skedeIntro. Öppet eller stängt minns per skede under besöket. */
+  var INTRO = { rubrik: 'Om skedet', fragor: [['vad', 'Vad gör vi?'], ['varfor', 'Varför är det viktigt?'], ['hur', 'Hur gör vi det?'], ['vem', 'Vem gör det?'], ['leder', 'Vad leder det till?']], stang: 'Stäng och fortsätt' };
+  var introOppen = {};
+  function skedeIntro(o, key) {
+    if (!o) return '';
+    key = key || o.namn;
+    return '<details class="skede-intro" data-intro="' + esc(key) + '"' + (introOppen[key] ? ' open' : '') + '><summary>' + esc(INTRO.rubrik) + ': ' + esc(o.namn) + '</summary><div class="si-body"><dl>' +
+      INTRO.fragor.filter(function (f) { return o[f[0]]; }).map(function (f) { return '<dt>' + esc(f[1]) + '</dt><dd>' + esc(o[f[0]]) + '</dd>'; }).join('') +
+      '</dl><button type="button" class="btn quiet small-btn" data-intro-close>' + esc(INTRO.stang) + '</button></div></details>';
+  }
+  /* Lägger introduktionen direkt under stegets rubrik. */
+  function withIntro(html, o, key) {
+    if (!o) return html;
+    var box = skedeIntro(o, key), m = /<\/h[12]>/.exec(html);
+    if (!m) return box + html;
+    var end = m.index + m[0].length, after = html.slice(end), lead = /^\s*<p class="lead"[^>]*>[\s\S]*?<\/p>/.exec(after);
+    if (lead) end += lead[0].length;
+    return html.slice(0, end) + box + html.slice(end);
+  }
+  if (typeof document !== 'undefined') {
+    document.addEventListener('toggle', function (e) { var d = e.target; if (d && d.classList && d.classList.contains('skede-intro')) introOppen[d.getAttribute('data-intro')] = d.open; }, true);
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('[data-intro-close]'); if (!b) return;
+      var d = b.closest('details'); if (!d) return;
+      d.open = false; introOppen[d.getAttribute('data-intro')] = false;
+      var s = d.querySelector('summary'), r = s.getBoundingClientRect();
+      if (r.top < 0) s.scrollIntoView({ block: 'start' });
+      s.focus({ preventScroll: true });
+    });
+  }
+
   var TEORI = { text: 'Metodens vetenskapliga grund och litteraturlistan finns i Teoriplattformen', url: 'https://boost.mickla.se/teori/' };
   function teoriHTML(rel) { return '<p class="small muted teori-ref">' + TEORI.text + ': <a href="' + (rel || '../') + 'teori/" target="_blank" rel="noopener">' + TEORI.url.replace('https://', '') + '</a></p>'; }
-  window.LCA = { RUBRIK: RUBRIK, TEORI: TEORI, teoriHTML: teoriHTML, reportBlock: reportBlock, reportPDF: reportPDF, FORMAT: FORMAT, MODULER: MODULER, NYCKLAR: NYCKLAR, NAMN: NAMN, wrap: wrap, unwrap: unwrap, chainFrom: chainFrom,
+  window.LCA = { INTRO: INTRO, skedeIntro: skedeIntro, withIntro: withIntro, RUBRIK: RUBRIK, TEORI: TEORI, teoriHTML: teoriHTML, reportBlock: reportBlock, reportPDF: reportPDF, FORMAT: FORMAT, MODULER: MODULER, NYCKLAR: NYCKLAR, NAMN: NAMN, wrap: wrap, unwrap: unwrap, chainFrom: chainFrom,
     readFile: readFile, download: download, fileName: fileName, slug: slug, handOff: handOff, takeHandOff: takeHandOff, clearHandOff: clearHandOff, stored: stored };
 })();

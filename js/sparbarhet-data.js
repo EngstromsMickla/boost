@@ -342,6 +342,46 @@ window.SPAR = {
    "kod": "shift/app.js: rapportBlock()"
   },
   {
+   "id": "SHI-8",
+   "modul": "Shift",
+   "steg": "Spel (Förmågefällan)",
+   "regel": "Spelet är frivilligt och kommer före Learning Direction Canvas. Det spelas med den axel som oftast är svagast bland behoven från See eller underlaget (vid lika den som gäller det första behovet); gruppen kan byta. Åtta veckor med samma händelser för alla, utom vecka 6 som beror på axeln.",
+   "param": "8 veckor; 0, 4, 8 eller 12 timmar förbättringstid; högst ett kort per vecka",
+   "grund": "Repenning & Sterman 2001; 2002; Sterman 1989; Michie m.fl. 2011",
+   "typ": "Forskning",
+   "kod": "shift/app.js: spelAxelForslag(); shift/spel.js: simulate()"
+  },
+  {
+   "id": "SHI-9",
+   "modul": "Shift",
+   "steg": "Spel (Förmågefällan)",
+   "regel": "Modellen: förbättringstid tas från leveransen och stärker förmågan veckan efter. Förmågan förfaller lite varje vecka och mer med genvägar, som ger mer gjort just nu men dubbelt så många fel som kommer tillbaka. Svagt mandat: halva förbättringstiden tas tillbaka efter en vecka med eftersläpning tills ledningen skyddar tiden. Svag vilja: bara hälften av tiden används till förbättring tills nyttan görs synlig. Svag förmåga: förbättringstiden ger hälften tills kunskap tas in. Vid sidan av (skunk works) ger förmåga utan leveranstid men kostar energi och bleknar tills det lyfts fram. Talen är valda så att mönstren syns inom åtta veckor och är inte mått på någon verksamhet.",
+   "param": "Se konstanterna i shift/spel.js (M)",
+   "grund": "Repenning & Sterman 2002 (förmågefällan, sämre före bättre); Augsdorfer 2005; Criscuolo, Salter & Ter Wal 2014; Mainemelis 2010 (vid sidan av); Amabile & Kramer 2011 (framsteg ger energi)",
+   "typ": "Forskning",
+   "kod": "shift/spel.js: simulate()"
+  },
+  {
+   "id": "SHI-10",
+   "modul": "Shift",
+   "steg": "Spel (Förmågefällan)",
+   "regel": "Under spelet visas leveransen och energin i ord. Förmågan visas med två veckors fördröjning och bara som svagare, som vid start eller starkare (mer än 5 enheter från startläget). Efter vecka 8 visas kurvorna utan tal, mot två referensvägar genom samma veckor: leverans först (ingen förbättringstid, genvägar när det släpar) och skyddad tid (8 timmar och axelns första kort).",
+   "param": "Fördröjning 2 veckor; gräns ±5",
+   "grund": "Repenning & Sterman 2001 (förmågan syns sent); Sterman 1989",
+   "typ": "Designval",
+   "kod": "shift/app.js: renderSpelVecka(), spelSerier()"
+  },
+  {
+   "id": "SHI-11",
+   "modul": "Shift",
+   "steg": "Spel (Förmågefällan)",
+   "regel": "Mönster: fällan när förmågan har sjunkit minst 3 och snittet är under 4 timmar; uppför när den har stigit minst 8; annars mellanläge. Dessutom genvägar (minst 3 veckor), vid sidan av (minst 2 veckor, lyft fram eller inte), svacka med 8 timmar eller mer som hölls eller släpptes (minst 4 timmar de tre sista veckorna) och tiden tagen tillbaka. Hypotesen följer axeln och snittet av förbättringstiden avrundat till 4, 8 eller 12 timmar. Den läggs in i ramen och första trimförsöket bara när gruppen väljer det.",
+   "param": "-3 / +8; 3 veckor; 2 veckor; 4 timmar",
+   "grund": "Crookall 2010; Sitzmann 2011 (spel lär genom eftersamtal och som del av ett större lärande)",
+   "typ": "Designval",
+   "kod": "shift/spel.js: monster(); shift/app.js: spelHypotes()"
+  },
+  {
    "id": "SLU-1",
    "modul": "Slutsidan",
    "steg": "Villkor",
@@ -433,6 +473,13 @@ window.SPAR = {
   }
  ],
  "anvandning": {
+  "Repenning": "Förmågefällan, modellen och mönstren (SHI-8 till SHI-10)",
+  "Sterman, J. D. (1989)": "Spel som simulator för ledare (SHI-8, SHI-10)",
+  "Augsdorfer": "Vid sidan av i spelet (SHI-9)",
+  "Criscuolo": "Vid sidan av i spelet (SHI-9)",
+  "Mainemelis": "Vid sidan av i spelet (SHI-9)",
+  "Sitzmann": "Spelet som del av ett större lärande (SHI-11)",
+  "Crookall": "Eftersamtalet efter spelet (SHI-11)",
   "Fred": "Grundperspektivet; startsidan, Om metoden",
   "Cohen": "Absorptionsförmåga (begrepp)",
   "Zahra": "Potentiell och realiserad förmåga; slutrapporten",
@@ -499,6 +546,15 @@ window.SPAR = {
   "Vera": "Förmågan strategiskt ledarskap för förnyelse (See)"
  },
  "logg": [
+  {
+   "version": "prototyp v0.6",
+   "datum": "2026-10-31",
+   "text": [
+    "Nytt frivilligt första steg i Shift: spelet Förmågefällan, åtta veckor om att hinna förbättra när leveransen trycker på. Spelet följer organisationens svagaste axel, har ett val för det som görs vid sidan av (skunk works) och ger en hypotes som kan föras in i Learning Direction Canvas och det första trimförsöket. Resultatet kommer med i rapporten, sparfilen och slutsidan.",
+    "Varje skede i Sense, See, Shift, Utvalda tillämpningar och slutsidan har en kort introduktion under rubriken: vad vi gör, varför, hur, vem och vad det leder till. Den öppnas och stängs på plats.",
+    "Fyra nya regler (SHI-8 till SHI-11) och sju nya källor i litteraturlistan."
+   ]
+  },
   {
    "version": "prototyp v0.5",
    "datum": "2026-10-29",
