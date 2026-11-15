@@ -20,18 +20,21 @@
   /* ---------- Modell (designval) ---------- */
   var M = {
     rundtid: 75,          // sekunder
-    fart: 30,             // huvudets fart, enheter per sekund (100 enheter = kortaste sidan)
+    fart: 33,             // huvudets fart, enheter per sekund (100 enheter = kortaste sidan)
     sving: 4.6,           // huvudets svängfart, radianer per sekund
     avstand: 2.7,         // avstånd mellan leder längs vägen
     rHuvud: 2.5, rLed: 1.9,
     startLeder: 6,
-    styvhet: [7, 16, 36, 80],   // per kunnandenivå 0..3+
-    dampning: [0.32, 0.5, 0.75, 0.95],
-    pulsTid: 0.42,        // sekunder per led för en led som inte kan något
-    forkunskap: 0.9,      // varje nivå man redan har gör mottagandet snabbare
+    styvhet: [4, 7, 13, 26, 55, 90],      // per kunnandenivå 0..5+ (v0.2: fler nivåer innan svansen sitter)
+    dampning: [0.2, 0.28, 0.4, 0.6, 0.8, 0.95],
+    rep: 2.6,             // hur långt en led får glida från leden framför, i ledavstånd
+    pulsTid: 0.95,        // sekunder per led för en led som inte kan något
+    forkunskap: 0.45,     // varje nivå man redan har gör mottagandet snabbare
     maxMat: 5, matIntervall: 1.1,
     ideIntervall: 10, forstaIde: 4,
-    pelare: 5, rPelare: [4.5, 7],
+    pelare: 8, rPelare: [4, 6.5],
+    rorligaPelare: 3, pelarFart: [4, 8],   // några pelare driver långsamt
+    matVidPelare: 0.65,   // andel av maten som läggs nära en pelare
     skydd: 0.5            // sekunder utan ny lossning efter en lossning
   };
 
@@ -80,7 +83,8 @@
 
   function slump(a, b) { return a + Math.random() * (b - a); }
   function avst(ax, ay, bx, by) { var dx = ax - bx, dy = ay - by; return Math.sqrt(dx * dx + dy * dy); }
-  function niva(l) { return Math.min(l, 3); }
+  var MAXNIVA = 5;
+  function niva(l) { return Math.min(l, MAXNIVA); }
 
   function nyttSpel() {
     var g = {
@@ -100,10 +104,14 @@
     var forsok = 0;
     while (g.pelare.length < M.pelare && forsok++ < 400) {
       var r = slump(M.rPelare[0], M.rPelare[1]);
-      var p = { x: slump(r + 6, W - r - 6), y: slump(r + 10, H - r - 6), r: r };
+      var p = { x: slump(r + 6, W - r - 6), y: slump(r + 16, H - r - 6), r: r };
       if (avst(p.x, p.y, g.huvud.x, g.huvud.y) < 22) continue;
       if (g.pelare.some(function (q) { return avst(p.x, p.y, q.x, q.y) < p.r + q.r + 14; })) continue;
       g.pelare.push(p);
+    }
+    for (var rp = 0; rp < Math.min(M.rorligaPelare, g.pelare.length); rp++) {
+      var va = slump(0, Math.PI * 2), vf = slump(M.pelarFart[0], M.pelarFart[1]);
+      g.pelare[rp].vx = Math.cos(va) * vf; g.pelare[rp].vy = Math.sin(va) * vf;
     }
     return g;
   }
@@ -115,6 +123,16 @@
       if (ok) return { x: x, y: y };
     }
     return { x: W / 2, y: H / 2 };
+  }
+
+  /* Mat nära en pelare: lockar huvudet dit svansen inte klarar att följa. */
+  function nara() {
+    for (var k = 0; k < 40; k++) {
+      var p = G.pelare[Math.floor(Math.random() * G.pelare.length)], a = slump(0, Math.PI * 2), d = p.r + slump(3, 6);
+      var x = p.x + Math.cos(a) * d, y = p.y + Math.sin(a) * d;
+      if (x > 3 && x < W - 3 && y > 8 && y < H - 3 && !G.pelare.some(function (q) { return avst(x, y, q.x, q.y) < q.r + 2.5; })) return { x: x, y: y };
+    }
+    return friPlats(5);
   }
 
   /* Punkt på spåret ett visst avstånd bakom huvudet. */
@@ -141,6 +159,15 @@
   function steg(dt) {
     var g = G; g.t += dt;
     var h = g.huvud;
+
+    // Rörliga pelare driver och studsar mot kanterna och mot varandra.
+    g.pelare.forEach(function (p) {
+      if (!p.vx) return;
+      p.x += p.vx * dt; p.y += p.vy * dt;
+      if (p.x < p.r || p.x > W - p.r) { p.vx *= -1; p.x = Math.max(p.r, Math.min(W - p.r, p.x)); }
+      if (p.y < p.r || p.y > H - p.r) { p.vy *= -1; p.y = Math.max(p.r, Math.min(H - p.r, p.y)); }
+      g.pelare.forEach(function (q) { if (q !== p && avst(p.x, p.y, q.x, q.y) < p.r + q.r) { p.vx *= -1; p.vy *= -1; p.x += p.vx * dt * 2; p.y += p.vy * dt * 2; } });
+    });
 
     // Styrning: mot fingret/musen, eller med piltangenter.
     var mal = h.v;
@@ -186,7 +213,7 @@
       l.vy += (k * (p.y - l.y) - c * l.vy) * dt;
       l.x += l.vx * dt; l.y += l.vy * dt;
       // Rep till leden framför, så att svansen svänger i stället för att släpa efter.
-      var d = avst(l.x, l.y, fore.x, fore.y), max = M.avstand * 1.9;
+      var d = avst(l.x, l.y, fore.x, fore.y), max = M.avstand * M.rep;
       if (d > max) { var f = (d - max) / d; l.x += (fore.x - l.x) * f; l.y += (fore.y - l.y) * f; }
       l.blixt = Math.max(0, l.blixt - dt * 2.5);
       l.skala += (1 - l.skala) * Math.min(1, dt * 8);
@@ -235,7 +262,7 @@
 
     // Mat och idéer.
     g.matKlocka -= dt;
-    if (g.matKlocka <= 0 && g.mat.length < M.maxMat) { g.mat.push(Object.assign(friPlats(5), { puls: slump(0, 6) })); g.matKlocka = M.matIntervall; }
+    if (g.matKlocka <= 0 && g.mat.length < M.maxMat) { g.mat.push(Object.assign(Math.random() < M.matVidPelare ? nara() : friPlats(5), { puls: slump(0, 6) })); g.matKlocka = M.matIntervall; }
     g.ideKlocka -= dt;
     if (g.ideKlocka <= 0 && g.ideer.length === 0 && g.t < M.rundtid - 6) { g.ideer.push(Object.assign(friPlats(8), { puls: 0, fodd: g.t })); g.ideKlocka = M.ideIntervall; }
 
@@ -289,7 +316,7 @@
   function logga() { G.logg.push({ t: Math.min(G.t, M.rundtid), huvud: G.huvudKan, kropp: kroppsSnitt(), langd: G.leder.length }); }
 
   /* ---------- Ritning ---------- */
-  var FARG = ['#c9c9c4', '#8a8a86', '#4a4a48', '#141414'];
+  var FARG = ['#d6d6d1', '#b2b2ad', '#8a8a86', '#5e5e5b', '#353534', '#141414'];
   function rita() {
     var g = G;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
