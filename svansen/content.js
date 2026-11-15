@@ -2,7 +2,7 @@
    Alla texter ligger här, per språk. Nytt språk: kopiera blocket "sv", översätt och lägg till under "sprak".
    Språkväljaren visas automatiskt när det finns fler än ett språk. */
 window.SVANSEN = {
-  version: "Svansen v0.2 (arbetsversion)",
+  version: "Svansen v0.3 (arbetsversion)",
   standardSprak: "sv",
   sprak: {
     sv: {
@@ -21,7 +21,7 @@ window.SVANSEN = {
           "Se upp för de röda pelarna."
         ],
         knapp: "Spela",
-        tid: "75 sekunder"
+        tid: "60 sekunder"
       },
 
       hud: { tid: "Tid", langd: "Längd", ideer: "Idéer", ljudPa: "Ljud på", ljudAv: "Ljud av" },
@@ -40,7 +40,7 @@ window.SVANSEN = {
           ingaIdeer: "Huvudet åt inga idéer, så det fanns inget för kroppen att lära. Spela igen och jaga de blå.",
           iTakt: "Ni växte och lärde i samma takt. Kroppen hängde med huvudet nästan hela vägen. Det är ovanligt.",
           paVag: "Huvudet lärde sig snabbt. Kroppen kom efter, men den kom.",
-          vaxteIfran: "Huvudet lärde sig snabbt. Kroppen hann inte med, särskilt de nya delarna som aldrig var med när idéerna kom."
+          vaxteIfran: "Huvudet lärde sig snabbt. Kroppen hann inte med, särskilt de nya delarna som aldrig var med när idéerna kom. Och de delar ni tappade på vägen tog aldrig emot något alls."
         },
         lardeAttLara: "Och kroppen lärde sig att lära: den sista idén spred sig {x} gånger snabbare per led än den första.",
         statLangd: "Längd",

@@ -19,7 +19,7 @@
 
   /* ---------- Modell (designval) ---------- */
   var M = {
-    rundtid: 75,          // sekunder
+    rundtid: 60,          // sekunder (Dans beslut v0.3)
     fart: 33,             // huvudets fart, enheter per sekund (100 enheter = kortaste sidan)
     sving: 4.6,           // huvudets svängfart, radianer per sekund
     avstand: 2.7,         // avstånd mellan leder längs vägen
@@ -255,7 +255,7 @@
       var fore = Math.floor(pu.i);
       pu.i += dt / tid;
       var efter = Math.floor(pu.i);
-      for (var j = fore; j < efter && j < g.leder.length; j++) { g.leder[j].kan += 1; g.leder[j].blixt = 1; g.leder[j].skala = 1.35; LJ.led(j); }
+      for (var j = fore; j < efter && j < g.leder.length; j++) { g.leder[j].kan += 1; g.leder[j].blixt = 1; g.leder[j].skala = 1.35; pu.passerade = (pu.passerade || 0) + 1; LJ.led(j); }
       if (pu.i >= g.leder.length) { avslutaPuls(pu); return false; }
       return true;
     });
@@ -299,8 +299,9 @@
     if (g.t >= M.rundtid) { logga(); avsluta(); }
   }
 
+  /* Tiden per led räknas på de leder pulsen faktiskt nådde, så att tappade delar inte ger en snabbare spridning. */
   function avslutaPuls(pu) {
-    var n = Math.max(1, pu.leder);
+    var n = Math.max(1, pu.passerade || 0);
     G.pulsTider.push({ tid: G.t - pu.start, perLed: (G.t - pu.start) / n });
     var sist = G.leder[G.leder.length - 1] || G.huvud;
     var ring = { x: sist.x, y: sist.y, r: 1, liv: 0.7 };
@@ -309,9 +310,12 @@
     LJ.framme();
   }
 
+  /* Kroppens kunnande: snittet över alla delar kroppen har haft. Tappade delar räknas som delar som inte tog emot något,
+     så att det inte lönar sig att tappa de nya i svansen (v0.3, Dans beslut). */
   function kroppsSnitt() {
-    if (!G.leder.length) return 0;
-    var s = 0; G.leder.forEach(function (l) { s += l.kan; }); return s / G.leder.length;
+    var n = G.leder.length + G.tappade;
+    if (!n) return 0;
+    var s = 0; G.leder.forEach(function (l) { s += l.kan; }); return s / n;
   }
   function logga() { G.logg.push({ t: Math.min(G.t, M.rundtid), huvud: G.huvudKan, kropp: kroppsSnitt(), langd: G.leder.length }); }
 
