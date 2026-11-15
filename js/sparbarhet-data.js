@@ -547,6 +547,13 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.9",
+   "datum": "2026-11-15",
+   "text": [
+    "Nytt spel, Svansen, på en egen sida (svansen/). Ett kort spel om absorptionsförmåga: huvudet lär sig av idéer och kunskapen sprids som en puls genom kroppen. Delar som redan kan något tar emot nästa idé snabbare (Cohen & Levinthal 1990), nya delar börjar på noll och tappade delar räknas som delar som aldrig tog emot något. Slutskärmen visar huvudets och kroppens kurvor och leder till See. Talen i spelet är designval. Inga regler eller texter i Sense, See eller Shift ändrades."
+   ]
+  },
+  {
    "version": "prototyp v0.8",
    "datum": "2026-10-31",
    "text": [

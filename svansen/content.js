@@ -2,7 +2,7 @@
    Alla texter ligger här, per språk. Nytt språk: kopiera blocket "sv", översätt och lägg till under "sprak".
    Språkväljaren visas automatiskt när det finns fler än ett språk. */
 window.SVANSEN = {
-  version: "Svansen v0.3 (arbetsversion)",
+  version: "Svansen v0.3",
   standardSprak: "sv",
   sprak: {
     sv: {
