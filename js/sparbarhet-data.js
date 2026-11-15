@@ -547,6 +547,13 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.10",
+   "datum": "2026-11-15",
+   "text": [
+    "Startsidan har fått en länk till spelet Svansen, direkt under introduktionsfilmen. Inga regler eller texter i verktygen ändrades."
+   ]
+  },
+  {
    "version": "prototyp v0.9",
    "datum": "2026-11-15",
    "text": [
