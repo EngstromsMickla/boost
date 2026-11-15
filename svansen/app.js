@@ -510,7 +510,7 @@
       '<div class="slut-stats"><span>' + esc(t.statLangd) + '<b>' + res.langd + '</b></span><span>' + esc(t.statIdeer) + '<b>' + res.huvudKan + '</b></span><span>' + esc(t.statTappade) + '<b>' + res.tappade + '</b></span></div>' +
       '<p class="note">' + esc(t.poang) + '</p>' +
       '<p><strong>' + esc(t.cta) + '</strong></p>' +
-      '<div class="slut-knappar"><a class="btn" href="' + esc(t.ctaLank) + '">' + esc(t.ctaKnapp) + '</a><button class="btn ghost" type="button" id="igen">' + esc(t.igen) + '</button><a class="btn quiet" href="../">' + esc(t.hem) + '</a></div>' +
+      '<div class="slut-knappar"><a class="btn" href="' + esc(t.ctaLank) + '">' + esc(t.ctaKnapp) + '</a><button class="btn ghost" type="button" id="igen">' + esc(t.igen) + '</button>' + (t.ctaLank === '../' ? '' : '<a class="btn quiet" href="../">' + esc(t.hem) + '</a>') + '</div>' +
       '<details class="slut-grund"><summary>' + esc(t.grundRubrik) + '</summary>' + t.grund.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</details>' +
       '</section>';
     slutEl.innerHTML = html;

@@ -2,7 +2,7 @@
    Alla texter ligger här, per språk. Nytt språk: kopiera blocket "sv", översätt och lägg till under "sprak".
    Språkväljaren visas automatiskt när det finns fler än ett språk. */
 window.SVANSEN = {
-  version: "Svansen v0.3",
+  version: "Svansen v0.4",
   standardSprak: "sv",
   sprak: {
     sv: {
@@ -48,8 +48,8 @@ window.SVANSEN = {
         statTappade: "Tappade delar",
         poang: "Så fungerar organisationer också: det räcker inte att några lär sig. Det som avgör är om resten kan ta emot det.",
         cta: "Har er organisation en utmaning? The Learning Curve Approach är gjord för er. Pröva här!",
-        ctaKnapp: "Pröva Sense, första steget i the Learning Curve Approach",
-        ctaLank: "../sense/",
+        ctaKnapp: "Till The Learning Curve Approach",
+        ctaLank: "../",
         igen: "Spela igen",
         hem: "Till startsidan",
         grundRubrik: "Vad bygger spelet på?",
