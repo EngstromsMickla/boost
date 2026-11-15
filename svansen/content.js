@@ -2,7 +2,7 @@
    Alla texter ligger här, per språk. Nytt språk: kopiera blocket "sv", översätt och lägg till under "sprak".
    Språkväljaren visas automatiskt när det finns fler än ett språk. */
 window.SVANSEN = {
-  version: "Svansen v0.4",
+  version: "Svansen v0.5",
   standardSprak: "sv",
   sprak: {
     sv: {
@@ -50,6 +50,10 @@ window.SVANSEN = {
         cta: "Har er organisation en utmaning? The Learning Curve Approach är gjord för er. Pröva här!",
         ctaKnapp: "Till The Learning Curve Approach",
         ctaLank: "../",
+        /* Besökare som kommer från en annan sida via ?fran=<id> får en knapp tillbaka dit i stället. */
+        fran: {
+          sbb: { knapp: "Tillbaka till Smart Built Boost", lank: "https://www.mickla.se/smart-built-boost/" }
+        },
         igen: "Spela igen",
         hem: "Till startsidan",
         grundRubrik: "Vad bygger spelet på?",

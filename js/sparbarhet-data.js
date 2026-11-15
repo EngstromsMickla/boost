@@ -547,6 +547,13 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.13",
+   "datum": "2026-11-15",
+   "text": [
+    "Svansens slutskärm leder till startsidan. Den som kommer till spelet från sidan om Smart Built Boost på mickla.se får i stället en knapp tillbaka dit. Inga regler eller texter i verktygen ändrades."
+   ]
+  },
+  {
    "version": "prototyp v0.12",
    "datum": "2026-11-15",
    "text": [
