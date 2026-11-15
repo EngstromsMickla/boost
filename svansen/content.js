@@ -47,7 +47,7 @@ window.SVANSEN = {
         statIdeer: "Idéer",
         statTappade: "Tappade delar",
         poang: "Så fungerar organisationer också: det räcker inte att några lär sig. Det som avgör är om resten kan ta emot det.",
-        cta: "Hur är det i er organisation?",
+        cta: "Har er organisation en utmaning? The Learning Curve Approach är gjord för er. Pröva här!",
         ctaKnapp: "Pröva Sense, första steget i the Learning Curve Approach",
         ctaLank: "../sense/",
         igen: "Spela igen",

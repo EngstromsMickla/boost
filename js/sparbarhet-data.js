@@ -547,6 +547,13 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.12",
+   "datum": "2026-11-15",
+   "text": [
+    "Svansens slutskärm leder nu till Sense, första steget i The Learning Curve Approach, i stället för till See, med en ny inbjudande text. Inga regler eller texter i verktygen ändrades."
+   ]
+  },
+  {
    "version": "prototyp v0.11",
    "datum": "2026-11-15",
    "text": [
