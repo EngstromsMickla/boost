@@ -20,6 +20,13 @@ window.CONTENT = {
   "webm": "video/intro.webm?v=4",
   "affisch": "video/intro-poster.jpg?v=4"
  },
+ "spel": {
+  "etikett": "Ett litet spel",
+  "rubrik": "Svansen",
+  "text": "Sextio sekunder om varför det inte räcker att några i organisationen lär sig. Huvudet lär sig nya knep, och svansen ska hänga med.",
+  "knapp": "Spela Svansen",
+  "lank": "svansen/"
+ },
  "perspektiv": {
   "rubrik": "Det är mottagaren som avgör",
   "text": [

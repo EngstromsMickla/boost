@@ -73,9 +73,14 @@
     return '<div class="film"><video controls preload="metadata" playsinline poster="' + esc(Fm.affisch) + '" aria-label="' + esc(Fm.rubrik) + '"><source src="' + esc(Fm.fil) + '" type="video/mp4">' + (Fm.webm ? '<source src="' + esc(Fm.webm) + '" type="video/webm">' : '') + '</video><p class="small muted" style="margin:8px 0 0">' + esc(Fm.text) + ' <a href="' + esc(Fm.fil) + '" download="Learning-Curve-Approach-introduktion.mp4">' + esc(Fm.ladda) + '</a></p></div>';
   }
 
+  function spelHTML() {
+    var S = C.spel; if (!S) return '';
+    return '<div class="card tight spel-teaser" style="color:#141414;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin:16px 0 0"><div style="flex:1 1 260px"><div class="eyebrow" style="margin-bottom:4px;color:#5c5c5c">' + esc(S.etikett) + '</div><h3 style="margin:0 0 4px;color:#141414">' + esc(S.rubrik) + '</h3><p class="small" style="margin:0;color:#141414">' + esc(S.text) + '</p></div><a class="btn" href="' + esc(S.lank) + '">' + esc(S.knapp) + ' →</a></div>';
+  }
+
   function render() {
     var P = C.perspektiv, O = C.ordning, S = C.sparfil;
-    var h = '<section class="hero">' + curveSVG() + '<div class="eyebrow">' + esc(C.eyebrow) + '</div><h1>' + esc(C.titel) + '</h1><p class="lead">' + esc(C.lead) + '</p>' + (C.fritt ? '<p class="fritt">' + [].concat(C.fritt).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join(' ') + '</p>' : '') + C.intro.map(function (t, i) { return '<p>' + esc(t) + '</p>' + (i === 0 ? filmHTML() : ''); }).join('') + '</section>';
+    var h = '<section class="hero">' + curveSVG() + '<div class="eyebrow">' + esc(C.eyebrow) + '</div><h1>' + esc(C.titel) + '</h1><p class="lead">' + esc(C.lead) + '</p>' + (C.fritt ? '<p class="fritt">' + [].concat(C.fritt).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join(' ') + '</p>' : '') + C.intro.map(function (t, i) { return '<p>' + esc(t) + '</p>' + (i === 0 ? filmHTML() + spelHTML() : ''); }).join('') + '</section>';
     h += phasesHTML();
     h += '<section><h2 class="section">' + esc(P.rubrik) + '</h2>' + P.text.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') +
       '<blockquote class="quote"><p>' + esc(P.citat) + '</p><cite>' + esc(P.kalla) + '</cite></blockquote></section>';
