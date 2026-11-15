@@ -547,6 +547,13 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.11",
+   "datum": "2026-11-15",
+   "text": [
+    "Mer luft under spelrutan på startsidan. Inga regler eller texter i verktygen ändrades."
+   ]
+  },
+  {
    "version": "prototyp v0.10",
    "datum": "2026-11-15",
    "text": [
