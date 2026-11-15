@@ -75,7 +75,7 @@
 
   function spelHTML() {
     var S = C.spel; if (!S) return '';
-    return '<div class="card tight spel-teaser" style="color:#141414;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin:16px 0 0"><div style="flex:1 1 260px"><div class="eyebrow" style="margin-bottom:4px;color:#5c5c5c">' + esc(S.etikett) + '</div><h3 style="margin:0 0 4px;color:#141414">' + esc(S.rubrik) + '</h3><p class="small" style="margin:0;color:#141414">' + esc(S.text) + '</p></div><a class="btn" href="' + esc(S.lank) + '">' + esc(S.knapp) + ' →</a></div>';
+    return '<div class="card tight spel-teaser" style="color:#141414;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin:16px 0 28px"><div style="flex:1 1 260px"><div class="eyebrow" style="margin-bottom:4px;color:#5c5c5c">' + esc(S.etikett) + '</div><h3 style="margin:0 0 4px;color:#141414">' + esc(S.rubrik) + '</h3><p class="small" style="margin:0;color:#141414">' + esc(S.text) + '</p></div><a class="btn" href="' + esc(S.lank) + '">' + esc(S.knapp) + ' →</a></div>';
   }
 
   function render() {
