@@ -1,0 +1,28 @@
+/* Svansen: spelplanen följer den grafiska profilen. Svart är ni, blått är möjlighet, rödorange är risk. */
+.spel-wrap { padding-top: 20px; }
+.spel-scen { position: relative; width: 100%; aspect-ratio: 16 / 10; max-height: calc(100vh - 120px); background: #fff; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; }
+@media (max-width: 640px) { .spel-scen { aspect-ratio: 3 / 4; } .spel-wrap { padding-left: 8px; padding-right: 8px; } }
+#duk { display: block; width: 100%; height: 100%; }
+.spel-hud { position: absolute; top: 10px; left: 12px; right: 56px; display: flex; gap: 18px; font: 500 13px/1 var(--mono); color: var(--muted); pointer-events: none; }
+.spel-hud b { color: var(--ink); font-weight: 500; margin-left: 4px; }
+.spel-ljud { position: absolute; top: 6px; right: 8px; font: 500 12px/1 var(--mono); background: transparent; border: 1px solid var(--line); border-radius: var(--r); padding: 6px 8px; color: var(--muted); cursor: pointer; }
+.spel-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(255,255,255,.88); }
+.spel-overlay[hidden], .spel-hud[hidden], .spel-ljud[hidden] { display: none; }
+.spel-start { max-width: 420px; text-align: center; }
+.spel-start h1 { font-size: clamp(40px, 8vw, 64px); margin-bottom: 6px; }
+.spel-start .lead { margin-bottom: 18px; }
+.spel-start ul { text-align: left; font-size: 15px; color: var(--muted); padding-left: 20px; margin: 0 0 22px; }
+.spel-start li { margin-bottom: 4px; }
+.spel-start .btn { font-size: 18px; padding: 15px 34px; }
+.spel-start .small { margin-top: 10px; }
+.slut-kort { margin-top: 20px; }
+.slut-kort h2 { margin-bottom: 14px; }
+.slut-diagram { width: 100%; height: auto; display: block; margin: 4px 0 14px; }
+.slut-monster { font-size: 19px; }
+.slut-stats { display: flex; gap: 24px; font: 500 14px/1.3 var(--mono); color: var(--muted); margin: 0 0 16px; flex-wrap: wrap; }
+.slut-stats b { display: block; font-size: 22px; color: var(--ink); }
+.slut-knappar { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 18px; }
+.slut-grund summary { cursor: pointer; font-weight: 600; }
+.slut-grund p { font-size: 15px; color: var(--muted); margin-top: 10px; }
+.sprak-knapp { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; padding: 0 4px; opacity: .6; }
+.sprak-knapp[aria-pressed="true"] { opacity: 1; text-decoration: underline; }
