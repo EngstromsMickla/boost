@@ -23,7 +23,7 @@ window.CONTENT = {
  "spel": {
   "etikett": "Ett litet spel",
   "rubrik": "Svansen",
-  "text": "Sextio sekunder om varför det inte räcker att några i organisationen lär sig. Huvudet lär sig nya knep, och svansen ska hänga med.",
+  "text": "Sextio sekunder om varför det inte räcker att några i organisationen lär sig. Huvudet lär sig nya knep, och hela kroppen ska hänga med.",
   "knapp": "Spela Svansen",
   "lank": "svansen/"
  },

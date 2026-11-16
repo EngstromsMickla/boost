@@ -13,7 +13,7 @@ window.SVANSEN = {
 
       start: {
         rubrik: "Svansen",
-        ingress: "Väx. Lär dig nya knep. Få svansen att hänga med.",
+        ingress: "Väx. Lär dig nya knep. Få hela kroppen att hänga med.",
         hur: [
           "Styr huvudet med fingret, musen eller piltangenterna.",
           "Ät de grå prickarna för att växa.",
