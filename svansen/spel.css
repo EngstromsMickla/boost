@@ -19,6 +19,10 @@
 .slut-kort h2 { margin-bottom: 14px; }
 .slut-diagram { width: 100%; height: auto; display: block; margin: 4px 0 14px; }
 .slut-monster { font-size: 19px; }
+.slut-profil { display: flex; gap: 20px; align-items: center; margin: 18px 0 8px; padding: 14px 16px; border-left: 4px solid var(--ink); background: #f3f3f1; }
+.slut-profil p { margin: 0; font-size: 17px; font-weight: 600; }
+.profil-figur { width: 150px; height: 150px; flex: none; }
+@media (max-width: 560px) { .slut-profil { flex-direction: column; align-items: flex-start; } }
 .slut-stats { display: flex; gap: 24px; font: 500 14px/1.3 var(--mono); color: var(--muted); margin: 0 0 16px; flex-wrap: wrap; }
 .slut-stats b { display: block; font-size: 22px; color: var(--ink); }
 .slut-knappar { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 18px; }

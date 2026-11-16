@@ -2,7 +2,7 @@
    Alla texter ligger här, per språk. Nytt språk: kopiera blocket "sv", översätt och lägg till under "sprak".
    Språkväljaren visas automatiskt när det finns fler än ett språk. */
 window.SVANSEN = {
-  version: "Svansen v0.5",
+  version: "Svansen v0.6",
   standardSprak: "sv",
   sprak: {
     sv: {
@@ -17,12 +17,14 @@ window.SVANSEN = {
         hur: [
           "Styr huvudet med fingret, musen eller piltangenterna.",
           "Ät de grå prickarna för att växa.",
-          "Blå idéer lär huvudet något. Sedan ska kunskapen ut i hela kroppen.",
+          "Blå idéer lär huvudet något. De dyker upp då och då och försvinner om ingen tar dem. Sedan ska kunskapen ut i hela kroppen.",
           "Se upp för de röda pelarna."
         ],
         knapp: "Spela",
         tid: "60 sekunder"
       },
+
+      borta: "Borta!",
 
       hud: { tid: "Tid", langd: "Längd", ideer: "Idéer", ljudPa: "Ljud på", ljudAv: "Ljud av" },
 
@@ -45,6 +47,19 @@ window.SVANSEN = {
         lardeAttLara: "Och kroppen lärde sig att lära: den sista idén spred sig {x} gånger snabbare per led än den första.",
         statLangd: "Längd",
         statIdeer: "Idéer",
+        ideerAv: "{x} av {n}",
+        /* Profilen efter rundan (v0.6, Dans texter). Varje profil är strategins egen självbild; mönstertexten under visar priset. */
+        profil: {
+          axlar: ["Växa", "Lära", "Behålla"],
+          figurEtikett: "Er profil: hur ni vägde att växa, lära och behålla",
+          text: {
+            tillvaxt: "Er strategi är Tillväxt: här är större och bättre samma sak - Störst kommer först!",
+            innovation: "Er strategi är Innovation: här är risken hög men kan uppvägas av möjligheterna - Carpe diem!",
+            smaSteg: "Er strategi är små steg: här är tålamod sin egen belöning - alla ska med! Men det syns sällan utifrån: tillväxt och innovationskraft brukar räknas som de viktiga tecknen på framgång.",
+            balans: "Er strategi är balans: här måste man bolla flera perspektiv samtidigt - smartast vinner!",
+            balansLiten: "Er strategi är balans: här måste man bolla flera perspektiv samtidigt - smartast vinner! Frågan är om man kan vinna om man inte är bäst på något."
+          }
+        },
         statTappade: "Tappade delar",
         poang: "Så fungerar organisationer också: det räcker inte att några lär sig. Det som avgör är om resten kan ta emot det.",
         cta: "Har er organisation en utmaning? The Learning Curve Approach är gjord för er. Pröva här!",

@@ -31,11 +31,13 @@
     pulsTid: 0.95,        // sekunder per led för en led som inte kan något
     forkunskap: 0.45,     // varje nivå man redan har gör mottagandet snabbare
     maxMat: 5, matIntervall: 1.1,
-    ideIntervall: 10, forstaIde: 4,
+    ideAntal: 7, ideLiv: [6, 8], maxIdeer: 2, ideAvstand: [25, 60],   // v0.6: idéer på slumpade tider som försvinner (Dans beslut)
     pelare: 8, rPelare: [4, 6.5],
     rorligaPelare: 3, pelarFart: [4, 8],   // några pelare driver långsamt
     matVidPelare: 0.65,   // andel av maten som läggs nära en pelare
-    skydd: 0.5            // sekunder utan ny lossning efter en lossning
+    skydd: 0.5,           // sekunder utan ny lossning efter en lossning
+    // Profilen på slutskärmen (v0.6, Dans beslut, kalibrerad i testspel): Växa, Lära, Behålla.
+    profil: { refLangd: 12, spretighet: 0.35, liten: 0.4 }
   };
 
   /* ---------- Duk ---------- */
@@ -91,9 +93,13 @@
       t: 0, slut: false,
       huvud: { x: W * 0.25, y: H * 0.5, v: 0, skala: 1 },
       spar: [], leder: [], pulser: [], mat: [], ideer: [], pelare: [], losa: [], gnistor: [], texter: [],
-      huvudKan: 0, tappade: 0, skak: 0, matKlocka: 0, ideKlocka: M.forstaIde, skydd: 0,
-      logg: [], loggKlocka: 0, pulsTider: []
+      huvudKan: 0, tappade: 0, skak: 0, matKlocka: 0, skydd: 0,
+      logg: [], loggKlocka: 0, pulsTider: [],
+      ideTider: [], ideerErbjudna: 0, ideerMissade: 0
     };
+    // Idéerna kommer på slumpade tider; antalet är fast så att alla får lika många chanser.
+    for (var it = 0; it < M.ideAntal; it++) g.ideTider.push(slump(2, M.rundtid - 8));
+    g.ideTider.sort(function (a, b) { return a - b; });
     // Spåret fylls bakåt så att kroppen ligger rakt från start.
     for (var i = 0; i < 80; i++) g.spar.push({ x: g.huvud.x - i * 0.6, y: g.huvud.y });
     for (var j = 0; j < M.startLeder; j++) {
@@ -263,8 +269,19 @@
     // Mat och idéer.
     g.matKlocka -= dt;
     if (g.matKlocka <= 0 && g.mat.length < M.maxMat) { g.mat.push(Object.assign(Math.random() < M.matVidPelare ? nara() : friPlats(5), { puls: slump(0, 6) })); g.matKlocka = M.matIntervall; }
-    g.ideKlocka -= dt;
-    if (g.ideKlocka <= 0 && g.ideer.length === 0 && g.t < M.rundtid - 6) { g.ideer.push(Object.assign(friPlats(8), { puls: 0, fodd: g.t })); g.ideKlocka = M.ideIntervall; }
+    // Nästa idé släpps när dess tid har kommit och det finns plats; annars väntar den. Den läggs inom räckhåll.
+    if (g.ideTider.length && g.ideTider[0] <= g.t && g.ideer.length < M.maxIdeer) {
+      g.ideTider.shift();
+      var pos = null;
+      for (var fp = 0; fp < 40; fp++) {
+        var c = friPlats(8), d = avst(c.x, c.y, h.x, h.y);
+        if (d >= M.ideAvstand[0] && d <= M.ideAvstand[1]) { pos = c; break; }
+        if (!pos) pos = c;
+      }
+      var liv = slump(M.ideLiv[0], M.ideLiv[1]);
+      g.ideer.push(Object.assign(pos, { puls: 0, fodd: g.t, liv: liv, livTot: liv }));
+      g.ideerErbjudna += 1;
+    }
 
     g.mat = g.mat.filter(function (m) {
       m.puls += dt;
@@ -284,6 +301,8 @@
         gnistor(m.x, m.y, '#1e5fcc', 16); LJ.ide();
         return false;
       }
+      m.liv -= dt;
+      if (m.liv <= 0) { g.ideerMissade += 1; gnistor(m.x, m.y, '#9db6e0', 6); text(m.x, m.y - 4, T.borta, '#5c5c5c', 3); return false; }
       return true;
     });
 
@@ -339,9 +358,12 @@
     });
     g.mat.forEach(function (m) { ctx.fillStyle = '#8a8a86'; cirkel(m.x, m.y, 1.1 + Math.sin(m.puls * 5) * 0.15); ctx.fill(); });
     g.ideer.forEach(function (m) {
-      var p = 1 + Math.sin(m.puls * 6) * 0.12;
+      var kvar = m.liv / m.livTot;   // idén bleknar och pulserar snabbare när tiden rinner ut
+      var p = 1 + Math.sin(m.puls * (kvar < 0.35 ? 18 : 6)) * 0.12;
+      ctx.globalAlpha = 0.35 + 0.65 * Math.max(0, kvar);
       ctx.fillStyle = 'rgba(30,95,204,.15)'; cirkel(m.x, m.y, 3.6 * p); ctx.fill();
       ctx.fillStyle = '#1e5fcc'; cirkel(m.x, m.y, 2 * p); ctx.fill();
+      ctx.globalAlpha = 1;
     });
 
     // Kroppen bakifrån, så att huvudet ligger överst.
@@ -473,7 +495,38 @@
       var f = G.pulsTider[0].perLed, s = G.pulsTider[G.pulsTider.length - 1].perLed;
       if (s > 0 && f / s >= 1.4) lal = f / s;
     }
-    return { logg: G.logg, huvudKan: G.huvudKan, langd: G.leder.length + 1, tappade: G.tappade, monster: monster, kvot: kvot, lardeAttLara: lal, version: S.version, sprak: sprak, datum: new Date().toISOString() };
+    var langd = G.leder.length + 1;
+    return { logg: G.logg, huvudKan: G.huvudKan, erbjudna: G.ideerErbjudna, missade: G.ideerMissade, langd: langd, tappade: G.tappade, monster: monster, kvot: kvot, lardeAttLara: lal, profil: profil(langd, kvot), version: S.version, sprak: sprak, datum: new Date().toISOString() };
+  }
+
+  /* Profilen (v0.6, Dans beslut). Tre axlar 0 till 1:
+     Växa = tillväxt från startlängden mot en referenslängd; Lära = andelen fångade idéer gånger det kroppen tog emot (kvoten);
+     Behålla = andelen delar som inte tappades. Spretig figur (högsta minus lägsta minst M.profil.spretighet) ger den
+     dominerande axelns profil, annars balans; balans med litet medelvärde får ett tillägg. Gränserna är designval. */
+  function profil(langd, kvot) {
+    var P = M.profil, k = function (x) { return Math.max(0, Math.min(1, isFinite(x) ? x : 0)); };
+    var start = M.startLeder + 1, leder = langd - 1;
+    var ax = [
+      k((langd - start) / (P.refLangd - start)),
+      k(G.ideerErbjudna ? (G.huvudKan / G.ideerErbjudna) * kvot : 0),
+      k(1 - G.tappade / Math.max(1, leder + G.tappade))
+    ];
+    var hog = Math.max.apply(null, ax), spret = hog - Math.min.apply(null, ax), storlek = (ax[0] + ax[1] + ax[2]) / 3;
+    var namn = spret < P.spretighet ? (storlek < P.liten ? 'balansLiten' : 'balans') : ['tillvaxt', 'innovation', 'smaSteg'][ax.indexOf(hog)];
+    return { axlar: ax, spretighet: spret, storlek: storlek, namn: namn };
+  }
+
+  function profilFigur(p) {
+    var t = T.slut.profil, cx = 90, cy = 96, R = 66, vinkel = [-90, 30, 150];
+    function pt(i, v) { var a = vinkel[i] * Math.PI / 180; return [cx + Math.cos(a) * R * v, cy + Math.sin(a) * R * v]; }
+    function poly(f) { return [0, 1, 2].map(function (i) { var q = pt(i, f(i)); return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' '); }
+    var g = '<svg class="profil-figur" viewBox="0 0 180 180" role="img" aria-label="' + esc(t.figurEtikett) + '">';
+    [0.5, 1].forEach(function (v) { g += '<polygon points="' + poly(function () { return v; }) + '" fill="none" stroke="#d6d6d2" stroke-width="1"/>'; });
+    [0, 1, 2].forEach(function (i) { var q = pt(i, 1); g += '<line x1="' + cx + '" y1="' + cy + '" x2="' + q[0].toFixed(1) + '" y2="' + q[1].toFixed(1) + '" stroke="#d6d6d2" stroke-width="1"/>'; });
+    g += '<polygon points="' + poly(function (i) { return Math.max(0.04, p.axlar[i]); }) + '" fill="rgba(20,20,20,0.12)" stroke="#141414" stroke-width="2.5" stroke-linejoin="round"/>';
+    var lp = [[cx, 16, 'middle'], [cx + 80, cy + 52, 'end'], [cx - 80, cy + 52, 'start']];
+    [0, 1, 2].forEach(function (i) { g += '<text x="' + lp[i][0] + '" y="' + lp[i][1] + '" text-anchor="' + lp[i][2] + '" font-family="IBM Plex Mono, monospace" font-size="12" fill="#5c5c5c">' + esc(t.axlar[i]) + '</text>'; });
+    return g + '</svg>';
   }
 
   function diagram(res) {
@@ -507,9 +560,10 @@
     var franId = new URLSearchParams(location.search).get('fran'), fran = franId && t.fran && t.fran[franId];
     var ctaKnapp = fran ? fran.knapp : t.ctaKnapp, ctaLank = fran ? fran.lank : t.ctaLank;
     var html = '<section class="card slut-kort" id="slutkort"><h2>' + esc(t.rubrik) + '</h2>' + diagram(res) +
+      '<div class="slut-profil">' + profilFigur(res.profil) + '<p>' + esc(t.profil.text[res.profil.namn]) + '</p></div>' +
       '<p class="slut-monster">' + esc(t.monster[res.monster]) + '</p>' +
       (res.lardeAttLara ? '<p>' + esc(t.lardeAttLara.replace('{x}', res.lardeAttLara.toFixed(1).replace('.', ','))) + '</p>' : '') +
-      '<div class="slut-stats"><span>' + esc(t.statLangd) + '<b>' + res.langd + '</b></span><span>' + esc(t.statIdeer) + '<b>' + res.huvudKan + '</b></span><span>' + esc(t.statTappade) + '<b>' + res.tappade + '</b></span></div>' +
+      '<div class="slut-stats"><span>' + esc(t.statLangd) + '<b>' + res.langd + '</b></span><span>' + esc(t.statIdeer) + '<b>' + esc(t.ideerAv.replace('{x}', res.huvudKan).replace('{n}', res.erbjudna)) + '</b></span><span>' + esc(t.statTappade) + '<b>' + res.tappade + '</b></span></div>' +
       '<p class="note">' + esc(t.poang) + '</p>' +
       '<p><strong>' + esc(t.cta) + '</strong></p>' +
       '<div class="slut-knappar"><a class="btn" href="' + esc(ctaLank) + '">' + esc(ctaKnapp) + '</a><button class="btn ghost" type="button" id="igen">' + esc(t.igen) + '</button>' + (fran || ctaLank === '../' ? '' : '<a class="btn quiet" href="../">' + esc(t.hem) + '</a>') + '</div>' +

@@ -547,6 +547,14 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.14",
+   "datum": "2026-11-16",
+   "text": [
+    "Svansen: idéerna kommer nu på slumpade tider, sju per runda, och försvinner efter 6 till 8 sekunder om ingen tar dem. Antalet är detsamma för alla, så att slumpen påverkar när idéerna kommer men inte hur många chanser man får.",
+    "Svansens slutskärm visar en profil: en figur med tre axlar (Växa, Lära, Behålla) och en text om vilken strategi spelaren valde, Tillväxt, Innovation, Små steg eller Balans. Växa är tillväxten mot en referenslängd, Lära är andelen fångade idéer gånger det kroppen tog emot, Behålla är andelen delar som inte tappades. Gränserna är designval, kalibrerade i testspel. Inga regler eller texter i Sense, See eller Shift ändrades."
+   ]
+  },
+  {
    "version": "prototyp v0.13",
    "datum": "2026-11-15",
    "text": [
