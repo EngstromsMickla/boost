@@ -547,6 +547,13 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.15",
+   "datum": "2026-11-16",
+   "text": [
+    "Svansens ingress och kortet på startsidan säger nu att hela kroppen ska hänga med, i stället för svansen, så att medarbetarna inte kallas svansen. Spelet heter fortfarande Svansen. Inga regler ändrades."
+   ]
+  },
+  {
    "version": "prototyp v0.14",
    "datum": "2026-11-16",
    "text": [
