@@ -1,10 +1,10 @@
 // Innehållsfil för Utvalda tillämpningar. Texter kan redigeras här utan att röra koden.
 // Ett nytt fall läggs till som ett nytt objekt i listan "fall". Koden behöver inte ändras.
 window.CONTENT = {
- "version": "prototyp v0.15",
+ "version": "prototyp v0.16",
  "titel": "Utvalda tillämpningar",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
- "upphov": "© Engströms Mickla AB 2026",
+ "upphov": "© Engströms Mickla AB 2026. Utvecklat i samverkan med Smart Built Environment, delfinansierat av Formas.",
  "undertitel": "Fördjupningar som använder framtiderna från Sense för en särskild fråga",
  "vag": { "uppgifter": "Uppgifter", "framtiderna": "Framtiderna", "faktorer": "Välj {ord}", "bedomning": "Bedömning per framtid", "syntes": "Syntes", "rapport": "Rapport", "nastaFramtid": "Nästa framtid" },
  "skedeIntro": {

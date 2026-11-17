@@ -1,8 +1,8 @@
 // Innehållsfil för sidorna Begrepp och Om metoden. Texter kan redigeras här utan att röra koden.
 window.INFO = {
- "version": "prototyp v0.15",
+ "version": "prototyp v0.16",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
- "upphov": "© Engströms Mickla AB 2026",
+ "upphov": "© Engströms Mickla AB 2026. Utvecklat i samverkan med Smart Built Environment, delfinansierat av Formas.",
  "lankBegrepp": "Begrepp",
  "lankOm": "Om metoden",
 

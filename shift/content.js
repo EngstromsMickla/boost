@@ -1,11 +1,11 @@
 // Innehållsfil för Shift. Texter kan redigeras här utan att röra koden.
 // Bygger på Learning Direction Canvas och Trim Tab Canvas (Dan Engström), uppdelad i trimförsök och kursavläsning.
 window.CONTENT = {
- "version": "prototyp v0.15",
+ "version": "prototyp v0.16",
  "titel": "Shift",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "undertitel": "Från insikt till rörelse: små trimförsök som ger momentum",
- "upphov": "© Engströms Mickla AB 2026",
+ "upphov": "© Engströms Mickla AB 2026. Utvecklat i samverkan med Smart Built Environment, delfinansierat av Formas.",
  "integritet": "Allt ni skriver sparas bara i er webbläsare och i de filer ni själva laddar ner. Ingenting skickas till oss eller någon annan.",
  "intro": [
   "Shift är fasen där insikt blir rörelse. Ledningen sätter en riktning för lärandet, och medarbetare gör små försök i vardagen som följs upp och leder till nästa lilla försök.",

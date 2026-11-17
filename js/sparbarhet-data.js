@@ -547,6 +547,13 @@ window.SPAR = {
  },
  "logg": [
   {
+   "version": "prototyp v0.16",
+   "datum": "2026-11-17",
+   "text": [
+    "Smart Built Boost har startat. Upphovsraden i sidfoten anger nu att verktygen är utvecklade i samverkan med Smart Built Environment och delfinansierade av Formas. Inga regler ändrades."
+   ]
+  },
+  {
    "version": "prototyp v0.15",
    "datum": "2026-11-16",
    "text": [

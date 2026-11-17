@@ -2,11 +2,11 @@
 // Strukturen bygger på Dans Collision Compass, generaliserad från fastighet till verksamhet.
 // Forskningsstöd per skede: se CLAUDE.md och Teoriplattformen (teori/).
 window.CONTENT = {
- "version": "prototyp v0.15",
+ "version": "prototyp v0.16",
  "titel": "Sense",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
  "undertitel": "Collision Compass: var möter framtiden er verksamhet?",
- "upphov": "© Engströms Mickla AB 2026",
+ "upphov": "© Engströms Mickla AB 2026. Utvecklat i samverkan med Smart Built Environment, delfinansierat av Formas.",
  "integritet": "Allt ni skriver sparas bara i er webbläsare och i de filer ni själva laddar ner. Ingenting skickas till oss eller någon annan.",
  "intro": [
   "Sense är en strukturerad omvärldsövning. Målet är inte att förutsäga framtiden, utan att tillsammans förstå vad som håller på att förändras och vilka antaganden det utmanar.",

@@ -1,10 +1,10 @@
 // Innehållsfil för slutsidan. Texter kan redigeras här utan att röra koden.
 // Slutsidan visas när Sense, See och Shift är gjorda i följd. Den läser sparfilen från Shift, som bär med sig hela kedjan.
 window.CONTENT = {
- "version": "prototyp v0.15",
+ "version": "prototyp v0.16",
  "titel": "Slutsida",
  "verktyg": "Dialogverktyg — Learning Curve Approach",
- "upphov": "© Engströms Mickla AB 2026",
+ "upphov": "© Engströms Mickla AB 2026. Utvecklat i samverkan med Smart Built Environment, delfinansierat av Formas.",
  "undertitel": "Huvuddragen av arbetet med Sense, See och Shift",
  "integritet": "Allt ni skriver sparas bara i er webbläsare och i de filer ni själva laddar ner. Ingenting skickas till oss eller någon annan.",
 

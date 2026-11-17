@@ -9,7 +9,7 @@ window.SVANSEN = {
       sprakNamn: "Svenska",
       titel: "Svansen",
       sidtitel: "Svansen · Dialogverktyg — Learning Curve Approach",
-      upphov: "© Engströms Mickla AB 2026",
+      upphov: "© Engströms Mickla AB 2026. Utvecklat i samverkan med Smart Built Environment, delfinansierat av Formas.",
 
       start: {
         rubrik: "Svansen",

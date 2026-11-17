@@ -2,7 +2,7 @@
 // MatchUp-delen är hämtad ur Självskattning mottagningsförmåga MatchUp v1.0 (rättad referens för Strategiskt ledarskap, Nej).
 window.CONTENT = {
  "boost": {
-  "version": "prototyp v0.15",
+  "version": "prototyp v0.16",
   "vag": { "etapper": [{ "namn": "Uppgifter" }, { "namn": "Skatta förmågorna" }, { "namn": "Er profil" }, { "namn": "Valda förmågor" }, { "namn": "Egna åtgärder" }, { "namn": "Rapport" }], "nasta": "Nästa", "nastaFormaga": "Nästa förmåga", "agency": "Förmåga, mandat, vilja och tilltro", "diagnos": "Diagnos och beslut", "styrka": "En tydlig styrka" },
   "skedeIntro": {
    "formagor": { "namn": "Skatta förmågorna", "vad": "Ni skattar tolv förmågor som tillsammans beskriver organisationens förmåga att ta emot förändring: att upptäcka, välja, pröva och förändra.", "varfor": "Det är sällan resultaten som fattas när något nytt ska tas emot. Det är mottagarens förmåga, mandat och vilja. Skattningen visar var förmågan är starkast och svagast.", "hur": "Läs beskrivningen av varje nivå och välj den som stämmer bäst i dag, inte den ni önskar. Halvsteg går bra. Det finns inga rätta svar; skillnader mellan er är bra att samtala om.", "vem": "En grupp som tillsammans känner verksamheten, eller var och en för sig följt av ett gemensamt samtal i facilitatorläget.", "leder": "Er profil, där de förmågor som behöver stärkas mest föreslås." },
@@ -96,7 +96,7 @@ window.CONTENT = {
   "titel": "See",
   "verktyg": "Dialogverktyg — Learning Curve Approach",
   "undertitel": "Självskattning av mottagningsförmåga och agency inför förändring",
-  "upphov": "© Engströms Mickla AB 2026",
+  "upphov": "© Engströms Mickla AB 2026. Utvecklat i samverkan med Smart Built Environment, delfinansierat av Formas.",
   "integritet": "Dina svar sparas bara i din webbläsare och i de filer du själv laddar ner. Ingenting skickas till oss eller någon annan.",
   "gransvarden": [
    1,

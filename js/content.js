@@ -1,9 +1,9 @@
 // Innehållsfil för landningssidan. Texter kan redigeras här utan att röra koden.
 // Status per modul: "oppen" (länkas) eller "kommer" (visas som under utveckling).
 window.CONTENT = {
- "version": "prototyp v0.15",
+ "version": "prototyp v0.16",
  "fredLank": "https://www.researchgate.net/profile/Dalia-Mukhtar-Landgren/publication/366482837_Larande_genom_temporar_organisering_-_projekt_piloter_och_experiment_i_Malmo_stad/links/63a3341cc3c9bb1647fb905d/Laerande-genom-temporaer-organisering-projekt-piloter-och-experiment-i-Malmoe-stad.pdf",
- "upphov": "© Engströms Mickla AB 2026",
+ "upphov": "© Engströms Mickla AB 2026. Utvecklat i samverkan med Smart Built Environment, delfinansierat av Formas.",
  "eyebrow": "Smart Built Boost",
  "titel": "Dialogverktyg — Learning Curve Approach",
  "lead": "Förändring börjar med lärande. Tre faser som hjälper en organisation att se vad som förändras, förstå vad det betyder för den själv och ta ett första litet steg.",
